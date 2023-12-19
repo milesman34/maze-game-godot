@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cp0pag55ski1u"]
+
+[ext_resource type="PackedScene" uid="uid://c5u6f7hwhf20w" path="res://objects/Coin.tscn" id="1_q5pw0"]
+
+[node name="Coin" instance=ExtResource("1_q5pw0")]
+CoinColor = Color(0.341176, 0.541176, 0.992157, 1)
+Value = 5

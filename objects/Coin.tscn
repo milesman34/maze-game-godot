@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5u6f7hwhf20w"]
+
+[ext_resource type="Script" path="res://objects/Coin.cs" id="1_icleb"]
+[ext_resource type="Texture2D" uid="uid://bx1u2t6apf6mq" path="res://art/Coin.png" id="1_rhimr"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_syijt"]
+radius = 12.0
+height = 36.0
+
+[node name="Coin" type="Area2D"]
+collision_layer = 4
+script = ExtResource("1_icleb")
+CoinColor = Color(0.886275, 0.858824, 0.639216, 0)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("1_rhimr")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+scale = Vector2(0.75, 0.75)
+shape = SubResource("CapsuleShape2D_syijt")
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]
