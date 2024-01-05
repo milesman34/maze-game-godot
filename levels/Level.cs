@@ -1,5 +1,6 @@
     using Godot;
 using System;
+using System.Threading;
 
 public partial class Level : Node2D
 {
@@ -7,12 +8,11 @@ public partial class Level : Node2D
     [Export]
     private Vector2 StartPosition {get; set; } = new Vector2(1, 1);
 
-    // How much the level should be zoomed in
-    [Export]
-    public float LevelZoom { get; set; } = 1;
-
     // Track the current score
     public int score = 0;
+    
+    // Track instances of some nodes
+    private Camera2D camera;
 
     public override void _Ready()
     {
@@ -22,13 +22,39 @@ public partial class Level : Node2D
 		player.Position = GetStartingPosition();
 
 		// Update camera zoom
-		Camera2D camera = GetNode<Camera2D>("Camera");
+		camera = GetNode<Camera2D>("Camera");
 
-		camera.Zoom = new Vector2(LevelZoom, LevelZoom);
-		camera.Position /= new Vector2(LevelZoom, LevelZoom); // Division is needed so that the camera is centered on the actual area
+		UpdateCameraPositionAndZoom();
 
         // The TileMap won't have all the elements as children immediately, so the call needs to be deferred
         CallDeferred(MethodName.AttachSignals);
+
+        // Connect our on screen resize function
+        GetTree().Root.SizeChanged += OnWindowResize; 
+    }
+
+    // Calculate the effective zoom level (factoring in viewport size)
+    private float GetEffectiveZoom(Vector2 viewportSize) {
+        // Ok to calculate this we want to just base it off whatever the size is
+        var tileMapSize = GetNode<TileMap>("TileMap").GetUsedRect().Size * Constants.UnitSize;
+
+        // Get scale factors for both x and y
+        var xScale = viewportSize.X / tileMapSize.X;
+        var yScale = viewportSize.Y / tileMapSize.Y;
+
+        return Math.Min(xScale, yScale);
+    }
+
+    // Updates the position and zoom level of the camera
+    private void UpdateCameraPositionAndZoom() {
+        var viewportSize = GetViewportRect().Size;
+
+        var zoom = GetEffectiveZoom(viewportSize);
+
+        camera.Zoom = new Vector2(zoom, zoom);
+
+        // Division is needed so that the camera is centered on the actual area
+        camera.Position = new Vector2(viewportSize.X / 2.0f / zoom, viewportSize.Y / 2.0f / zoom);
     }
 
     // Gets the starting position
@@ -61,5 +87,10 @@ public partial class Level : Node2D
 
         // Hide the player
         GetNode<Player>("Player").QueueFree();
+    }
+
+    // Runs whenever the level resizes
+    public void OnWindowResize() {
+        UpdateCameraPositionAndZoom();
     }
 }

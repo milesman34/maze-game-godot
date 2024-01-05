@@ -1,0 +1,8 @@
+Next goal will be to add rooms, so you can travel between multiple rooms in the level. This will add some more complexity to the code, but will allow for more complex levels.
+
+The best way to do this would be to give each room a unique name, then allow the Level to switch between rooms as needed.
+
+Maybe the StartPosition will also need a specific room.
+
+To switch between rooms, I will probably need some sort of border object, that can have a size in terms of tiles. This can be connected to another object with a given direction.
+I think it should be 2-way connections, as that will be easier to implement.
