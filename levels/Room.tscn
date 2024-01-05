@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cgmdsgrxb2lss"]
+
+[ext_resource type="TileSet" uid="uid://oxfym1yol48n" path="res://levels/LevelTiles.tres" id="1_juw15"]
+[ext_resource type="Script" path="res://levels/Room.cs" id="1_npf01"]
+[ext_resource type="PackedScene" uid="uid://b3ukqxth50ypd" path="res://Player.tscn" id="2_js2cs"]
+
+[node name="Room" type="Node2D"]
+script = ExtResource("1_npf01")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.690196, 0.690196, 0.690196, 1)
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_juw15")
+format = 2
+
+[node name="Player" parent="." instance=ExtResource("2_js2cs")]
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(640, 360)

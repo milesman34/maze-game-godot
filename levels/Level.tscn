@@ -1,17 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8eot2fa78oca"]
+[gd_scene load_steps=2 format=3 uid="uid://c8eot2fa78oca"]
 
 [ext_resource type="Script" path="res://levels/Level.cs" id="1_0mudr"]
-[ext_resource type="TileSet" uid="uid://oxfym1yol48n" path="res://levels/LevelTiles.tres" id="1_rckwh"]
-[ext_resource type="PackedScene" uid="uid://b3ukqxth50ypd" path="res://Player.tscn" id="3_28ple"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_0mudr")
-
-[node name="TileMap" type="TileMap" parent="."]
-tile_set = ExtResource("1_rckwh")
-format = 2
-
-[node name="Player" parent="." instance=ExtResource("3_28ple")]
-
-[node name="Camera" type="Camera2D" parent="."]
-position = Vector2(640, 360)

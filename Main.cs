@@ -10,6 +10,9 @@ public partial class Main : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		// Update background color
+		RenderingServer.SetDefaultClearColor(new Color(0, 0, 0));
+
 		// Instantiate the level
 		var level = LevelScene.Instantiate<Level>();
 
