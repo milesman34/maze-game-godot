@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://ptdvqs3lct66"]
+
+[ext_resource type="Script" path="res://objects/CameraZone.cs" id="1_u05lj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cleng"]
+
+[node name="CameraZone" type="Area2D"]
+collision_layer = 0
+script = ExtResource("1_u05lj")
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_cleng")
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]
+[connection signal="body_exited" from="." to="." method="OnBodyExited"]

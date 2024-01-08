@@ -6,9 +6,6 @@ public partial class Player : RigidBody2D
 	[Export]
 	public int Speed { get; set; } = 32;
 
-	// Effective scale of the Player
-	private float PlayerScale = 1;
-
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
