@@ -24,6 +24,9 @@ public partial class Level : Node2D
     // Since there is a bug if you don't 100% leave a room, it'd be best to track the room you came from
     private int previousCameraZone = -1;
 
+    // Is the level finished?
+    private bool levelFinished = false;
+
     public override void _Ready()
     {
         // Instantiate camera zones dict
@@ -66,6 +69,7 @@ public partial class Level : Node2D
             cameraZones[cameraZone.ID] = cameraZone;
             cameraZone.CameraZoneEntered += OnCameraZoneEntered;
             cameraZone.CameraZoneExited += OnCameraZoneExited;
+
             cameraZone.CameraZoneUpdate += ID => {
                 if (ID == cameraID) {
                     UpdateCamera(ID);
@@ -85,6 +89,7 @@ public partial class Level : Node2D
         GD.Print("Finished level!");
 
         // Hide the player
+        levelFinished = true;
         GetNode<Player>("Player").QueueFree();
     }
 
@@ -97,7 +102,9 @@ public partial class Level : Node2D
     // Runs when the player exits a camera zone
     private void OnCameraZoneExited(int ID) {
         // Check if the room we are exiting is the previous one we were in
-        if (ID == cameraID && previousCameraZone >= 0) {
+        // If it is, then we need to switch back to that room as we are no longer in the current room
+        // This switch is done manually, as we never fully left the collision area for the original room
+        if (ID == cameraID && previousCameraZone >= 0 && !levelFinished) {
             SwitchToCameraZone(previousCameraZone);
         }
     }
