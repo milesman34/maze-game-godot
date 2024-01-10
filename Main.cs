@@ -7,6 +7,9 @@ public partial class Main : Node2D
 	[Export]
 	public PackedScene LevelScene { get; set; }
 
+	// Reference to the viewport
+	public SubViewport viewport;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -16,7 +19,34 @@ public partial class Main : Node2D
 		// Instantiate the level
 		var level = LevelScene.Instantiate<Level>();
 
-		AddChild(level);
+		// Set the reference to the game object
+		level.mainGame = this;
+
+		// Trying to get the viewport directly didn't work
+		// So I had to use three steps
+		viewport = GetNode<Node2D>("GameContainerOffset").GetNode<SubViewportContainer>("GameContainer").GetNode<SubViewport>("Viewport");
+
+		viewport.AddChild(level);
+
+		SetupViewportPositionSize();
+
+		// Connect the on window resize event
+		GetTree().Root.SizeChanged += SetupViewportPositionSize;
+	}
+
+	// Sets up the proper position and size of the main game viewport
+	private void SetupViewportPositionSize() {
+		GD.Print("Resized");
+
+		var mainViewportSize = GetViewportRect().Size;
+		GD.Print(mainViewportSize);
+
+		viewport.Size = (Vector2I) new Vector2(mainViewportSize.X, mainViewportSize.Y - GUI.HeaderHeight * 2);
+
+		// Offset node is used to offset the viewport's position
+		var offsetNode = GetNode<Node2D>("GameContainerOffset");
+
+		offsetNode.Position = new Vector2(0, GUI.HeaderHeight);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

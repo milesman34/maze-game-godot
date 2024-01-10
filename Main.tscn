@@ -1,8 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://dagpgc66f1cfy"]
+[gd_scene load_steps=4 format=3 uid="uid://dagpgc66f1cfy"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_xnp42"]
 [ext_resource type="PackedScene" uid="uid://psqfjbdh7rdy" path="res://levels/scenes/Level1.tscn" id="2_w0pi5"]
+[ext_resource type="PackedScene" uid="uid://cgqhlaubq4nci" path="res://GUI.tscn" id="3_63lpo"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_xnp42")
 LevelScene = ExtResource("2_w0pi5")
+
+[node name="GUI" parent="." instance=ExtResource("3_63lpo")]
+
+[node name="GameContainerOffset" type="Node2D" parent="."]
+
+[node name="GameContainer" type="SubViewportContainer" parent="GameContainerOffset"]
+offset_right = 512.0
+offset_bottom = 512.0
+
+[node name="Viewport" type="SubViewport" parent="GameContainerOffset/GameContainer"]
+handle_input_locally = false
+render_target_update_mode = 4

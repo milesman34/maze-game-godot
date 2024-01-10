@@ -50,9 +50,6 @@ public partial class CameraZone : Area2D
 		
 		// Set background position/scale
 		CallDeferred(MethodName.UpdateBackgroundSizeAndPosition);
-
-        // Connect our on screen resize function
-        GetTree().Root.SizeChanged += OnWindowResize;
 	}
 
 	// Updates the background's size and position

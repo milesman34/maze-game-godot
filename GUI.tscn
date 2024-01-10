@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgqhlaubq4nci"]
+
+[ext_resource type="Script" path="res://GUI.cs" id="1_037wg"]
+[ext_resource type="FontFile" uid="uid://owarplrgfadk" path="res://fonts/Montserrat-Medium.ttf" id="1_e2ctj"]
+
+[node name="GUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_037wg")
+
+[node name="Label" type="Label" parent="."]
+z_index = 100
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("1_e2ctj")
+text = "Score: 0"

@@ -27,6 +27,9 @@ public partial class Level : Node2D
     // Is the level finished?
     private bool levelFinished = false;
 
+    // Stored reference to the main game (Main)
+    public Main mainGame { get; set; }
+
     public override void _Ready()
     {
         // Instantiate camera zones dict
@@ -75,6 +78,9 @@ public partial class Level : Node2D
                     UpdateCamera(ID);
                 }
             };
+
+            // Also attach the signal for the game viewport changing size
+            mainGame.viewport.SizeChanged += cameraZone.OnWindowResize;
         }
     }
 
