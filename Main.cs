@@ -22,6 +22,12 @@ public partial class Main : Node2D
 		// Set the reference to the game object
 		level.mainGame = this;
 
+		// Get a reference to the GUI
+		var GUI = GetNode<GUI>("GUI");
+
+		// Set some signals for the GUI
+		level.SetScore += GUI.SetScore;
+
 		// Trying to get the viewport directly didn't work
 		// So I had to use three steps
 		viewport = GetNode<Node2D>("GameContainerOffset").GetNode<SubViewportContainer>("GameContainer").GetNode<SubViewport>("Viewport");
@@ -36,11 +42,8 @@ public partial class Main : Node2D
 
 	// Sets up the proper position and size of the main game viewport
 	private void SetupViewportPositionSize() {
-		GD.Print("Resized");
-
 		var mainViewportSize = GetViewportRect().Size;
-		GD.Print(mainViewportSize);
-
+	
 		viewport.Size = (Vector2I) new Vector2(mainViewportSize.X, mainViewportSize.Y - GUI.HeaderHeight * 2);
 
 		// Offset node is used to offset the viewport's position

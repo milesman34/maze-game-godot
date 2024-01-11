@@ -30,6 +30,10 @@ public partial class Level : Node2D
     // Stored reference to the main game (Main)
     public Main mainGame { get; set; }
 
+    // Signal that sets the current score
+    [Signal]
+    public delegate void SetScoreEventHandler(int score);
+
     public override void _Ready()
     {
         // Instantiate camera zones dict
@@ -87,7 +91,7 @@ public partial class Level : Node2D
     // Adds to the score
     private void OnAddScore(int value) {
         score += value;
-        // GD.Print(score);
+        EmitSignal(SignalName.SetScore, score);
     }
 
     // Runs when the level ends
