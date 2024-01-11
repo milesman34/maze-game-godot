@@ -1,12 +1,19 @@
 using Godot;
 using System;
 
+/// <summary>
+/// GUI object is responsible for maintaining the GUI.
+/// </summary>
 public partial class GUI : CanvasLayer
 {
-	// Constant representing the height of the header
+	/// <summary>
+	/// Constant representing the height of the header in pixels (default is 32)
+	/// </summary>
 	public const int HeaderHeight = 32;
 
-	// Reference to the score label object
+	/// <summary>
+	/// Reference to the score label object, set during _Ready()
+	/// </summary>
 	private Label scoreLabel;
 
 	// Called when the node enters the scene tree for the first time.
@@ -21,7 +28,10 @@ public partial class GUI : CanvasLayer
 	{
 	}
 
-	// Sets the score displayed by the GUI
+	/// <summary>
+	/// Sets the contents of the score display in the GUI.
+	/// </summary>
+	/// <param name="score">Current score</param>
 	public void SetScore(int score) {
 		scoreLabel.Text = string.Format("Score: {0}", score);
 	}

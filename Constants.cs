@@ -1,9 +1,13 @@
 using Godot;
 using System;
 
-// This class just contains a bunch of important constants
+/// <summary>
+/// Constants class contains some important constants for the game.
+/// </summary>
 public class Constants
 {
-    // Size of a tile
-    public const int UnitSize = 32;
+    /// <summary>
+    /// Size of a tile in pixels (default is 32)
+    /// </summary>
+    public const int TileSize = 32;
 }

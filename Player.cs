@@ -1,8 +1,14 @@
 using Godot;
 using System;
 
+/// <summary>
+/// The Player class represents the player, which can be moved around based on the user's inputs.
+/// </summary>
 public partial class Player : RigidBody2D
 {
+	/// <summary>
+	/// Current speed of the player in pixels per second
+	/// </summary>
 	[Export]
 	public int Speed { get; set; } = 32;
 
@@ -14,6 +20,7 @@ public partial class Player : RigidBody2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		// Starting velocity
 		var velocity = Vector2.Zero;
 
 		if (Input.IsActionPressed("move_left"))
@@ -28,10 +35,11 @@ public partial class Player : RigidBody2D
 		if (Input.IsActionPressed("move_down"))
 			velocity.Y++;
 
-		// Normalize velocity vector
+		// Normalize velocity vector, so that they can't go faster by moving diagonally
 		if (velocity.Length() > 0) {
 			velocity = velocity.Normalized();
 
+			// Call move and collide to ensure proper collision with walls/other obstacles
 			MoveAndCollide(velocity * Speed * (float) delta);
 		}
 	}

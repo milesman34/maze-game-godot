@@ -3,40 +3,91 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 
+/// <summary>
+/// Levels handle a level, with all the objects and data needed to make the level playable.
+/// </summary>
 public partial class Level : Node2D
 {
-    // Starting position
+    /// <summary>
+    /// The player's starting position in units.
+    /// </summary>
     [Export]
     private Vector2 StartPosition { get; set; }
 
-    // Track the current score
+    /// <summary>
+    /// The player's current score.
+    /// </summary>
     public int score = 0;
 
-    // Reference to current camera
+    /// <summary>
+    /// Reference to the current camera.
+    /// </summary>
     private Camera2D camera;
 
-    // Map camera zone IDs to camera zones
+    /// <summary>
+    /// This dictionary maps the IDs of CameraZones to the CameraZones themselves.
+    /// </summary>
     private Dictionary<int, CameraZone> cameraZones;
 
-    // Track the current camera ID
-    private int cameraID = -1;
+    /// <summary>
+    /// Tracks the current CameraZone ID. The ID is null at first.
+    /// </summary>
+    private int? cameraZoneID = null;
 
     // Since there is a bug if you don't 100% leave a room, it'd be best to track the room you came from
-    private int previousCameraZone = -1;
+    /// <summary>
+    /// Tracks the CameraZone the player was previously in. This exists to solve a bug that occurred when you don't 100% leave a room, and try to go back in.
+    /// The ID is null at first.
+    /// </summary>
+    private int? previousCameraZoneID = null;
 
-    // Is the level finished?
+    /// <summary>
+    /// Did the player finish the level?
+    /// </summary>
     private bool levelFinished = false;
 
-    // Stored reference to the main game (Main)
-    public Main mainGame { get; set; }
+    /// <summary>
+    /// Stored reference to the main game.
+    /// </summary>
+    public Main mainGame;
 
-    // Signal that sets the current score
+    /// <summary>
+    /// Reference to the Player object.
+    /// </summary>
+    private Player player;
+    
+    /// <summary>
+    /// Reference to the level background.
+    /// </summary>
+    private ColorRect background;
+
+    /// <summary>
+    /// SetScore sends a signal to update the game's current score.
+    /// </summary>
+    /// <param name="score">New score</param>
     [Signal]
     public delegate void SetScoreEventHandler(int score);
 
+    /// <summary>
+    /// InstantiateLevelScene creates a new level instance from the provided LevelScene which has the needed reference to the main game.
+    /// </summary>
+    /// <param name="levelScene">Level Scene to instantiate.</param>
+    /// <param name="game">Reference to the game.</param>
+    /// <param name="gui">Reference to the GUI object.</param>
+    /// <returns>A newly created Level instance</returns>
+    public static Level InstantiateLevelScene(PackedScene levelScene, Main game, GUI gui) {
+        var level = levelScene.Instantiate<Level>();
+        level.mainGame = game;
+
+		// Set some signals for the GUI
+		level.SetScore += gui.SetScore;
+
+        return level;
+    }
+
     public override void _Ready()
     {
-        // Instantiate camera zones dict
+        // Instantiate the camera zones dictionary
         cameraZones = new Dictionary<int, CameraZone>();
 
         // The TileMap won't have all the elements as children immediately, so the call needs to be deferred
@@ -46,17 +97,25 @@ public partial class Level : Node2D
         camera = GetNode<Camera2D>("Camera");
 
         // Update position of player
-		Player player = GetNode<Player>("Player");
+		player = GetNode<Player>("Player");
 
 		player.Position = GetStartingPosition();
+
+        // Set other references
+        background = GetNode<ColorRect>("Background");
     }
 
-    // Gets the starting position (based on actual pixels, since the one we provide is based on tiles)
+    /// <summary>
+    /// Returns the starting position in pixels. The original position was based on units.
+    /// </summary>
+    /// <returns>Starting position in pixels</returns>
     public Vector2 GetStartingPosition() {
-        return StartPosition * Constants.UnitSize + new Vector2(Constants.UnitSize, Constants.UnitSize) / 2.0f; // Size of tile?
+        return StartPosition * Constants.TileSize + new Vector2(Constants.TileSize, Constants.TileSize) / 2.0f; // Size of tile?
     }
 
-    // Attaches signals to key elements in the tilemap
+    /// <summary>
+    /// Attaches signals to key elements in the tilemap.
+    /// </summary>
     public void AttachSignals() {
         var tileMap = GetNode<TileMap>("TileMap");
 
@@ -73,75 +132,98 @@ public partial class Level : Node2D
 
         foreach(var node in zonesNode.GetChildren()) {
             var cameraZone = node as CameraZone;
+
+            // Set the CameraZone in the dictionary
             cameraZones[cameraZone.ID] = cameraZone;
+
+            // Signals for entering/exiting the camera zone
             cameraZone.CameraZoneEntered += OnCameraZoneEntered;
             cameraZone.CameraZoneExited += OnCameraZoneExited;
 
+            // Signals for updating the camera zone
             cameraZone.CameraZoneUpdate += ID => {
-                if (ID == cameraID) {
+                if (ID == cameraZoneID) {
                     UpdateCamera(ID);
                 }
             };
 
             // Also attach the signal for the game viewport changing size
-            mainGame.viewport.SizeChanged += cameraZone.OnWindowResize;
+            mainGame.gameViewport.SizeChanged += cameraZone.OnWindowResize;
         }
     }
 
-    // Adds to the score
+    /// <summary>
+    /// OnAddScore runs when a Coin emits a CollectCoin signal.
+    /// </summary>
+    /// <param name="value">Value to add to the score</param>
     private void OnAddScore(int value) {
         score += value;
         EmitSignal(SignalName.SetScore, score);
     }
 
-    // Runs when the level ends
+    /// <summary>
+    /// OnLevelEnd runs when an EndPortal emits a LevelEnd signal.
+    /// </summary>
     public void OnLevelEnd() {
         GD.Print("Finished level!");
 
         // Hide the player
         levelFinished = true;
-        GetNode<Player>("Player").QueueFree();
+        player.QueueFree();
     }
 
-    // Runs when the player enters a new camera zone
+    /// <summary>
+    /// OnCameraZoneEntered runs when a camera zone is entered by the player.
+    /// </summary>
+    /// <param name="ID">ID of the CameraZone</param>
     private void OnCameraZoneEntered(int ID) {
-        previousCameraZone = cameraID;
+        previousCameraZoneID = cameraZoneID;
         SwitchToCameraZone(ID);
     }
 
-    // Runs when the player exits a camera zone
+    /// <summary>
+    /// OnCameraZoneExited runs when a camera zone is exited by the player.
+    /// </summary>
+    /// <param name="ID">ID of the CameraZone</param>
     private void OnCameraZoneExited(int ID) {
         // Check if the room we are exiting is the previous one we were in
         // If it is, then we need to switch back to that room as we are no longer in the current room
         // This switch is done manually, as we never fully left the collision area for the original room
-        if (ID == cameraID && previousCameraZone >= 0 && !levelFinished) {
-            SwitchToCameraZone(previousCameraZone);
+        // We also don't want to switch camera zones when the level is finished
+        if (ID == cameraZoneID && previousCameraZoneID != null && !levelFinished) {
+            SwitchToCameraZone((int) previousCameraZoneID);
         }
     }
 
-    // Switches to the camera zone with the given ID
+    /// <summary>
+    /// Switches to the camera zone with the given ID.
+    /// </summary>
+    /// <param name="ID">ID of the CameraZone</param>
     private void SwitchToCameraZone(int ID) {
         // We need to update the background color to hide rooms the player is not in
-        if (cameraZones.ContainsKey(cameraID)) { // The cameraID is set to -1 upon loading, so check if the key exists
-            cameraZones[cameraID].SetBackgroundColor(new Color(0, 0, 0));
+        if (cameraZoneID is not null) { // The cameraID is set to -1 upon loading, so check if the key exists
+            cameraZones[(int) cameraZoneID].SetBackgroundColor(new Color(0, 0, 0));
         }
 
-        cameraID = ID;
+        cameraZoneID = ID;
 
+        // Update the background color of the new camera zone
         cameraZones[ID].SetBackgroundColor(new Color(0, 0, 0, 0.0f));
 
+        // Update the camera
         UpdateCamera(ID);
 
         // Update background for the level itself
-        var background = GetNode<ColorRect>("Background");
-
-        background.Size = cameraZones[ID].BackgroundObject.Size;
+        background.Size = cameraZones[ID].background.Size;
 
         // Add the two positions together since the background object's position is relative to the camera zone
-        background.Position = cameraZones[ID].BackgroundObject.Position + cameraZones[ID].Position;
+        background.Position = cameraZones[ID].background.Position + cameraZones[ID].Position;
     }
 
-    // Updates the camera to have the position/zoom of the one with the current ID
+    /// <summary>
+    /// Updates the camera to have the position/zoom provided from the current CameraZone.
+    /// </summary>
+    /// <param name="ID">ID of the current CameraZone.</param>
     private void UpdateCamera(int ID) {
         var zone = cameraZones[ID];
 
