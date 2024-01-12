@@ -12,6 +12,9 @@ public partial class Player : RigidBody2D
 	[Export]
 	public int Speed { get; set; } = 32;
 
+	// Did the player just teleport?
+	public bool justTeleported = false;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{

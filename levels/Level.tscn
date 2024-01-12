@@ -8,16 +8,19 @@
 script = ExtResource("1_0mudr")
 
 [node name="Background" type="ColorRect" parent="."]
+z_index = -100
 offset_right = 40.0
 offset_bottom = 40.0
 color = Color(0.756863, 0.756863, 0.756863, 1)
-
-[node name="Player" parent="." instance=ExtResource("2_wtiib")]
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("3_d5060")
 format = 2
 layer_0/name = "Objects"
+
+[node name="Objects" type="Node" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("2_wtiib")]
 
 [node name="CameraZones" type="Node" parent="."]
 

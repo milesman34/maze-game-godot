@@ -150,6 +150,18 @@ public partial class Level : Node2D
             // Also attach the signal for the game viewport changing size
             mainGame.gameViewport.SizeChanged += cameraZone.OnWindowResize;
         }
+
+        // Now attach the signals from the other objects
+        var objectsNode = GetNode<Node>("Objects");
+
+        foreach(var node in objectsNode.GetChildren()) {
+            if (node is Portal) {
+                var portal = node as Portal;
+
+                portal.PortalEntered += OnPortalEntered;
+                portal.PortalExited += OnPortalExited;
+            }
+        }
     }
 
     /// <summary>
@@ -229,5 +241,23 @@ public partial class Level : Node2D
 
         camera.Position = zone.GetCameraPosition();
         camera.Zoom = zone.GetCameraZoom();
+    }
+
+    // Runs when a portal is entered
+    private void OnPortalEntered(Vector2 target) {
+        // If the player just teleported here then they are safe from further teleportation until they leave the portal
+        if (!player.justTeleported) {
+            player.justTeleported = true;
+
+            // We need to update the GlobalPosition directly
+            // It seems the regular Position is updated in the physics process
+            // So updating that could cause the player to snap back here due to the physics process
+            player.GlobalPosition = target * Constants.TileSize + Constants.TileVector / 2.0f;
+        }
+    }
+
+    // Runs when a portal is exited
+    private void OnPortalExited() {
+        player.justTeleported = false;
     }
 }
