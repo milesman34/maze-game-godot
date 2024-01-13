@@ -127,6 +127,28 @@ public partial class Level : Node2D
     }
 
     /// <summary>
+    /// Attaches all the signals for the objects node recursively
+    /// </summary>
+    /// <param name="node"></param>
+    private void AttachSignalsForObjectsNode(Node parentNode) {
+        foreach(var node in parentNode.GetChildren()) {
+            // We check the class name specifically for Node, since other classes subclass Node
+            if (node.GetClass() == "Node") {
+                AttachSignalsForObjectsNode(node);
+            } else if (node is Portal) {
+                var portal = node as Portal;
+
+                portal.PortalEntered += OnPortalEntered;
+                portal.PortalExited += OnPortalExited;
+            } else if (node is Key) {
+                (node as Key).CollectKey += OnKeyCollected;
+            } else if (node is Lock) {
+                CollectKey += (node as Lock).OnKeyCollected;
+            }
+        }
+    }
+
+    /// <summary>
     /// Attaches signals to key elements in the tilemap.
     /// </summary>
     public void AttachSignals() {
@@ -167,18 +189,7 @@ public partial class Level : Node2D
         // Now attach the signals from the other objects
         var objectsNode = GetNode<Node>("Objects");
 
-        foreach(var node in objectsNode.GetChildren()) {
-            if (node is Portal) {
-                var portal = node as Portal;
-
-                portal.PortalEntered += OnPortalEntered;
-                portal.PortalExited += OnPortalExited;
-            } else if (node is Key) {
-                (node as Key).CollectKey += OnKeyCollected;
-            } else if (node is Lock) {
-                CollectKey += (node as Lock).OnKeyCollected;
-            }
-        }
+        AttachSignalsForObjectsNode(objectsNode);
     }
 
     /// <summary>
