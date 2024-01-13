@@ -69,6 +69,16 @@ public partial class Level : Node2D
     public delegate void SetScoreEventHandler(int score);
 
     /// <summary>
+    /// CollectKey sends a signal when a key is collected, propogating this to all of the locks in the level.
+    /// </summary>
+    /// <param name="color"></param>
+    [Signal]
+    public delegate void CollectKeyEventHandler(Color color);
+
+    // Track what keys have been collected
+    private Dictionary<Color, int> collectedKeys;
+
+    /// <summary>
     /// InstantiateLevelScene creates a new level instance from the provided LevelScene which has the needed reference to the main game.
     /// </summary>
     /// <param name="levelScene">Level Scene to instantiate.</param>
@@ -89,6 +99,9 @@ public partial class Level : Node2D
     {
         // Instantiate the camera zones dictionary
         cameraZones = new Dictionary<int, CameraZone>();
+
+        // Instantiate the keys dictionary
+        collectedKeys = new Dictionary<Color, int>();
 
         // The TileMap won't have all the elements as children immediately, so the call needs to be deferred
         CallDeferred(MethodName.AttachSignals);
@@ -160,6 +173,10 @@ public partial class Level : Node2D
 
                 portal.PortalEntered += OnPortalEntered;
                 portal.PortalExited += OnPortalExited;
+            } else if (node is Key) {
+                (node as Key).CollectKey += OnKeyCollected;
+            } else if (node is Lock) {
+                CollectKey += (node as Lock).OnKeyCollected;
             }
         }
     }
@@ -243,7 +260,10 @@ public partial class Level : Node2D
         camera.Zoom = zone.GetCameraZoom();
     }
 
-    // Runs when a portal is entered
+    /// <summary>
+    /// OnPortalEntered runs when a portal is entered.
+    /// </summary>
+    /// <param name="target">Target position to teleport to</param>
     private void OnPortalEntered(Vector2 target) {
         // If the player just teleported here then they are safe from further teleportation until they leave the portal
         if (!player.justTeleported) {
@@ -256,8 +276,22 @@ public partial class Level : Node2D
         }
     }
 
-    // Runs when a portal is exited
+    /// <summary>
+    /// OnPortalExited runs when a portal is exited.
+    /// </summary>
     private void OnPortalExited() {
         player.justTeleported = false;
+    }
+
+    /// <summary>
+    /// OnKeyCollected runs when a key is collected.
+    /// </summary>
+    /// <param name="color">Color of the collected key</param>
+    private void OnKeyCollected(Color color) {
+        // Add to the number of keys
+        collectedKeys[color] = collectedKeys.GetValueOrDefault(color, 0) + 1;
+
+        // Propogate the signal to any locks
+        EmitSignal(SignalName.CollectKey, color);
     }
 }

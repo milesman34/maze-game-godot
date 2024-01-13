@@ -55,18 +55,3 @@ Size = Vector2(9, 9)
 [node name="CameraZone3" parent="CameraZones" index="2" instance=ExtResource("2_dnwud")]
 StartPosition = Vector2(3, 16)
 Size = Vector2(5, 5)
-
-[connection signal="body_entered" from="TileMap/Coin" to="TileMap/Coin" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@105022" to="TileMap/@Area2D@105022" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@105023" to="TileMap/@Area2D@105023" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@105024" to="TileMap/@Area2D@105024" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@105025" to="TileMap/@Area2D@105025" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@105665" to="TileMap/@Area2D@105665" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@105666" to="TileMap/@Area2D@105666" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@105667" to="TileMap/@Area2D@105667" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@105668" to="TileMap/@Area2D@105668" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@105669" to="TileMap/@Area2D@105669" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@105670" to="TileMap/@Area2D@105670" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@105671" to="TileMap/@Area2D@105671" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@105672" to="TileMap/@Area2D@105672" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/EndPortal" to="TileMap/EndPortal" method="OnBodyEntered"]

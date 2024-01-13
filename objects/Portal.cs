@@ -32,9 +32,16 @@ public partial class Portal : Area2D
 	[Export]
 	public Vector2 StartPosition { get; set; } = new Vector2(0, 0);
 
+	/// <summary>
+	/// PortalEntered signal is emitted when the player enters the portal.
+	/// </summary>
+	/// <param name="target">Target position to teleport to</param>
 	[Signal]
 	public delegate void PortalEnteredEventHandler(Vector2 target);
 
+	/// <summary>
+	/// PortalExited signal is emitted when the player exits the portal.
+	/// </summary>
 	[Signal]
 	public delegate void PortalExitedEventHandler();
 
@@ -45,10 +52,7 @@ public partial class Portal : Area2D
 
 		sprite.Modulate = Color;
 
-		// If the portal is set to override position, then override it using the provided position
-		if (OverrideStartPos) {
-			Position = GetStartingPosition();
-		}
+		Position = GetStartingPosition();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -61,7 +65,11 @@ public partial class Portal : Area2D
     /// </summary>
     /// <returns>Starting position in pixels</returns>
     public Vector2 GetStartingPosition() {
-        return StartPosition * Constants.TileSize + new Vector2(Constants.TileSize, Constants.TileSize) / 2.0f; // Size of tile?
+        if (OverrideStartPos) {
+			return StartPosition * Constants.TileSize + new Vector2(Constants.TileSize, Constants.TileSize) / 2.0f; // Size of tile?
+		} else {
+			return Position;
+		}
     }
 
 	/// <summary>
@@ -74,6 +82,10 @@ public partial class Portal : Area2D
 		}
 	}
 
+	/// <summary>
+	/// OnBodyExited is called when the portal is exited by a body.
+	/// </summary>
+	/// <param name="body">Body that exits the portal.</param>
 	public void OnBodyExited(Node2D body) {
 		if (body is Player) {
 			EmitSignal(SignalName.PortalExited);

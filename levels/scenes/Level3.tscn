@@ -1,0 +1,104 @@
+[gd_scene load_steps=7 format=3 uid="uid://c8oihi6pheei8"]
+
+[ext_resource type="PackedScene" uid="uid://c8eot2fa78oca" path="res://levels/Level.tscn" id="1_6bmub"]
+[ext_resource type="PackedScene" uid="uid://ptdvqs3lct66" path="res://objects/CameraZone.tscn" id="2_kaka0"]
+[ext_resource type="PackedScene" uid="uid://dt58rkcn6n25q" path="res://objects/Key.tscn" id="2_omjtt"]
+[ext_resource type="PackedScene" uid="uid://d0rp644vaf88a" path="res://objects/Portal.tscn" id="3_gor02"]
+[ext_resource type="PackedScene" uid="uid://bnil1wlmvet5n" path="res://objects/Lock.tscn" id="4_2hapl"]
+[ext_resource type="Texture2D" uid="uid://b0a641bwbfkne" path="res://art/wall.png" id="5_usi8w"]
+
+[node name="Level" instance=ExtResource("1_6bmub")]
+StartPosition = Vector2(1, 1)
+
+[node name="TileMap" parent="." index="1"]
+layer_0/tile_data = PackedInt32Array(0, 1, 65536, 1, 1, 65536, 2, 1, 65536, 3, 1, 65536, 4, 1, 65536, 5, 1, 65536, 6, 1, 65536, 7, 1, 65536, 8, 1, 65536, 9, 1, 65536, 10, 1, 65536, 11, 1, 65536, 12, 1, 65536, 65548, 1, 65536, 131084, 1, 65536, 196620, 1, 65536, 262156, 1, 65536, 327692, 1, 65536, 393228, 1, 65536, 458764, 1, 65536, 524300, 1, 65536, 589836, 1, 65536, 655372, 1, 65536, 720908, 1, 65536, 786444, 1, 65536, 786443, 1, 65536, 786442, 1, 65536, 786441, 1, 65536, 786440, 1, 65536, 786439, 1, 65536, 786438, 1, 65536, 786437, 1, 65536, 786436, 1, 65536, 786435, 1, 65536, 786434, 1, 65536, 786433, 1, 65536, 786432, 1, 65536, 720896, 1, 65536, 655360, 1, 65536, 589824, 1, 65536, 524288, 1, 65536, 458752, 1, 65536, 393216, 1, 65536, 327680, 1, 65536, 262144, 1, 65536, 196608, 1, 65536, 131072, 1, 65536, 65536, 1, 65536, 720902, 1, 65536, 655366, 1, 65536, 589830, 1, 65536, 524294, 1, 65536, 524296, 1, 65536, 524297, 1, 65536, 524298, 1, 65536, 524299, 1, 65536, 655368, 1, 65536, 720904, 1, 65536, 655370, 1, 65536)
+
+[node name="Key" parent="Objects" index="0" instance=ExtResource("2_omjtt")]
+position = Vector2(50, 154)
+Color = Color(0, 0, 1, 1)
+OverrideStartPos = true
+StartPosition = Vector2(1, 4)
+
+[node name="Key2" parent="Objects" index="1" instance=ExtResource("2_omjtt")]
+position = Vector2(363, 214)
+Color = Color(0, 0, 1, 1)
+OverrideStartPos = true
+StartPosition = Vector2(11, 7)
+
+[node name="Key3" parent="Objects" index="2" instance=ExtResource("2_omjtt")]
+position = Vector2(121, 271)
+Color = Color(1, 0, 0, 1)
+OverrideStartPos = true
+StartPosition = Vector2(3, 8)
+
+[node name="Portal" parent="Objects" index="3" instance=ExtResource("3_gor02")]
+position = Vector2(178, 44)
+Color = Color(0, 1, 1, 1)
+Target = Vector2(3, 6)
+OverrideStartPos = true
+StartPosition = Vector2(5, 1)
+
+[node name="Portal2" parent="Objects" index="4" instance=ExtResource("3_gor02")]
+position = Vector2(111, 212)
+Color = Color(0, 1, 1, 1)
+Target = Vector2(5, 1)
+OverrideStartPos = true
+StartPosition = Vector2(3, 6)
+
+[node name="Lock" parent="Objects" index="5" instance=ExtResource("4_2hapl")]
+position = Vector2(242, 273)
+WallTexture = ExtResource("5_usi8w")
+Color = Color(0, 0, 1, 1)
+OverrideStartPos = true
+StartPosition = Vector2(7, 8)
+
+[node name="Lock2" parent="Objects" index="6" instance=ExtResource("4_2hapl")]
+position = Vector2(271, 303)
+WallTexture = ExtResource("5_usi8w")
+Color = Color(1, 0, 0, 1)
+OverrideStartPos = true
+StartPosition = Vector2(8, 9)
+
+[node name="Lock3" parent="Objects" index="7" instance=ExtResource("4_2hapl")]
+position = Vector2(338, 302)
+WallTexture = ExtResource("5_usi8w")
+Color = Color(0, 0, 1, 1)
+NumKeysRequired = 2
+OverrideStartPos = true
+StartPosition = Vector2(10, 9)
+
+[node name="Lock4" parent="Objects" index="8" instance=ExtResource("4_2hapl")]
+position = Vector2(337, 370)
+WallTexture = ExtResource("5_usi8w")
+Color = Color(1, 0, 0, 1)
+OverrideStartPos = true
+StartPosition = Vector2(10, 11)
+
+[node name="Lock5" parent="Objects" index="9" instance=ExtResource("4_2hapl")]
+position = Vector2(239, 335)
+WallTexture = ExtResource("5_usi8w")
+Color = Color(0, 0, 1, 1)
+NumKeysRequired = 5
+OverrideStartPos = true
+StartPosition = Vector2(7, 10)
+
+[node name="Key4" parent="Objects" index="10" instance=ExtResource("2_omjtt")]
+position = Vector2(363, 214)
+Color = Color(0, 0, 1, 1)
+OverrideStartPos = true
+StartPosition = Vector2(10, 7)
+
+[node name="Key5" parent="Objects" index="11" instance=ExtResource("2_omjtt")]
+position = Vector2(363, 214)
+Color = Color(0, 0, 1, 1)
+OverrideStartPos = true
+StartPosition = Vector2(9, 7)
+
+[node name="Key6" parent="Objects" index="12" instance=ExtResource("2_omjtt")]
+position = Vector2(363, 214)
+Color = Color(0, 0, 1, 1)
+OverrideStartPos = true
+StartPosition = Vector2(8, 7)
+
+[node name="CameraZone" parent="CameraZones" index="0" instance=ExtResource("2_kaka0")]
+Size = Vector2(13, 13)

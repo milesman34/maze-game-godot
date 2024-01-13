@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://bnil1wlmvet5n"]
+
+[ext_resource type="Script" path="res://objects/Lock.cs" id="1_oyxvl"]
+[ext_resource type="Texture2D" uid="uid://dplupnd2hip0h" path="res://art/lock.png" id="2_v87r6"]
+[ext_resource type="FontFile" uid="uid://owarplrgfadk" path="res://fonts/Montserrat-Medium.ttf" id="3_bfes2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c20xt"]
+size = Vector2(32, 32)
+
+[node name="Lock" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_oyxvl")
+
+[node name="WallSprite" type="Sprite2D" parent="."]
+texture_filter = 1
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_c20xt")
+
+[node name="LockSprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_v87r6")
+
+[node name="AmountLabel" type="Label" parent="."]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+theme_override_fonts/font = ExtResource("3_bfes2")
+theme_override_font_sizes/font_size = 12
+text = "1"
