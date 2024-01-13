@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://n3xvxk8lp2kw"]
+[gd_scene load_steps=8 format=3 uid="uid://n3xvxk8lp2kw"]
 
 [ext_resource type="PackedScene" uid="uid://c8eot2fa78oca" path="res://levels/Level.tscn" id="1_sgb74"]
 [ext_resource type="PackedScene" uid="uid://bnil1wlmvet5n" path="res://objects/Lock.tscn" id="2_224xe"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d0rp644vaf88a" path="res://objects/Portal.tscn" id="4_dvwnf"]
 [ext_resource type="PackedScene" uid="uid://ptdvqs3lct66" path="res://objects/CameraZone.tscn" id="4_laacr"]
 [ext_resource type="PackedScene" uid="uid://drt124p0t1obp" path="res://objects/components/PositioningComponent.tscn" id="5_ckts1"]
+[ext_resource type="PackedScene" uid="uid://dyxhx20s6vnqy" path="res://objects/Marker.tscn" id="6_1x86r"]
 
 [node name="Level" instance=ExtResource("1_sgb74")]
 StartPosition = Vector2(5, 1)
@@ -45,35 +46,49 @@ Target = Vector2(5, 12)
 [node name="PositioningComponent" parent="Objects/Portal" index="2" instance=ExtResource("5_ckts1")]
 StartPosition = Vector2(5, 9)
 
+[node name="Marker" parent="Objects" index="4" instance=ExtResource("6_1x86r")]
+Color = Color(0, 0, 1, 1)
+
+[node name="PositioningComponent" parent="Objects/Marker" index="1" instance=ExtResource("5_ckts1")]
+StartPosition = Vector2(0, 4)
+
+[node name="Marker2" parent="Objects" index="5" instance=ExtResource("6_1x86r")]
+Color = Color(0, 0, 1, 1)
+
+[node name="PositioningComponent" parent="Objects/Marker2" index="1" instance=ExtResource("5_ckts1")]
+StartPosition = Vector2(0, 6)
+
+[node name="Marker3" parent="Objects" index="6" instance=ExtResource("6_1x86r")]
+position = Vector2(72, 72)
+Color = Color(0, 1, 0, 1)
+
+[node name="PositioningComponent" parent="Objects/Marker3" index="1" instance=ExtResource("5_ckts1")]
+StartPosition = Vector2(4, 0)
+
+[node name="Marker4" parent="Objects" index="7" instance=ExtResource("6_1x86r")]
+position = Vector2(72, 72)
+Color = Color(0, 1, 0, 1)
+
+[node name="PositioningComponent" parent="Objects/Marker4" index="1" instance=ExtResource("5_ckts1")]
+StartPosition = Vector2(6, 0)
+
+[node name="Marker5" parent="Objects" index="8" instance=ExtResource("6_1x86r")]
+position = Vector2(72, 72)
+Color = Color(1, 0, 0, 1)
+
+[node name="PositioningComponent" parent="Objects/Marker5" index="1" instance=ExtResource("5_ckts1")]
+StartPosition = Vector2(10, 4)
+
+[node name="Marker6" parent="Objects" index="9" instance=ExtResource("6_1x86r")]
+position = Vector2(72, 72)
+Color = Color(1, 0, 0, 1)
+
+[node name="PositioningComponent" parent="Objects/Marker6" index="1" instance=ExtResource("5_ckts1")]
+StartPosition = Vector2(10, 6)
+
 [node name="CameraZone" parent="CameraZones" index="0" instance=ExtResource("4_laacr")]
 Size = Vector2(11, 11)
 
 [node name="CameraZone2" parent="CameraZones" index="1" instance=ExtResource("4_laacr")]
 StartPosition = Vector2(2, 11)
 Size = Vector2(7, 7)
-
-[connection signal="body_entered" from="TileMap/EndPortal" to="TileMap/EndPortal" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/Coin" to="TileMap/Coin" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@25598" to="TileMap/@Area2D@25598" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@25599" to="TileMap/@Area2D@25599" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@25600" to="TileMap/@Area2D@25600" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@25601" to="TileMap/@Area2D@25601" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@25602" to="TileMap/@Area2D@25602" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@25603" to="TileMap/@Area2D@25603" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@25604" to="TileMap/@Area2D@25604" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@25605" to="TileMap/@Area2D@25605" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@25606" to="TileMap/@Area2D@25606" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@25607" to="TileMap/@Area2D@25607" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@25608" to="TileMap/@Area2D@25608" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@25609" to="TileMap/@Area2D@25609" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@25610" to="TileMap/@Area2D@25610" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@25611" to="TileMap/@Area2D@25611" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@25612" to="TileMap/@Area2D@25612" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@25613" to="TileMap/@Area2D@25613" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@25614" to="TileMap/@Area2D@25614" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@25615" to="TileMap/@Area2D@25615" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@25616" to="TileMap/@Area2D@25616" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@25617" to="TileMap/@Area2D@25617" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@25618" to="TileMap/@Area2D@25618" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@25619" to="TileMap/@Area2D@25619" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@25620" to="TileMap/@Area2D@25620" method="OnBodyEntered"]
