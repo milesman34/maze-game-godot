@@ -1,12 +1,12 @@
 [gd_scene load_steps=4 format=3 uid="uid://dagpgc66f1cfy"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_xnp42"]
-[ext_resource type="PackedScene" uid="uid://psqfjbdh7rdy" path="res://levels/scenes/Level1.tscn" id="2_6b5my"]
+[ext_resource type="PackedScene" uid="uid://c8oihi6pheei8" path="res://levels/scenes/Level3.tscn" id="2_phb1g"]
 [ext_resource type="PackedScene" uid="uid://cgqhlaubq4nci" path="res://GUI.tscn" id="3_63lpo"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_xnp42")
-LevelScene = ExtResource("2_6b5my")
+LevelScene = ExtResource("2_phb1g")
 
 [node name="GUI" parent="." instance=ExtResource("3_63lpo")]
 

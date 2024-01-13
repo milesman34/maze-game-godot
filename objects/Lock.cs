@@ -51,6 +51,11 @@ public partial class Lock : RigidBody2D
 		// Set up references
 		amountLabel = GetNode<Label>("AmountLabel");
 
+		// I want the text to actually look good
+		// 12px is the target size but is too pixellated
+		// So instead I set the font size to 48px and then scale down the label by 4x
+		amountLabel.Scale = new Vector2(0.25f, 0.25f);
+
 		// If the portal is set to override position, then override it using the provided position
 		Position = GetStartingPosition();
 
