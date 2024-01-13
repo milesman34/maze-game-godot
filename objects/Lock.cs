@@ -21,20 +21,6 @@ public partial class Lock : RigidBody2D
 	[Export(PropertyHint.Range, "1, 99, 1")]
 	public int NumKeysRequired { get; set; } = 1;
 
-	[ExportCategory("Start Position")]
-
-	/// <summary>
-	/// Should the node's transform position be overridden with the start position here?
-	/// </summary>
-	[Export]
-	public bool OverrideStartPos { get; set; } = false;
-
-	/// <summary>
-	/// Starting position of the Portal in units. This is technically optional but is useful as an override to avoid having to figure out the location manually.
-	/// </summary>
-	[Export]
-	public Vector2 StartPosition { get; set; } = new Vector2(0, 0);
-
 	/// <summary>
 	/// Number of keys needed to open this lock.
 	/// </summary>
@@ -56,9 +42,6 @@ public partial class Lock : RigidBody2D
 		// So instead I set the font size to 48px and then scale down the label by 4x
 		amountLabel.Scale = new Vector2(0.25f, 0.25f);
 
-		// If the portal is set to override position, then override it using the provided position
-		Position = GetStartingPosition();
-
 		// Set wall sprite texture
 		GetNode<Sprite2D>("WallSprite").Texture = WallTexture;
 		
@@ -72,18 +55,6 @@ public partial class Lock : RigidBody2D
 	public override void _Process(double delta)
 	{
 	}
-
-	/// <summary>
-    /// Returns the starting position in pixels. The original position was based on units.
-    /// </summary>
-    /// <returns>Starting position in pixels</returns>
-    public Vector2 GetStartingPosition() {
-        if (OverrideStartPos) {
-			return StartPosition * Constants.TileSize + new Vector2(Constants.TileSize, Constants.TileSize) / 2.0f; // Size of tile?
-		} else {
-			return Position;
-		}
-    }
 
 	/// <summary>
 	/// OnKeyCollected runs when the Level sends a signal with the key that was collected. It decrements the number of remaining keys left and hides the lock if the amount left is 0.
