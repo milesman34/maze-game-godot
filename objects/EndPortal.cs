@@ -6,9 +6,7 @@ using System;
 /// </summary>
 public partial class EndPortal : Area2D
 {
-	/// <summary>
-	/// EndPortals emit this signal when touched, to end the level.
-	/// </summary>
+	// Level end signal
 	[Signal]
 	public delegate void LevelEndEventHandler();
 
@@ -22,10 +20,7 @@ public partial class EndPortal : Area2D
 	{
 	}
 
-	/// <summary>
-	/// This function runs when another RigidBody2D enters the area. It ends the level if the body in question is the Player.
-	/// </summary>
-	/// <param name="body">RigidBody2D that entered the area</param>
+	// Runs when another body enters the portal
 	private void OnBodyEntered(RigidBody2D body)
 	{
 		// Check if the body is the player

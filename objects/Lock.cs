@@ -3,32 +3,22 @@ using System;
 
 public partial class Lock : RigidBody2D
 {
-	/// <summary>
-	/// Texture to display for the Wall.
-	/// </summary>
+	// Texture to display for the wall
 	[Export]
 	public Texture2D WallTexture { get; set; }
 
-	/// <summary>
-	/// The color of the Lock.
-	/// </summary>
+	// Color of the lock
 	[Export]
 	public Color Color { get; set; }
 
-	/// <summary>
-	/// Number of keys required to open the lock.
-	/// </summary>
-	[Export(PropertyHint.Range, "1, 99, 1")]
+	// Number of keys required to open the lock
+	[Export(PropertyHint.Range, "1, 99, 1, or_greater")]
 	public int NumKeysRequired { get; set; } = 1;
 
-	/// <summary>
-	/// Number of keys needed to open this lock.
-	/// </summary>
+	// Tracks the number of remaining keys needed to open the lock
 	private int numKeysRemaining;
 
-	/// <summary>
-	/// Stored reference to the label for the number of remaining keys.
-	/// </summary>
+	// Stored reference to the label for the number of remaining keys.
 	private Label amountLabel;
 
 	// Called when the node enters the scene tree for the first time.
@@ -56,10 +46,7 @@ public partial class Lock : RigidBody2D
 	{
 	}
 
-	/// <summary>
-	/// OnKeyCollected runs when the Level sends a signal with the key that was collected. It decrements the number of remaining keys left and hides the lock if the amount left is 0.
-	/// </summary>
-	/// <param name="color">The color of the key that was collected</param>
+	// Runs whenever a key is collected. It makes sure the key collected was the correct color before doing anything.
 	public void OnKeyCollected(Color color) {
 		if (Color == color) {
 			// Resolve the effects of the lock
@@ -73,10 +60,7 @@ public partial class Lock : RigidBody2D
 		}
 	}
 
-	/// <summary>
-	/// Sets the number of remaining keys, updating the label.
-	/// </summary>
-	/// <param name="keys">New number of keys</param>
+	// Sets the number of remaining keys, updating the label
 	private void SetNumKeysRemaining(int keys) {
 		numKeysRemaining = keys;
 		amountLabel.Text = keys.ToString();

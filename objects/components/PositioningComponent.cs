@@ -6,9 +6,7 @@ using System;
 /// </summary>
 public partial class PositioningComponent : Node
 {
-	/// <summary>
-	/// Position to put the parent component
-	/// </summary>
+	// Position to put the parent component
 	[Export]
 	public Vector2 StartPosition {get; set;}
 
@@ -27,11 +25,8 @@ public partial class PositioningComponent : Node
 	{
 	}
 
-	/// <summary>
-    /// Returns the starting position in pixels. The original position was based on units.
-    /// </summary>
-    /// <returns>Starting position in pixels</returns>
-    public Vector2 GetStartingPosition() {
+    // Returns the starting position in pixels. The original position was based on units.
+    private Vector2 GetStartingPosition() {
 		return StartPosition * Constants.TileSize + new Vector2(Constants.TileSize, Constants.TileSize) / 2.0f; // Size of tile?
     }
 }

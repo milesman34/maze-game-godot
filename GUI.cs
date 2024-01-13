@@ -11,9 +11,7 @@ public partial class GUI : CanvasLayer
 	/// </summary>
 	public const int HeaderHeight = 32;
 
-	/// <summary>
-	/// Reference to the score label object, set during _Ready()
-	/// </summary>
+	// Reference to the score label object, set during _Ready()
 	private Label scoreLabel;
 
 	// Called when the node enters the scene tree for the first time.
@@ -28,10 +26,7 @@ public partial class GUI : CanvasLayer
 	{
 	}
 
-	/// <summary>
-	/// Sets the contents of the score display in the GUI.
-	/// </summary>
-	/// <param name="score">Current score</param>
+	// Sets the contents of the score display in the GUI.
 	public void SetScore(int score) {
 		scoreLabel.Text = string.Format("Score: {0}", score);
 	}

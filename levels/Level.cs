@@ -8,70 +8,43 @@ using System.Threading;
 /// </summary>
 public partial class Level : Node2D
 {
-    /// <summary>
-    /// The player's starting position in units.
-    /// </summary>
+    // The player's starting position in units
     [Export]
     private Vector2 StartPosition { get; set; }
 
-    /// <summary>
-    /// The player's current score.
-    /// </summary>
+    // The player's current score
     public int score = 0;
 
-    /// <summary>
-    /// Reference to the current camera.
-    /// </summary>
+    // Reference to the current camera
     private Camera2D camera;
 
-    /// <summary>
-    /// This dictionary maps the IDs of CameraZones to the CameraZones themselves.
-    /// </summary>
+    // This dictionary maps the IDs of CameraZones to the CameraZones themselves
     private Dictionary<int, CameraZone> cameraZones;
 
-    /// <summary>
-    /// Tracks the current CameraZone ID. The ID is null at first.
-    /// </summary>
+    // Tracks the current CameraZone ID. The ID is null at first
     private int? cameraZoneID = null;
 
-    // Since there is a bug if you don't 100% leave a room, it'd be best to track the room you came from
-    /// <summary>
-    /// Tracks the CameraZone the player was previously in. This exists to solve a bug that occurred when you don't 100% leave a room, and try to go back in.
-    /// The ID is null at first.
-    /// </summary>
+    // Tracks the CameraZone the player was previously in. This exists to solve a bug that occurred when you don't 100% leave a room, and try to go back in.
+    // The ID is null at first.
     private int? previousCameraZoneID = null;
 
-    /// <summary>
-    /// Did the player finish the level?
-    /// </summary>
+    // Did the player finish the level?
     private bool levelFinished = false;
 
-    /// <summary>
-    /// Stored reference to the main game.
-    /// </summary>
+    // Stored reference to the main game
     public Main mainGame;
 
-    /// <summary>
-    /// Reference to the Player object.
-    /// </summary>
+    // Reference to the Player object
     private Player player;
     
-    /// <summary>
-    /// Reference to the level background.
-    /// </summary>
+    /// Reference to the level background
     private ColorRect background;
 
-    /// <summary>
-    /// SetScore sends a signal to update the game's current score.
-    /// </summary>
-    /// <param name="score">New score</param>
+    // Signal that updates the game's current score
     [Signal]
     public delegate void SetScoreEventHandler(int score);
 
-    /// <summary>
-    /// CollectKey sends a signal when a key is collected, propogating this to all of the locks in the level.
-    /// </summary>
-    /// <param name="color"></param>
+    // Signal that runs when a key is collected, to send this message to the locks
     [Signal]
     public delegate void CollectKeyEventHandler(Color color);
 
@@ -118,18 +91,12 @@ public partial class Level : Node2D
         background = GetNode<ColorRect>("Background");
     }
 
-    /// <summary>
-    /// Returns the starting position in pixels. The original position was based on units.
-    /// </summary>
-    /// <returns>Starting position in pixels</returns>
-    public Vector2 GetStartingPosition() {
+    // Returns the starting position in pixels. The original position was based on units.
+    private Vector2 GetStartingPosition() {
         return StartPosition * Constants.TileSize + new Vector2(Constants.TileSize, Constants.TileSize) / 2.0f; // Size of tile?
     }
 
-    /// <summary>
-    /// Attaches all the signals for the objects node recursively
-    /// </summary>
-    /// <param name="node"></param>
+    // Attaches all the signals for the objects node recursively
     private void AttachSignalsForObjectsNode(Node parentNode) {
         foreach(var node in parentNode.GetChildren()) {
             // We check the class name specifically for Node, since other classes subclass Node
@@ -148,10 +115,8 @@ public partial class Level : Node2D
         }
     }
 
-    /// <summary>
-    /// Attaches signals to key elements in the tilemap.
-    /// </summary>
-    public void AttachSignals() {
+    // Attaches signals to key elements in the tilemap.
+    private void AttachSignals() {
         var tileMap = GetNode<TileMap>("TileMap");
 
         foreach (var node in tileMap.GetChildren()) {
@@ -192,18 +157,13 @@ public partial class Level : Node2D
         AttachSignalsForObjectsNode(objectsNode);
     }
 
-    /// <summary>
-    /// OnAddScore runs when a Coin emits a CollectCoin signal.
-    /// </summary>
-    /// <param name="value">Value to add to the score</param>
+    // Runs when a coin emits a CollectCoin signal
     private void OnAddScore(int value) {
         score += value;
         EmitSignal(SignalName.SetScore, score);
     }
 
-    /// <summary>
-    /// OnLevelEnd runs when an EndPortal emits a LevelEnd signal.
-    /// </summary>
+    // Runs when an end portal emits a LevelEnd signal
     public void OnLevelEnd() {
         GD.Print("Finished level!");
 
@@ -212,19 +172,13 @@ public partial class Level : Node2D
         player.QueueFree();
     }
 
-    /// <summary>
-    /// OnCameraZoneEntered runs when a camera zone is entered by the player.
-    /// </summary>
-    /// <param name="ID">ID of the CameraZone</param>
+    // Runs when a camera zone is entered by the player
     private void OnCameraZoneEntered(int ID) {
         previousCameraZoneID = cameraZoneID;
         SwitchToCameraZone(ID);
     }
 
-    /// <summary>
-    /// OnCameraZoneExited runs when a camera zone is exited by the player.
-    /// </summary>
-    /// <param name="ID">ID of the CameraZone</param>
+    // Runs when a camera zone is exited by the player
     private void OnCameraZoneExited(int ID) {
         // Check if the room we are exiting is the previous one we were in
         // If it is, then we need to switch back to that room as we are no longer in the current room
@@ -235,10 +189,7 @@ public partial class Level : Node2D
         }
     }
 
-    /// <summary>
-    /// Switches to the camera zone with the given ID.
-    /// </summary>
-    /// <param name="ID">ID of the CameraZone</param>
+    // Switches to the camera zone with the given ID
     private void SwitchToCameraZone(int ID) {
         // We need to update the background color to hide rooms the player is not in
         if (cameraZoneID is not null) { // The cameraID is set to -1 upon loading, so check if the key exists
@@ -260,10 +211,7 @@ public partial class Level : Node2D
         background.Position = cameraZones[ID].background.Position + cameraZones[ID].Position;
     }
 
-    /// <summary>
-    /// Updates the camera to have the position/zoom provided from the current CameraZone.
-    /// </summary>
-    /// <param name="ID">ID of the current CameraZone.</param>
+    // Updates the camera to have the position/zoom provided from the current CameraZone
     private void UpdateCamera(int ID) {
         var zone = cameraZones[ID];
 
@@ -271,10 +219,7 @@ public partial class Level : Node2D
         camera.Zoom = zone.GetCameraZoom();
     }
 
-    /// <summary>
-    /// OnPortalEntered runs when a portal is entered.
-    /// </summary>
-    /// <param name="target">Target position to teleport to</param>
+    // Runs when a portal is entered by the player
     private void OnPortalEntered(Vector2 target) {
         // If the player just teleported here then they are safe from further teleportation until they leave the portal
         if (!player.justTeleported) {
@@ -287,17 +232,13 @@ public partial class Level : Node2D
         }
     }
 
-    /// <summary>
-    /// OnPortalExited runs when a portal is exited.
-    /// </summary>
+    
+    // Runs when a portal is exited by the player
     private void OnPortalExited() {
         player.justTeleported = false;
     }
 
-    /// <summary>
-    /// OnKeyCollected runs when a key is collected.
-    /// </summary>
-    /// <param name="color">Color of the collected key</param>
+    // Runs when a key is collected by the player
     private void OnKeyCollected(Color color) {
         // Add to the number of keys
         collectedKeys[color] = collectedKeys.GetValueOrDefault(color, 0) + 1;

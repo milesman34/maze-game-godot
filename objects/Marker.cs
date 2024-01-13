@@ -1,6 +1,9 @@
 using Godot;
 using System;
 
+/// <summary>
+/// Markers are decorative objects which can be used to display a color somewhere.
+/// </summary>
 public partial class Marker : Node2D
 {
 	[Export]

@@ -6,28 +6,19 @@ using System;
 /// </summary>
 public partial class Portal : Area2D
 {
-	/// <summary>
-	/// Color of the portal.
-	/// </summary>
+	// Color of the portal
 	[Export]
 	public Color Color { get; set; } = new Color(255, 255, 255);
 
-	/// <summary>
-	/// Position in units that the portal teleports the player to.
-	/// </summary>
+	// Position in units that the player is teleported to
 	[Export]
 	public Vector2 Target { get; set; }
 
-	/// <summary>
-	/// PortalEntered signal is emitted when the player enters the portal.
-	/// </summary>
-	/// <param name="target">Target position to teleport to</param>
+	// Signal for when the player enters the portal
 	[Signal]
 	public delegate void PortalEnteredEventHandler(Vector2 target);
 
-	/// <summary>
-	/// PortalExited signal is emitted when the player exits the portal.
-	/// </summary>
+	// Signal for when the player exits the portal
 	[Signal]
 	public delegate void PortalExitedEventHandler();
 
@@ -44,21 +35,15 @@ public partial class Portal : Area2D
 	{
 	}
 
-	/// <summary>
-	/// OnBodyEntered is called when the portal is entered by a body.
-	/// </summary>
-	/// <param name="body">Body that enters the portal.</param>
-	public void OnBodyEntered(Node2D body) {
+	// Runs when another body enters the portal
+	private void OnBodyEntered(Node2D body) {
 		if (body is Player) {
 			EmitSignal(SignalName.PortalEntered, Target);
 		}
 	}
 
-	/// <summary>
-	/// OnBodyExited is called when the portal is exited by a body.
-	/// </summary>
-	/// <param name="body">Body that exits the portal.</param>
-	public void OnBodyExited(Node2D body) {
+	// Runs when another body exits the portal
+	private void OnBodyExited(Node2D body) {
 		if (body is Player) {
 			EmitSignal(SignalName.PortalExited);
 		}

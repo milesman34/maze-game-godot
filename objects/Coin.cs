@@ -6,22 +6,15 @@ using System;
 /// </summary>
 public partial class Coin : Area2D
 {
-	/// <summary>
-	/// Color to paint the coin with
-	/// </summary>
+	// Color to paint the coin with
 	[Export]
 	public Color CoinColor { get; set; }
 
-	/// <summary>
-	/// Value of the coin, meaning how many points you get for collecting it
-	/// </summary>
+	// Value of the coin, meaning how many points you get for collecting it
 	[Export]
 	public int Value { get; set; } = 1;
 
-	/// <summary>
-	/// Coins emit this signal when collected
-	/// </summary>
-	/// <param name="value">Value of the coin</param>
+	// Coin collection signal
 	[Signal]
 	public delegate void CollectCoinEventHandler(int value);
 
@@ -38,11 +31,8 @@ public partial class Coin : Area2D
 	{
 	}
 
-	/// <summary>
-	/// This function runs when another RigidBody2D enters the coin's area. It detects if that body is the Player and removes the coin if it is.
-	/// </summary>
-	/// <param name="body">The RigidBody2D entering the coin's area</param>
-	public void OnBodyEntered(RigidBody2D body) {
+	// Runs when another body enters the coin
+	private void OnBodyEntered(RigidBody2D body) {
 		if (body is Player) {
 			// Get rid of this coin object
 			Hide();

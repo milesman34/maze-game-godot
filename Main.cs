@@ -6,30 +6,20 @@ using System;
 /// </summary>
 public partial class Main : Node2D
 {
-	/// <summary>
-	/// Scene for the level, to be instantiated later
-	/// </summary>
+	// Scene for the level, to be instantiated later
 	[Export]
 	public PackedScene LevelScene { get; set; }
 
-	/// <summary>
-	/// Reference to the game viewport, this is set during _Ready()
-	/// </summary>
+	// Reference to the game viewport
 	public SubViewport gameViewport;
 
-	/// <summary>
-	/// Reference to the current instantiated level.
-	/// </summary>
+	// Reference to the current instantiated level
 	private Level level;
 	
-	/// <summary>
-	/// Reference to the GUI object.
-	/// </summary>
+	// Reference to the GUI object
 	private GUI GUI;
 
-	/// <summary>
-	/// Reference to the GameContainerOffset object, for offsetting the position of the GameContainer.
-	/// </summary>
+	// Reference to the GameContainerOffset object, for offsetting the position of the GameContainer
 	private Node2D gameContainerOffset;
 
 	// Called when the node enters the scene tree for the first time.
@@ -58,9 +48,7 @@ public partial class Main : Node2D
 		GetTree().Root.SizeChanged += SetupViewportPositionSize;
 	}
 
-	/// <summary>
-	/// Sets up the correct size and position for the main game viewport. There is a 32-pixel gap on the top and bottom.
-	/// </summary>
+	// Sets up the correct size and position for the main game viewport. There is a 32-pixel gap on the top and bottom.
 	private void SetupViewportPositionSize() {
 		var mainViewportSize = GetViewportRect().Size;
 	

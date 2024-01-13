@@ -6,13 +6,11 @@ using System;
 /// </summary>
 public partial class Player : RigidBody2D
 {
-	/// <summary>
-	/// Current speed of the player in pixels per second
-	/// </summary>
+	// Current speed of the player in pixels per second
 	[Export]
 	public int Speed { get; set; } = 32;
 
-	// Did the player just teleport?
+	// Did the player just teleport? This is used to prevent teleport loops with portals.
 	public bool justTeleported = false;
 
 	// Called when the node enters the scene tree for the first time.

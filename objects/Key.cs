@@ -24,11 +24,8 @@ public partial class Key : Area2D
 	{
 	}
 
-	/// <summary>
-	/// OnBodyEntered runs when a body enters the object. If that body is the player, then it hides the key and emits a signal.
-	/// </summary>
-	/// <param name="body"></param>
-	public void OnBodyEntered(RigidBody2D body) {
+	// Runs when another body enters the key
+	private void OnBodyEntered(RigidBody2D body) {
 		if (body is Player) {
 			// Get rid of this key object
 			Hide();

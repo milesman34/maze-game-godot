@@ -6,53 +6,33 @@ using System;
 /// </summary>
 public partial class CameraZone : Area2D
 {
-	/// <summary>
-	/// Current ID to be given to a CameraZone. These are unique!
-	/// </summary>
-	static int currentID;
+	// Current unique ID to be given to a camera zone
+	private static int currentID;
 
-	/// <summary>
-	/// The ID that the CameraZone has.
-	/// </summary>
+	// ID of this camera zone
 	public int ID;
 
-	/// <summary>
-	/// The position of the CameraZone in units.
-	/// </summary>
+	// Position of the camera zone in units
 	[Export]
 	public Vector2 StartPosition {get; set; }
 
-	/// <summary>
-	/// The size of the CameraZone in units.
-	/// </summary>
+	// Size of the camera zone in units
 	[Export]
 	public Vector2 Size { get; set; }
 
-	/// <summary>
-	/// The CameraZoneEntered signal is sent to the level when this camera zone is entered by the player.
-	/// </summary>
-	/// <param name="ID">This CameraZone's ID</param>
+	// Signal for when the player enters a camera zone
 	[Signal]
 	public delegate void CameraZoneEnteredEventHandler(int ID);
 
-	/// <summary>
-	/// The CameraZoneExited signal is sent to the level when this camera zone is exited by the player.
-	/// </summary>
-	/// <param name="ID">This CameraZone's ID</param>
+	// Signal for when the player exits a camera zone
 	[Signal]
 	public delegate void CameraZoneExitedEventHandler(int ID);
 
-	/// <summary>
-	/// The CameraZoneUpdate signal is sent to the level when the camera zone's size is updated due to the window size or viewport size changing.
-	/// It tells the level to update the camera.
-	/// </summary>
-	/// <param name="ID">This CameraZone's ID</param>
+	// Signal for when the viewport size is updated
 	[Signal]
 	public delegate void CameraZoneUpdateEventHandler(int ID);
 
-	/// <summary>
-	/// Reference to the camera zone's background, instantiated during _Ready()
-	/// </summary>
+	// Reference to the camera zone's background
 	public ColorRect background;
 
 	// Called when the node enters the scene tree for the first time.
@@ -80,9 +60,7 @@ public partial class CameraZone : Area2D
 		CallDeferred(MethodName.UpdateBackgroundSizeAndPosition);
 	}
 
-	/// <summary>
-	/// Updates the background's size and position. This is separated into a new function so that it can be deferred.
-	/// </summary>
+	// Updates the background's size and position. This is separated into a new function so that it can be deferred.
 	private void UpdateBackgroundSizeAndPosition() {
 		// Seems we just needed to have it relative, based on the background size
 		background.Size = Size * Constants.TileSize;
@@ -94,10 +72,7 @@ public partial class CameraZone : Area2D
 	{
 	}
 
-	/// <summary>
-	/// Calculates the effective zoom level, based on the viewport size. The zoom level is the same for both axes.
-	/// </summary>
-	/// <returns>The zoom level to use for the camera.</returns>
+	// Calculates the effective zoom level, based on the viewport size. The zoom level is the same for both axes.
     private float GetEffectiveZoom() {
 		var viewportSize = GetViewportRect().Size;
 
@@ -130,37 +105,26 @@ public partial class CameraZone : Area2D
         return new Vector2(zoom, zoom);
 	}
 
-	/// <summary>
-	/// OnWindowResize runs whenever the window resizes. It emits a signal to update the camera zone.
-	/// </summary>
+	// Runs whenever the window resizes
     public void OnWindowResize() {
         EmitSignal(SignalName.CameraZoneUpdate, ID);
     }
 
-	/// <summary>
-	/// OnBodyEntered runs whenever another body enters the CameraZone. It emits the signal that the zone was entered.
-	/// </summary>
-	/// <param name="body">Body that entered the zone</param>
-	public void OnBodyEntered(Node2D body) {
+	// Runs whenever another body enters the camera zone
+	private void OnBodyEntered(Node2D body) {
 		if (body is Player) {
 			EmitSignal(SignalName.CameraZoneEntered, ID);
 		}
 	}
 
-	/// <summary>
-	/// OnBodyExited runs whenever another body exits the CameraZone. It emits the signal that the zone was exited.
-	/// </summary>
-	/// <param name="body">Body that exited the zone</param>
-	public void OnBodyExited(Node2D body) {
+	// Runs whenever another body exits the camera zone
+	private void OnBodyExited(Node2D body) {
 		if (body is Player) {
 			EmitSignal(SignalName.CameraZoneExited, ID);
 		}
 	}
 
-	/// <summary>
-	/// Sets the background color to a new color.
-	/// </summary>
-	/// <param name="color">New background color</param>
+	// Sets the background color
 	public void SetBackgroundColor(Color color) {
 		background.Color = color;
 	}
