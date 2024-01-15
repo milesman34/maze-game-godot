@@ -20,3 +20,8 @@ texture = ExtResource("1_h0m7e")
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_25e08")
+
+[node name="InvincibilityTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[connection signal="timeout" from="InvincibilityTimer" to="." method="OnInvincibilityTimerTimeout"]

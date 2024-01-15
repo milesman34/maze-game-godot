@@ -14,11 +14,15 @@ public partial class GUI : CanvasLayer
 	// Reference to the score label object, set during _Ready()
 	private Label scoreLabel;
 
+	// Reference to the deaths label object
+	private Label deathsLabel;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		// Set some references
-		scoreLabel = GetNode<Control>("Header").GetNode<Label>("ScoreLabel");
+		scoreLabel = GetNode<Label>("%ScoreLabel");
+		deathsLabel = GetNode<Label>("%DeathsLabel");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -29,5 +33,10 @@ public partial class GUI : CanvasLayer
 	// Sets the contents of the score display in the GUI.
 	public void SetScore(int score) {
 		scoreLabel.Text = string.Format("Score: {0}", score);
+	}
+
+	// Sets the contents of the deaths display in the GUI.
+	public void SetDeaths(int deaths) {
+		deathsLabel.Text = string.Format("Deaths: {0}", deaths);
 	}
 }

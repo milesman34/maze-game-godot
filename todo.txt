@@ -1,3 +1,7 @@
-Maybe I could add markers as a sort of decoration.
+I really need to add some sort of obstacles that can hurt the player.
+This will make the game more interesting by requiring some aspect of precision, since right now you can only do so much with level design.
+Maybe something to shoot projectiles or something like firebars idk.
 
-I should try to figure out a way to compose the positioning feature.
+I need to figure out what collectibles should be saved when you die. Maybe coins could be saved, but not keys.
+
+Maybe for these types of objects I could have them save their previous state

@@ -38,7 +38,7 @@ public partial class Main : Node2D
 		// So I had to use three steps
 		gameContainerOffset = GetNode<Node2D>("GameContainerOffset");
 
-		gameViewport = gameContainerOffset.GetNode<SubViewportContainer>("GameContainer").GetNode<SubViewport>("Viewport");
+		gameViewport = GetNode<SubViewport>("%GameViewport");
 
 		gameViewport.AddChild(level);
 

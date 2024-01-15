@@ -15,6 +15,9 @@ public partial class Level : Node2D
     // The player's current score
     public int score = 0;
 
+    // The player's current number of deaths
+    public int deaths = 0;
+
     // Reference to the current camera
     private Camera2D camera;
 
@@ -44,12 +47,24 @@ public partial class Level : Node2D
     [Signal]
     public delegate void SetScoreEventHandler(int score);
 
+    // Signal that updates the game's number of deaths
+    [Signal]
+    public delegate void SetDeathsEventHandler(int deaths);
+
     // Signal that runs when a key is collected, to send this message to the locks
     [Signal]
     public delegate void CollectKeyEventHandler(Color color);
 
-    // Track what keys have been collected
-    private Dictionary<Color, int> collectedKeys;
+    // Signal that is emitted when the player is hit
+    [Signal]
+    public delegate void PlayerHitEventHandler();
+
+    // Signal that is emitted when the player reaches a checkpoint
+    [Signal]
+    public delegate void CheckpointHitEventHandler();
+
+    // Tracks the most recent checkpoint the player has reached (checkpoints are whenever the player enters/exits a room, or can be defined manually)
+    private Vector2 checkpoint;
 
     /// <summary>
     /// InstantiateLevelScene creates a new level instance from the provided LevelScene which has the needed reference to the main game.
@@ -64,6 +79,7 @@ public partial class Level : Node2D
 
 		// Set some signals for the GUI
 		level.SetScore += gui.SetScore;
+        level.SetDeaths += gui.SetDeaths;
 
         return level;
     }
@@ -72,9 +88,6 @@ public partial class Level : Node2D
     {
         // Instantiate the camera zones dictionary
         cameraZones = new Dictionary<int, CameraZone>();
-
-        // Instantiate the keys dictionary
-        collectedKeys = new Dictionary<Color, int>();
 
         // The TileMap won't have all the elements as children immediately, so the call needs to be deferred
         CallDeferred(MethodName.AttachSignals);
@@ -86,6 +99,11 @@ public partial class Level : Node2D
 		player = GetNode<Player>("Player");
 
 		player.Position = GetStartingPosition();
+
+        player.PlayerHit += OnPlayerHit;
+
+        // Set the starting checkpoint
+        checkpoint = player.Position;
 
         // Set other references
         background = GetNode<ColorRect>("Background");
@@ -108,9 +126,15 @@ public partial class Level : Node2D
                 portal.PortalEntered += OnPortalEntered;
                 portal.PortalExited += OnPortalExited;
             } else if (node is Key) {
-                (node as Key).CollectKey += OnKeyCollected;
+                var key = node as Key;
+                key.CollectKey += OnKeyCollected;
+                PlayerHit += key.OnPlayerHit;
+                CheckpointHit += key.OnCheckpointHit;
             } else if (node is Lock) {
-                CollectKey += (node as Lock).OnKeyCollected;
+                var lockNode = node as Lock;
+                CollectKey += lockNode.OnKeyCollected;
+                PlayerHit += lockNode.OnPlayerHit;
+                CheckpointHit += lockNode.OnCheckpointHit;
             }
         }
     }
@@ -124,6 +148,12 @@ public partial class Level : Node2D
                 (node as Coin).CollectCoin += OnAddScore;
             } else if (node is EndPortal) {
                 (node as EndPortal).LevelEnd += OnLevelEnd;
+            } else if (node is Lava) {
+                (node as Lava).HitPlayer += OnPlayerHit;
+            } else if (node is Checkpoint) {
+                (node as Checkpoint).ReachedCheckpoint += () => {
+                    UpdateCheckpoint(player.Position);
+                };
             }
         }
 
@@ -187,6 +217,9 @@ public partial class Level : Node2D
         if (ID == cameraZoneID && previousCameraZoneID != null && !levelFinished) {
             SwitchToCameraZone((int) previousCameraZoneID);
         }
+        
+        // Update player checkpoint
+        UpdateCheckpoint(player.Position);
     }
 
     // Switches to the camera zone with the given ID
@@ -222,8 +255,8 @@ public partial class Level : Node2D
     // Runs when a portal is entered by the player
     private void OnPortalEntered(Vector2 target) {
         // If the player just teleported here then they are safe from further teleportation until they leave the portal
-        if (!player.justTeleported) {
-            player.justTeleported = true;
+        if (!player.invincibilityFramesActive) {
+            player.EnableInvincibilityFrames();
 
             // We need to update the GlobalPosition directly
             // It seems the regular Position is updated in the physics process
@@ -235,15 +268,33 @@ public partial class Level : Node2D
     
     // Runs when a portal is exited by the player
     private void OnPortalExited() {
-        player.justTeleported = false;
+        player.DisableInvincibilityFrames();
     }
 
     // Runs when a key is collected by the player
     private void OnKeyCollected(Color color) {
-        // Add to the number of keys
-        collectedKeys[color] = collectedKeys.GetValueOrDefault(color, 0) + 1;
-
         // Propogate the signal to any locks
         EmitSignal(SignalName.CollectKey, color);
+    }
+
+    // Runs when the player is hit by an obstacle
+    private void OnPlayerHit() {
+        // This prevents deaths from being double-counted if the player hit two obstacles at once
+        // Since the death teleports them back to the checkpoint, if they are already there then they had already been teleported
+        if (player.Position != checkpoint) {
+            player.EnableInvincibilityFrames();
+            player.Position = checkpoint;
+
+            deaths++;
+
+            EmitSignal(SignalName.SetDeaths, deaths);
+            EmitSignal(SignalName.PlayerHit);
+        }
+    }
+
+    // Updates the checkpoint to the new position
+    private void UpdateCheckpoint(Vector2 position) {
+        checkpoint = position;
+        EmitSignal(SignalName.CheckpointHit);
     }
 }

@@ -3,6 +3,16 @@ using System;
 
 public partial class Lock : RigidBody2D
 {
+	private class LockState {
+		public int keysRemaining;
+		public bool enabled;
+
+		public LockState(int remaining, bool enabled = true) {
+			keysRemaining = remaining;
+			this.enabled = enabled;
+		}
+	}
+
 	// Texture to display for the wall
 	[Export]
 	public Texture2D WallTexture { get; set; }
@@ -21,6 +31,10 @@ public partial class Lock : RigidBody2D
 	// Stored reference to the label for the number of remaining keys.
 	private Label amountLabel;
 
+	// Current/saved states
+	private LockState currentState;
+	private LockState savedState;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -38,6 +52,10 @@ public partial class Lock : RigidBody2D
 		// Set lock color
 		GetNode<Sprite2D>("LockSprite").Modulate = Color;
 
+		// Set up the states
+		currentState = new LockState(NumKeysRequired);
+		savedState = new LockState(NumKeysRequired);
+
 		SetNumKeysRemaining(NumKeysRequired);
 	}
 
@@ -54,6 +72,7 @@ public partial class Lock : RigidBody2D
 
 			if (numKeysRemaining == 0) {
 				Hide();
+				currentState.enabled = false;
 
 				GetNode<CollisionShape2D>("CollisionShape").SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 			}
@@ -64,5 +83,24 @@ public partial class Lock : RigidBody2D
 	private void SetNumKeysRemaining(int keys) {
 		numKeysRemaining = keys;
 		amountLabel.Text = keys.ToString();
+		currentState.keysRemaining = keys;
+	}
+
+	// Runs when the player is hit
+	public void OnPlayerHit() {
+		SetNumKeysRemaining(savedState.keysRemaining);
+
+		// If the lock was disabled but not in the saved state, we need to re-enable it
+		if (savedState.enabled && !currentState.enabled) {
+			currentState.enabled = true;
+			Show();
+
+			GetNode<CollisionShape2D>("CollisionShape").SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
+		}
+	}
+
+	// Runs when a checkpoint is hit
+	public void OnCheckpointHit() {
+		savedState = new LockState(currentState.keysRemaining, currentState.enabled);
 	}
 }
