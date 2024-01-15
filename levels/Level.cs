@@ -148,8 +148,6 @@ public partial class Level : Node2D
                 (node as Coin).CollectCoin += OnAddScore;
             } else if (node is EndPortal) {
                 (node as EndPortal).LevelEnd += OnLevelEnd;
-            } else if (node is Lava) {
-                (node as Lava).HitPlayer += OnPlayerHit;
             } else if (node is Checkpoint) {
                 (node as Checkpoint).ReachedCheckpoint += () => {
                     UpdateCheckpoint(player.Position);

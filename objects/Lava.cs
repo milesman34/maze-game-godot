@@ -3,10 +3,6 @@ using System;
 
 public partial class Lava : RigidBody2D
 {
-	// Signal for the player touching the lava
-	[Signal]
-	public delegate void HitPlayerEventHandler();
-
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
