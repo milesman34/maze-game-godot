@@ -4,7 +4,7 @@ using System;
 /// <summary>
 /// Keys help you unlock various Locks in the level.
 /// </summary>
-public partial class Key : Area2D
+public partial class Key : Area2D, IGameObject
 {
 	[Export]
 	public Color Color { get; set; }
@@ -56,5 +56,11 @@ public partial class Key : Area2D
 	// Runs when a checkpoint is hit
 	public void OnCheckpointHit() {
 		savedCollected = currentCollected;
+	}
+
+	public void AttachSignals(Level level) {
+        CollectKey += level.OnKeyCollected;
+        level.PlayerHit += OnPlayerHit;
+        level.CheckpointHit += OnCheckpointHit;
 	}
 }

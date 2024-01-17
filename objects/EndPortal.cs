@@ -4,7 +4,7 @@ using System;
 /// <summary>
 /// EndPortals mark the end of a level.
 /// </summary>
-public partial class EndPortal : Area2D
+public partial class EndPortal : Area2D, IGameObject
 {
 	// Level end signal
 	[Signal]
@@ -27,5 +27,9 @@ public partial class EndPortal : Area2D
 		if (body is Player) {
 			EmitSignal(SignalName.LevelEnd);
 		}
+	}
+
+	public void AttachSignals(Level level) {
+		LevelEnd += level.OnLevelEnd;
 	}
 }

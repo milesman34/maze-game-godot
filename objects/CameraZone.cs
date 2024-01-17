@@ -4,7 +4,7 @@ using System;
 /// <summary>
 /// CameraZones manage a section of the camera, creating the appearance of a room in the level.
 /// </summary>
-public partial class CameraZone : Area2D
+public partial class CameraZone : Area2D, IGameObject
 {
 	// Current unique ID to be given to a camera zone
 	private static int currentID;
@@ -127,5 +127,20 @@ public partial class CameraZone : Area2D
 	// Sets the background color
 	public void SetBackgroundColor(Color color) {
 		background.Color = color;
+	}
+
+	public void AttachSignals(Level level) {
+		// Set the CameraZone in the dictionary
+		level.SetCameraZone(ID, this);
+
+        // Signals for entering/exiting the camera zone
+        CameraZoneEntered += level.OnCameraZoneEntered;
+        CameraZoneExited += level.OnCameraZoneExited;
+
+        // Signals for updating the camera zone
+        CameraZoneUpdate += level.OnCameraZoneUpdate;
+
+        // Also attach the signal for the game viewport changing size
+        level.mainGame.gameViewport.SizeChanged += OnWindowResize;
 	}
 }

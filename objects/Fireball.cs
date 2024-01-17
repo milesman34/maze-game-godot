@@ -1,10 +1,11 @@
 using Godot;
 using System;
 
-public partial class Checkpoint : Area2D, IGameObject
-{
+public partial class Fireball : Area2D, IGameObject
+{	
+	// Signal called when the fireball hits the player
 	[Signal]
-	public delegate void ReachedCheckpointEventHandler();
+	public delegate void PlayerHitEventHandler();
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -18,11 +19,11 @@ public partial class Checkpoint : Area2D, IGameObject
 
 	private void OnBodyEntered(RigidBody2D body) {
 		if (body is Player) {
-			EmitSignal(SignalName.ReachedCheckpoint);
+			EmitSignal(SignalName.PlayerHit);
 		}
 	}
 
 	public void AttachSignals(Level level) {
-		ReachedCheckpoint += level.OnReachedCheckpoint;
+		PlayerHit += level.OnPlayerHit;
 	}
 }

@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Lock : RigidBody2D
+public partial class Lock : RigidBody2D, IGameObject
 {
 	private class LockState {
 		public int keysRemaining;
@@ -102,5 +102,11 @@ public partial class Lock : RigidBody2D
 	// Runs when a checkpoint is hit
 	public void OnCheckpointHit() {
 		savedState = new LockState(currentState.keysRemaining, currentState.enabled);
+	}
+
+	public void AttachSignals(Level level) {
+        level.CollectKey += OnKeyCollected;
+        level.PlayerHit += OnPlayerHit;
+        level.CheckpointHit += OnCheckpointHit;
 	}
 }

@@ -120,21 +120,8 @@ public partial class Level : Node2D
             // We check the class name specifically for Node, since other classes subclass Node
             if (node.GetClass() == "Node") {
                 AttachSignalsForObjectsNode(node);
-            } else if (node is Portal) {
-                var portal = node as Portal;
-
-                portal.PortalEntered += OnPortalEntered;
-                portal.PortalExited += OnPortalExited;
-            } else if (node is Key) {
-                var key = node as Key;
-                key.CollectKey += OnKeyCollected;
-                PlayerHit += key.OnPlayerHit;
-                CheckpointHit += key.OnCheckpointHit;
-            } else if (node is Lock) {
-                var lockNode = node as Lock;
-                CollectKey += lockNode.OnKeyCollected;
-                PlayerHit += lockNode.OnPlayerHit;
-                CheckpointHit += lockNode.OnCheckpointHit;
+            } else if (node is IGameObject) {
+                (node as IGameObject).AttachSignals(this);
             }
         }
     }
@@ -144,14 +131,8 @@ public partial class Level : Node2D
         var tileMap = GetNode<TileMap>("TileMap");
 
         foreach (var node in tileMap.GetChildren()) {
-            if (node is Coin) {
-                (node as Coin).CollectCoin += OnAddScore;
-            } else if (node is EndPortal) {
-                (node as EndPortal).LevelEnd += OnLevelEnd;
-            } else if (node is Checkpoint) {
-                (node as Checkpoint).ReachedCheckpoint += () => {
-                    UpdateCheckpoint(player.Position);
-                };
+            if (node is IGameObject) {
+                (node as IGameObject).AttachSignals(this);
             }
         }
 
@@ -159,24 +140,7 @@ public partial class Level : Node2D
         var zonesNode = GetNode<Node>("CameraZones");
 
         foreach(var node in zonesNode.GetChildren()) {
-            var cameraZone = node as CameraZone;
-
-            // Set the CameraZone in the dictionary
-            cameraZones[cameraZone.ID] = cameraZone;
-
-            // Signals for entering/exiting the camera zone
-            cameraZone.CameraZoneEntered += OnCameraZoneEntered;
-            cameraZone.CameraZoneExited += OnCameraZoneExited;
-
-            // Signals for updating the camera zone
-            cameraZone.CameraZoneUpdate += ID => {
-                if (ID == cameraZoneID) {
-                    UpdateCamera(ID);
-                }
-            };
-
-            // Also attach the signal for the game viewport changing size
-            mainGame.gameViewport.SizeChanged += cameraZone.OnWindowResize;
+            (node as CameraZone).AttachSignals(this);
         }
 
         // Now attach the signals from the other objects
@@ -186,7 +150,7 @@ public partial class Level : Node2D
     }
 
     // Runs when a coin emits a CollectCoin signal
-    private void OnAddScore(int value) {
+    public void OnAddScore(int value) {
         score += value;
         EmitSignal(SignalName.SetScore, score);
     }
@@ -201,13 +165,13 @@ public partial class Level : Node2D
     }
 
     // Runs when a camera zone is entered by the player
-    private void OnCameraZoneEntered(int ID) {
+    public void OnCameraZoneEntered(int ID) {
         previousCameraZoneID = cameraZoneID;
         SwitchToCameraZone(ID);
     }
 
     // Runs when a camera zone is exited by the player
-    private void OnCameraZoneExited(int ID) {
+    public void OnCameraZoneExited(int ID) {
         // Check if the room we are exiting is the previous one we were in
         // If it is, then we need to switch back to that room as we are no longer in the current room
         // This switch is done manually, as we never fully left the collision area for the original room
@@ -220,8 +184,15 @@ public partial class Level : Node2D
         UpdateCheckpoint(player.Position);
     }
 
+    // Runs when a camera zone is updated
+    public void OnCameraZoneUpdate(int ID) {
+        if (ID == cameraZoneID) {
+            UpdateCamera(ID);
+        }
+    }
+
     // Switches to the camera zone with the given ID
-    private void SwitchToCameraZone(int ID) {
+    public void SwitchToCameraZone(int ID) {
         // We need to update the background color to hide rooms the player is not in
         if (cameraZoneID is not null) { // The cameraID is set to -1 upon loading, so check if the key exists
             cameraZones[(int) cameraZoneID].SetBackgroundColor(new Color(0, 0, 0));
@@ -251,7 +222,7 @@ public partial class Level : Node2D
     }
 
     // Runs when a portal is entered by the player
-    private void OnPortalEntered(Vector2 target) {
+    public void OnPortalEntered(Vector2 target) {
         // If the player just teleported here then they are safe from further teleportation until they leave the portal
         if (!player.invincibilityFramesActive) {
             player.EnableInvincibilityFrames();
@@ -265,18 +236,18 @@ public partial class Level : Node2D
 
     
     // Runs when a portal is exited by the player
-    private void OnPortalExited() {
+    public void OnPortalExited() {
         player.DisableInvincibilityFrames();
     }
 
     // Runs when a key is collected by the player
-    private void OnKeyCollected(Color color) {
+    public void OnKeyCollected(Color color) {
         // Propogate the signal to any locks
         EmitSignal(SignalName.CollectKey, color);
     }
 
     // Runs when the player is hit by an obstacle
-    private void OnPlayerHit() {
+    public void OnPlayerHit() {
         // This prevents deaths from being double-counted if the player hit two obstacles at once
         // Since the death teleports them back to the checkpoint, if they are already there then they had already been teleported
         if (player.Position != checkpoint) {
@@ -291,8 +262,18 @@ public partial class Level : Node2D
     }
 
     // Updates the checkpoint to the new position
-    private void UpdateCheckpoint(Vector2 position) {
+    public void UpdateCheckpoint(Vector2 position) {
         checkpoint = position;
         EmitSignal(SignalName.CheckpointHit);
+    }
+
+    // Runs when a checkpoint is reached
+    public void OnReachedCheckpoint() {
+        UpdateCheckpoint(player.Position);
+    }
+
+    // Sets the camera zone at a given ID
+    public void SetCameraZone(int ID, CameraZone zone) {
+        cameraZones[ID] = zone;
     }
 }

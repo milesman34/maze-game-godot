@@ -4,7 +4,7 @@ using System;
 /// <summary>
 /// Portals let the player teleport to a new location upon hitting them.
 /// </summary>
-public partial class Portal : Area2D
+public partial class Portal : Area2D, IGameObject
 {
 	// Color of the portal
 	[Export]
@@ -47,5 +47,10 @@ public partial class Portal : Area2D
 		if (body is Player) {
 			EmitSignal(SignalName.PortalExited);
 		}
+	}
+
+	public void AttachSignals(Level level) {
+        PortalEntered += level.OnPortalEntered;
+        PortalExited += level.OnPortalExited;
 	}
 }

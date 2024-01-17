@@ -4,7 +4,7 @@ using System;
 /// <summary>
 /// Coins are collectible objects which increase the player's score. They can be customized with a color and a value.
 /// </summary>
-public partial class Coin : Area2D
+public partial class Coin : Area2D, IGameObject
 {
 	// Color to paint the coin with
 	[Export]
@@ -42,5 +42,9 @@ public partial class Coin : Area2D
 			// Emit the signal
 			EmitSignal(SignalName.CollectCoin, Value);
 		}
+	}
+
+	public void AttachSignals(Level level) {
+		CollectCoin += level.OnAddScore;
 	}
 }
