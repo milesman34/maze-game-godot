@@ -14,7 +14,7 @@ layer_0/tile_data = PackedInt32Array(0, 1, 65536, 1, 1, 65536, 2, 1, 65536, 3, 1
 [node name="Firebar" parent="Objects" index="0" instance=ExtResource("2_qwelp")]
 position = Vector2(304, 269)
 RotationSpeed = -45
-FireballCount = 15
+FireballCount = 100
 FireballOffset = 0
 FireballSize = 16
 

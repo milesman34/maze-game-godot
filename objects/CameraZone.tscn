@@ -8,7 +8,33 @@
 collision_layer = 0
 script = ExtResource("1_u05lj")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="BackgroundContainer" type="Node2D" parent="."]
+
+[node name="BackgroundLeft" type="ColorRect" parent="BackgroundContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="BackgroundRight" type="ColorRect" parent="BackgroundContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="BackgroundTop" type="ColorRect" parent="BackgroundContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="BackgroundBottom" type="ColorRect" parent="BackgroundContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

@@ -195,22 +195,22 @@ public partial class Level : Node2D
     public void SwitchToCameraZone(int ID) {
         // We need to update the background color to hide rooms the player is not in
         if (cameraZoneID is not null) { // The cameraID is set to -1 upon loading, so check if the key exists
-            cameraZones[(int) cameraZoneID].SetBackgroundColor(new Color(0, 0, 0));
+            cameraZones[(int) cameraZoneID].SetSurroundingVisibility(false);
         }
 
         cameraZoneID = ID;
 
         // Update the background color of the new camera zone
-        cameraZones[ID].SetBackgroundColor(new Color(0, 0, 0, 0.0f));
+        cameraZones[ID].SetSurroundingVisibility(true);
 
         // Update the camera
         UpdateCamera(ID);
 
         // Update background for the level itself
-        background.Size = cameraZones[ID].background.Size;
+        background.Size = cameraZones[ID].GetCameraZoneSize();
 
         // Add the two positions together since the background object's position is relative to the camera zone
-        background.Position = cameraZones[ID].background.Position + cameraZones[ID].Position;
+        background.Position = cameraZones[ID].GetCameraZonePosition() + cameraZones[ID].Position;
     }
 
     // Updates the camera to have the position/zoom provided from the current CameraZone
