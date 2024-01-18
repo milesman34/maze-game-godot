@@ -1,7 +1,5 @@
 using Godot;
-using System;
 using System.Collections.Generic;
-using System.Threading;
 
 /// <summary>
 /// Levels handle a level, with all the objects and data needed to make the level playable.
@@ -42,6 +40,9 @@ public partial class Level : Node2D
     
     /// Reference to the level background
     private ColorRect background;
+
+    // Did the player die recently? (last 50 ms)
+    private bool recentDeath = false;
 
     // Signal that updates the game's current score
     [Signal]
@@ -250,11 +251,20 @@ public partial class Level : Node2D
     public void OnPlayerHit() {
         // This prevents deaths from being double-counted if the player hit two obstacles at once
         // Since the death teleports them back to the checkpoint, if they are already there then they had already been teleported
-        if (player.Position != checkpoint) {
-            player.EnableInvincibilityFrames();
-            player.Position = checkpoint;
-
+        // Hmm, how do I deal with this? Maybe I can add a timer after each death
+        if (!recentDeath) {
             deaths++;
+
+            recentDeath = true;
+
+            var timer = GetTree().CreateTimer(0.05);
+            timer.Timeout += () => {
+                recentDeath = false;
+            };
+
+            player.EnableInvincibilityFrames();
+
+            player.Position = checkpoint;
 
             EmitSignal(SignalName.SetDeaths, deaths);
             EmitSignal(SignalName.PlayerHit);

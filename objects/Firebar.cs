@@ -57,11 +57,15 @@ public partial class Firebar : Node2D, IGameObject
     {
         foreach (var node in GetChildren()) {
 			if (node is RotatingFireball) {
-				(node as RotatingFireball).PlayerHit += () => EmitSignal(SignalName.PlayerHit);
+				(node as RotatingFireball).PlayerHit += () => {
+					EmitSignal(SignalName.PlayerHit);
+				};
 			}
 		}
 
-		PlayerHit += level.OnPlayerHit;
+		PlayerHit += () => {
+			level.OnPlayerHit();
+		};
     }
 
 }

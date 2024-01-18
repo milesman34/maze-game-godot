@@ -17,6 +17,9 @@ public partial class Player : RigidBody2D
 	// Reference to the invincibility timer
 	private Timer invincibilityTimer;
 
+	// Reference to the collision shape
+	public CollisionShape2D collisionShape;
+
 	// Signal emitted when the player is hit
 	[Signal]
 	public delegate void PlayerHitEventHandler();
@@ -26,6 +29,9 @@ public partial class Player : RigidBody2D
 	{
 		// Get reference to timer
 		invincibilityTimer = GetNode<Timer>("InvincibilityTimer");
+		
+		// Get reference to the collision shape
+		collisionShape = GetNode<CollisionShape2D>("CollisionShape");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
