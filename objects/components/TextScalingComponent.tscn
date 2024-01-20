@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3pkk7udy580t"]
+
+[ext_resource type="Script" path="res://objects/components/TextScalingComponent.cs" id="1_nfthf"]
+
+[node name="TextScalingComponent" type="Node"]
+script = ExtResource("1_nfthf")

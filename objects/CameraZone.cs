@@ -151,18 +151,18 @@ public partial class CameraZone : Area2D, IGameObject
 	// Runs whenever another body enters the camera zone
 	private void OnBodyEntered(Node2D body) {
 		if (body is Player) {
-			EmitSignal(SignalName.CameraZoneEntered, ID);
-
 			SetSurroundingVisibility(true);
+
+			EmitSignal(SignalName.CameraZoneEntered, ID);
 		}
 	}
 
 	// Runs whenever another body exits the camera zone
 	private void OnBodyExited(Node2D body) {
 		if (body is Player) {
-			EmitSignal(SignalName.CameraZoneExited, ID);
-
 			SetSurroundingVisibility(false);
+			
+			EmitSignal(SignalName.CameraZoneExited, ID);
 		}
 	}
 

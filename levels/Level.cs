@@ -10,6 +10,9 @@ public partial class Level : Node2D
     [Export]
     private Vector2 StartPosition { get; set; }
 
+    // The priority of the player's start position (the default one is -9999)
+    private int startPosPriority = -9999;
+
     // The player's current score
     public int score = 0;
 
@@ -179,6 +182,9 @@ public partial class Level : Node2D
         // We also don't want to switch camera zones when the level is finished
         if (ID == cameraZoneID && previousCameraZoneID != null && !levelFinished) {
             SwitchToCameraZone((int) previousCameraZoneID);
+        } else if (levelFinished) {
+            // Re-hide the surrounding area
+            cameraZones[ID].SetSurroundingVisibility(true);
         }
         
         // Update player checkpoint
@@ -249,8 +255,6 @@ public partial class Level : Node2D
 
     // Runs when the player is hit by an obstacle
     public void OnPlayerHit() {
-        // This prevents deaths from being double-counted if the player hit two obstacles at once
-        // Since the death teleports them back to the checkpoint, if they are already there then they had already been teleported
         // Hmm, how do I deal with this? Maybe I can add a timer after each death
         if (!recentDeath) {
             deaths++;
@@ -285,5 +289,15 @@ public partial class Level : Node2D
     // Sets the camera zone at a given ID
     public void SetCameraZone(int ID, CameraZone zone) {
         cameraZones[ID] = zone;
+    }
+
+    // Attempts to register a StartPosition
+    public void RegisterStartPosition(StartPosition startPosObject) {
+        if (startPosObject.Priority > startPosPriority) {
+            // Update the position
+            // It should be fine as long as the level creator doesn't do something stupid like putting a start position somewhere where the player immediately dies
+            player.Position = startPosObject.Position;
+            startPosPriority = startPosObject.Priority;
+        } 
     }
 }
