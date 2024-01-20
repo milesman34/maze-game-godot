@@ -1,7 +1,4 @@
-I really need to add some sort of obstacles that can hurt the player.
-This will make the game more interesting by requiring some aspect of precision, since right now you can only do so much with level design.
-Maybe something to shoot projectiles or something like firebars idk.
-
-I need to figure out what collectibles should be saved when you die. Maybe coins could be saved, but not keys.
-
-Maybe for these types of objects I could have them save their previous state
+Level browser (so an actual game GUI, store best scores/deaths)
+Something that shoots projectiles that harm the player
+Conveyor belts that apply a static force to the player in a direction
+Ice that makes the player keep moving in a direction after moving (idk)

@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=10 format=3 uid="uid://oxfym1yol48n"]
+[gd_resource type="TileSet" load_steps=11 format=3 uid="uid://oxfym1yol48n"]
 
 [ext_resource type="PackedScene" uid="uid://gam4thun3xjv" path="res://objects/Wall.tscn" id="1_vd2h4"]
 [ext_resource type="PackedScene" uid="uid://celw7o6luelqx" path="res://objects/EndPortal.tscn" id="2_2cyrq"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://sh6xfaxjrdyi" path="res://objects/Lava.tscn" id="6_0dfof"]
 [ext_resource type="PackedScene" uid="uid://b61b630vkete3" path="res://objects/Checkpoint.tscn" id="7_odfn5"]
 [ext_resource type="PackedScene" uid="uid://ccnw6k4h6haic" path="res://objects/StartPosition.tscn" id="8_our1t"]
+[ext_resource type="PackedScene" uid="uid://ec08fdhwap3t" path="res://objects/FirebarCenterObject.tscn" id="9_yyuo4"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_h6p11"]
 scenes/1/scene = ExtResource("1_vd2h4")
@@ -18,6 +19,7 @@ scenes/5/scene = ExtResource("5_cok47")
 scenes/6/scene = ExtResource("6_0dfof")
 scenes/7/scene = ExtResource("7_odfn5")
 scenes/8/scene = ExtResource("8_our1t")
+scenes/9/scene = ExtResource("9_yyuo4")
 
 [resource]
 tile_size = Vector2i(32, 32)
