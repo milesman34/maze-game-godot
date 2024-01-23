@@ -2,3 +2,9 @@ Level browser (so an actual game GUI, store best scores/deaths)
 Something that shoots projectiles that harm the player
 Conveyor belts that apply a static force to the player in a direction
 Ice that makes the player keep moving in a direction after moving (idk)
+
+
+Resources:
+Maybe Coins could use resources
+
+Add 2-way portals as a tool to make level creation easier, it basically links the two portals to each other and ensures they have the same color.

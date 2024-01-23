@@ -47,4 +47,9 @@ public partial class Main : Node2D
 	public void OnGameStarted() {
 		SwitchToScene<LevelSelectScene>(LevelSelectScene);
 	}
+
+	// Switches to a level
+	public void SwitchToLevel(LevelResource resource) {
+		GD.Print(resource.LevelName);
+	}
 }

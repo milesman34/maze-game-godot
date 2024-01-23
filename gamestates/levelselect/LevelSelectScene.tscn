@@ -4,13 +4,20 @@
 [ext_resource type="FontFile" uid="uid://owarplrgfadk" path="res://fonts/Montserrat-Medium.ttf" id="2_0ejoa"]
 [ext_resource type="PackedScene" uid="uid://tul2bdd55tcv" path="res://gamestates/levelselect/LevelButtonsContainer.tscn" id="3_geofn"]
 
-[node name="LevelSelectScene" type="CanvasLayer"]
+[node name="LevelSelectScene" type="Node2D"]
 script = ExtResource("1_h0bk6")
 
-[node name="LevelSelectHeader" type="Label" parent="."]
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="LevelSelectHeader" type="Label" parent="Control"]
+layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 23.0
+offset_bottom = 60.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("2_0ejoa")
 theme_override_font_sizes/font_size = 48
@@ -18,19 +25,19 @@ text = "Select Level"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Container" type="Control" parent="."]
-layout_mode = 3
+[node name="Container" type="Control" parent="Control"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 80.0
+offset_bottom = 40.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LevelButtonsContainer" parent="Container" instance=ExtResource("3_geofn")]
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 1
+[node name="LevelButtonsContainer" parent="Control/Container" instance=ExtResource("3_geofn")]
+unique_name_in_owner = true
+layout_mode = 1
+offset_bottom = 0.0
+
+[connection signal="SwitchToLevel" from="Control/Container/LevelButtonsContainer" to="." method="OnSwitchToLevel"]
