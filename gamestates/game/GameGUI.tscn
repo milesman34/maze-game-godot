@@ -7,6 +7,7 @@
 script = ExtResource("1_k21u2")
 
 [node name="Header" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 64)
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 64.0
@@ -14,6 +15,7 @@ grow_horizontal = 2
 alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Header"]
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 theme_override_constants/margin_right = 30
 
@@ -26,6 +28,7 @@ text = "Score: 0"
 horizontal_alignment = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="Header"]
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 theme_override_constants/margin_left = 30
 

@@ -161,11 +161,12 @@ public partial class Level : Node2D
 
     // Runs when an end portal emits a LevelEnd signal
     public void OnLevelEnd() {
-        GD.Print("Finished level!");
-
         // Hide the player
         levelFinished = true;
         player.QueueFree();
+
+        // Send the level end event
+        Events.instance.EmitSignal(Events.SignalName.LevelEnd);
     }
 
     // Runs when a camera zone is entered by the player

@@ -27,6 +27,9 @@ public partial class GameScene : Node2D, IGameState
 	{
 		// Update background color
 		RenderingServer.SetDefaultClearColor(new Color(0, 0, 0));
+
+		// Set the stretch mode to the viewport
+		GetTree().Root.ContentScaleMode = Window.ContentScaleModeEnum.Disabled;
 		
 		// Get a reference to the GUI
 		GameGUI = GetNode<GameGUI>("GUI");

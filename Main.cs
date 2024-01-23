@@ -14,7 +14,7 @@ public partial class Main : Node2D
 	public PackedScene GameScene { get; set; }
 
 	[Export]
-	public int test { get; set; }
+	public PackedScene LevelEndScene { get; set; }
 
 	// Reference to the current scene
 	public IGameState currentGameState;
@@ -24,6 +24,9 @@ public partial class Main : Node2D
 	{
 		// Switch to the title screen
 		SwitchToScene<TitleScene>(TitleScene);
+
+		// Connect to the LevelEnd global signal
+		Events.instance.LevelEnd += OnLevelEnd;
 	}
 
 	// Switches to a difference scene
@@ -46,6 +49,14 @@ public partial class Main : Node2D
 	// Runs when the game starts
 	public void OnGameStarted() {
 		SwitchToScene<LevelSelectScene>(LevelSelectScene);
+	}
+
+	// Runs when the game ends
+	public void OnLevelEnd() {
+		// There is a 0.5 second delay
+		GetTree().CreateTimer(0.5).Timeout += () => {
+			SwitchToScene<LevelEndScene>(LevelEndScene);
+		};
 	}
 
 	// Switches to a level

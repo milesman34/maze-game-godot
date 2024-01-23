@@ -8,7 +8,7 @@ public partial class EndPortal : Area2D, IGameObject
 {
 	// Level end signal
 	[Signal]
-	public delegate void LevelEndEventHandler();
+	public delegate void EndPortalEnteredEventHandler();
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -25,11 +25,11 @@ public partial class EndPortal : Area2D, IGameObject
 	{
 		// Check if the body is the player
 		if (body is Player) {
-			EmitSignal(SignalName.LevelEnd);
+			EmitSignal(SignalName.EndPortalEntered);
 		}
 	}
 
 	public void AttachSignals(Level level) {
-		LevelEnd += level.OnLevelEnd;
+		EndPortalEntered += level.OnLevelEnd;
 	}
 }
