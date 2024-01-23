@@ -52,10 +52,15 @@ public partial class Main : Node2D
 	}
 
 	// Runs when the game ends
-	public void OnLevelEnd() {
+	public void OnLevelEnd(int score, int deaths) {
 		// There is a 0.5 second delay
 		GetTree().CreateTimer(0.5).Timeout += () => {
 			SwitchToScene<LevelEndScene>(LevelEndScene);
+
+			// Give key information to the level end scene
+			var endScene = (LevelEndScene) currentGameState;
+			endScene.Score = score;
+			endScene.Deaths = deaths;
 		};
 	}
 

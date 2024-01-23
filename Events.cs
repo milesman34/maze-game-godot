@@ -8,7 +8,7 @@ public partial class Events : Node {
 
     // Runs when the level ends
     [Signal]
-    public delegate void LevelEndEventHandler();
+    public delegate void LevelEndEventHandler(int score, int deaths);
     
     // Constructor
     public Events() {}

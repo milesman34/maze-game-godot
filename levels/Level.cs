@@ -166,7 +166,7 @@ public partial class Level : Node2D
         player.QueueFree();
 
         // Send the level end event
-        Events.instance.EmitSignal(Events.SignalName.LevelEnd);
+        Events.instance.EmitSignal(Events.SignalName.LevelEnd, score, deaths);
     }
 
     // Runs when a camera zone is entered by the player

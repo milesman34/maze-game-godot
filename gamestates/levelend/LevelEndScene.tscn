@@ -1,13 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://vwgbbbbjido8"]
+[gd_scene load_steps=4 format=3 uid="uid://vwgbbbbjido8"]
 
 [ext_resource type="Script" path="res://gamestates/levelend/LevelEndScene.cs" id="1_pp6nt"]
 [ext_resource type="FontFile" uid="uid://owarplrgfadk" path="res://fonts/Montserrat-Medium.ttf" id="2_n60ij"]
+[ext_resource type="Theme" uid="uid://b3ovrufpffwn3" path="res://themes/Menu1.tres" id="3_ah7v7"]
 
 [node name="LevelEndScene" type="Node2D"]
 script = ExtResource("1_pp6nt")
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -16,19 +16,40 @@ offset_bottom = 720.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Control"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 75.0
-grow_horizontal = 2
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
 theme_override_constants/margin_top = 32
 theme_override_constants/margin_bottom = 32
 
-[node name="Label" type="Label" parent="Control/MarginContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_n60ij")
 theme_override_font_sizes/font_size = 60
 text = "Level Complete!"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 20
+
+[node name="ScoreLabel" type="Label" parent="VBoxContainer/MarginContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_ah7v7")
+theme_override_font_sizes/font_size = 36
+text = "Score: 0"
+horizontal_alignment = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 20
+
+[node name="DeathsLabel" type="Label" parent="VBoxContainer/MarginContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_ah7v7")
+theme_override_font_sizes/font_size = 36
+text = "Deaths: 0
+"
+horizontal_alignment = 1
