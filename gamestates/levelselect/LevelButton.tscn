@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbf5fela4s"]
+
+[ext_resource type="Script" path="res://gamestates/levelselect/LevelButton.cs" id="1_jx37a"]
+
+[node name="LevelButton" type="HBoxContainer"]
+offset_right = 285.0
+offset_bottom = 137.0
+script = ExtResource("1_jx37a")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "testing"

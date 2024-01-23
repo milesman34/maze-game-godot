@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://palqcupc6jic"]
+
+[ext_resource type="Script" path="res://gamestates/levelselect/LevelSelectScene.cs" id="1_h0bk6"]
+[ext_resource type="FontFile" uid="uid://owarplrgfadk" path="res://fonts/Montserrat-Medium.ttf" id="2_0ejoa"]
+[ext_resource type="PackedScene" uid="uid://tul2bdd55tcv" path="res://gamestates/levelselect/LevelButtonsContainer.tscn" id="3_geofn"]
+
+[node name="LevelSelectScene" type="CanvasLayer"]
+script = ExtResource("1_h0bk6")
+
+[node name="LevelSelectHeader" type="Label" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_0ejoa")
+theme_override_font_sizes/font_size = 48
+text = "Select Level"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Container" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LevelButtonsContainer" parent="Container" instance=ExtResource("3_geofn")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1

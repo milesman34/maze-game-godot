@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://tul2bdd55tcv"]
+
+[ext_resource type="Script" path="res://gamestates/levelselect/LevelButtonsContainer.cs" id="1_vjswk"]
+[ext_resource type="Resource" uid="uid://n2jmn4uvpd5l" path="res://levels/LevelInfo.tres" id="2_3cvuw"]
+
+[node name="LevelButtonsContainer" type="ScrollContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+script = ExtResource("1_vjswk")
+LevelInfo = ExtResource("2_3cvuw")
+
+[node name="MainContainer" type="VBoxContainer" parent="."]
+layout_mode = 2

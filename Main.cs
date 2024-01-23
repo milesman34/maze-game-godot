@@ -6,6 +6,9 @@ public partial class Main : Node2D
 	// The various scenes in the game
 	[Export]
 	public PackedScene TitleScene { get; set; }
+	
+	[Export]
+	public PackedScene LevelSelectScene { get; set; }
 
 	[Export]
 	public PackedScene GameScene { get; set; }
@@ -42,6 +45,6 @@ public partial class Main : Node2D
 
 	// Runs when the game starts
 	public void OnGameStarted() {
-		SwitchToScene<GameScene>(GameScene);
+		SwitchToScene<LevelSelectScene>(LevelSelectScene);
 	}
 }

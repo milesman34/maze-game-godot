@@ -29,5 +29,4 @@ public partial class TitleScene : CanvasLayer, IGameState
     public void AttachSignals(Main main) {
 		StartGame += main.OnGameStarted;
     }
-
 }
