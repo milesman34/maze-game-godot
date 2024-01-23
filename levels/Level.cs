@@ -36,7 +36,7 @@ public partial class Level : Node2D
     private bool levelFinished = false;
 
     // Stored reference to the main game
-    public Main mainGame;
+    public Game mainGame;
 
     // Reference to the Player object
     private Player player;
@@ -77,7 +77,7 @@ public partial class Level : Node2D
     /// <param name="game">Reference to the game.</param>
     /// <param name="gui">Reference to the GUI object.</param>
     /// <returns>A newly created Level instance</returns>
-    public static Level InstantiateLevelScene(PackedScene levelScene, Main game, GUI gui) {
+    public static Level InstantiateLevelScene(PackedScene levelScene, Game game, GUI gui) {
         var level = levelScene.Instantiate<Level>();
         level.mainGame = game;
 
