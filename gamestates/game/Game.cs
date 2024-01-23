@@ -4,7 +4,7 @@ using System;
 /// <summary>
 /// The Main object manages the entire game.
 /// </summary>
-public partial class Game : Node2D
+public partial class Game : Node2D, IGameState
 {
 	// Scene for the level, to be instantiated later
 	[Export]

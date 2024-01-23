@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://cgqhlaubq4nci"]
 
-[ext_resource type="Script" path="res://GUI.cs" id="1_037wg"]
 [ext_resource type="FontFile" uid="uid://owarplrgfadk" path="res://fonts/Montserrat-Medium.ttf" id="1_e2ctj"]
+[ext_resource type="Script" path="res://gamestates/game/GUI.cs" id="1_flolr"]
 
 [node name="GUI" type="CanvasLayer"]
-script = ExtResource("1_037wg")
+script = ExtResource("1_flolr")
 
 [node name="Header" type="HBoxContainer" parent="."]
 anchors_preset = 10

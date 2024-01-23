@@ -1,11 +1,11 @@
 [gd_scene load_steps=4 format=3 uid="uid://di81ofo7ylv4f"]
 
-[ext_resource type="Script" path="res://Game.cs" id="1_2q2t2"]
+[ext_resource type="Script" path="res://gamestates/game/Game.cs" id="1_filkq"]
 [ext_resource type="PackedScene" uid="uid://tav5vvj7qhir" path="res://levels/scenes/BasicLava.tscn" id="2_iqt4o"]
-[ext_resource type="PackedScene" uid="uid://cgqhlaubq4nci" path="res://GUI.tscn" id="3_63lpo"]
+[ext_resource type="PackedScene" uid="uid://cgqhlaubq4nci" path="res://gamestates/game/GUI.tscn" id="3_63lpo"]
 
 [node name="Game" type="Node2D"]
-script = ExtResource("1_2q2t2")
+script = ExtResource("1_filkq")
 LevelScene = ExtResource("2_iqt4o")
 
 [node name="GUI" parent="." instance=ExtResource("3_63lpo")]
