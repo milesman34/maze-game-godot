@@ -40,4 +40,4 @@ unique_name_in_owner = true
 layout_mode = 1
 offset_bottom = 0.0
 
-[connection signal="SwitchToLevel" from="Control/Container/LevelButtonsContainer" to="." method="OnSwitchToLevel"]
+[connection signal="LevelButtonPressed" from="Control/Container/LevelButtonsContainer" to="." method="OnLevelButtonPressed"]

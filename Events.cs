@@ -8,7 +8,15 @@ public partial class Events : Node {
 
     // Runs when the level ends
     [Signal]
-    public delegate void LevelEndEventHandler(int score, int deaths);
+    public delegate void LevelEndEventHandler(string levelName, int score, int deaths);
+
+    // Runs to switch to a level
+    [Signal]
+    public delegate void SwitchToLevelEventHandler(LevelResource level);
+
+    // Runs to quit out back to the level select scene
+    [Signal]
+    public delegate void ExitToLevelSelectEventHandler();
     
     // Constructor
     public Events() {}

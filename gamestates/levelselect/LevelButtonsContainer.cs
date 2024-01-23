@@ -14,7 +14,7 @@ public partial class LevelButtonsContainer : ScrollContainer
 
 	// Signal for switching to a level
 	[Signal]
-	public delegate void SwitchToLevelEventHandler(LevelResource resource);
+	public delegate void LevelButtonPressedEventHandler(LevelResource resource);
 
 	// Keep track of all the LevelButton elements
 	public List<LevelButton> levelButtons;
@@ -29,7 +29,7 @@ public partial class LevelButtonsContainer : ScrollContainer
 		foreach(var levelResource in LevelInfo.Levels) {
 			var button = LevelButtonScene.Instantiate<LevelButton>();
 			button.LevelResource = levelResource;
-			button.LevelButtonPressed += level => EmitSignal(SignalName.SwitchToLevel, level);
+			button.LevelButtonPressed += level => EmitSignal(SignalName.LevelButtonPressed, level);
 			
 			levelButtons.Add(button);
 			mainContainer.AddChild(button);

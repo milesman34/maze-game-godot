@@ -27,6 +27,14 @@ public partial class LevelEndScene : Node2D, IGameState
 		}
 	}}
 
+	// Name of the current level
+	[Export]
+	public string LevelName { get; set; }
+
+	// Reference to the level info
+	[Export]
+	public LevelInfo LevelInfo { get; set; }
+
 	// References to the labels
 	private Label scoreLabel;
 	private Label deathsLabel;
@@ -53,4 +61,18 @@ public partial class LevelEndScene : Node2D, IGameState
     public void AttachSignals(Main main) {
     }
 
+	private void OnReplayButtonPressed() {
+		// Find the corresponding level if it exists
+		foreach (var levelResource in LevelInfo.Levels) {
+			if (levelResource.LevelName == LevelName) {
+				Events.instance.EmitSignal(Events.SignalName.SwitchToLevel, levelResource);
+				break;
+			}
+		}
+	}
+
+	private void OnExitButtonPressed() {
+		// Switch back to the level select scene
+		Events.instance.EmitSignal(Events.SignalName.ExitToLevelSelect);
+	}
 }

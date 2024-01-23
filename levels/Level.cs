@@ -10,6 +10,10 @@ public partial class Level : Node2D
     [Export]
     private Vector2 StartPosition { get; set; }
 
+    // Name of the level
+    [Export]
+    private string LevelName { get; set; }
+
     // The priority of the player's start position (the default one is -9999)
     private int startPosPriority = -9999;
 
@@ -71,15 +75,16 @@ public partial class Level : Node2D
     private Vector2 checkpoint;
 
     /// <summary>
-    /// InstantiateLevelScene creates a new level instance from the provided LevelScene which has the needed reference to the main game.
+    /// InstantiateLevel creates a new level instance from the provided LevelResource which has the needed reference to the main game.
     /// </summary>
-    /// <param name="levelScene">Level Scene to instantiate.</param>
+    /// <param name="resource">LevelResource to instantiate.</param>
     /// <param name="game">Reference to the game.</param>
     /// <param name="gui">Reference to the GUI object.</param>
     /// <returns>A newly created Level instance</returns>
-    public static Level InstantiateLevelScene(PackedScene levelScene, GameScene game, GameGUI gui) {
-        var level = levelScene.Instantiate<Level>();
+    public static Level InstantiateLevel(LevelResource resource, GameScene game, GameGUI gui) {
+        var level = resource.LevelScene.Instantiate<Level>();
         level.mainGame = game;
+        level.LevelName = resource.LevelName;
 
 		// Set some signals for the GUI
 		level.SetScore += gui.SetScore;
@@ -166,7 +171,7 @@ public partial class Level : Node2D
         player.QueueFree();
 
         // Send the level end event
-        Events.instance.EmitSignal(Events.SignalName.LevelEnd, score, deaths);
+        Events.instance.EmitSignal(Events.SignalName.LevelEnd, LevelName, score, deaths);
     }
 
     // Runs when a camera zone is entered by the player

@@ -6,9 +6,9 @@ using System;
 /// </summary>
 public partial class GameScene : Node2D, IGameState
 {
-	// Scene for the level, to be instantiated later
+	// Resource for the level
 	[Export]
-	public PackedScene LevelScene { get; set; }
+	public LevelResource LevelResource { get; set; }
 
 	// Reference to the game viewport
 	public SubViewport gameViewport;
@@ -44,15 +44,15 @@ public partial class GameScene : Node2D, IGameState
 		GetTree().Root.SizeChanged += SetupViewportPositionSize;
 
 		// Start the level if the level scene instance exists
-		if (LevelScene != null) {
-			StartLevel(LevelScene);
+		if (LevelResource != null) {
+			StartLevel(LevelResource);
 		}
 	}
 
 	// Starts playing a level
-	public void StartLevel(PackedScene levelScene) {
+	public void StartLevel(LevelResource levelResource) {
 		// Instantiate the level
-		level = Level.InstantiateLevelScene(levelScene, this, GameGUI);
+		level = Level.InstantiateLevel(levelResource, this, GameGUI);
 
 		gameViewport.AddChild(level);
 		SetupViewportPositionSize();

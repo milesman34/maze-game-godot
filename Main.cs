@@ -27,6 +27,8 @@ public partial class Main : Node2D
 
 		// Connect to the LevelEnd global signal
 		Events.instance.LevelEnd += OnLevelEnd;
+		Events.instance.SwitchToLevel += SwitchToLevel;
+		Events.instance.ExitToLevelSelect += OnExitToLevelSelect;
 	}
 
 	// Switches to a difference scene
@@ -51,8 +53,13 @@ public partial class Main : Node2D
 		SwitchToScene<LevelSelectScene>(LevelSelectScene);
 	}
 
+	// Runs when the player exits out to level select
+	public void OnExitToLevelSelect() {
+		SwitchToScene<LevelSelectScene>(LevelSelectScene);
+	}
+
 	// Runs when the game ends
-	public void OnLevelEnd(int score, int deaths) {
+	public void OnLevelEnd(string name, int score, int deaths) {
 		// There is a 0.5 second delay
 		GetTree().CreateTimer(0.5).Timeout += () => {
 			SwitchToScene<LevelEndScene>(LevelEndScene);
@@ -61,6 +68,7 @@ public partial class Main : Node2D
 			var endScene = (LevelEndScene) currentGameState;
 			endScene.Score = score;
 			endScene.Deaths = deaths;
+			endScene.LevelName = name;
 		};
 	}
 
@@ -69,6 +77,6 @@ public partial class Main : Node2D
 		SwitchToScene<GameScene>(GameScene);
 		
 		var gameScene = (GameScene) currentGameState;
-		gameScene.StartLevel(resource.LevelScene);
+		gameScene.StartLevel(resource);
 	}
 }
