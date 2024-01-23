@@ -50,6 +50,9 @@ public partial class Main : Node2D
 
 	// Switches to a level
 	public void SwitchToLevel(LevelResource resource) {
-		GD.Print(resource.LevelName);
+		SwitchToScene<GameScene>(GameScene);
+		
+		var gameScene = (GameScene) currentGameState;
+		gameScene.StartLevel(resource.LevelScene);
 	}
 }

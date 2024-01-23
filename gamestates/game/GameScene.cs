@@ -31,21 +31,28 @@ public partial class GameScene : Node2D, IGameState
 		// Get a reference to the GUI
 		GameGUI = GetNode<GameGUI>("GUI");
 
-		// Instantiate the level
-		level = Level.InstantiateLevelScene(LevelScene, this, GameGUI);
-
 		// Trying to get the viewport directly didn't work
 		// So I had to use three steps
 		gameContainerOffset = GetNode<Node2D>("GameContainerOffset");
 
 		gameViewport = GetNode<SubViewport>("%GameViewport");
 
-		gameViewport.AddChild(level);
-
-		SetupViewportPositionSize();
-
 		// Connect the on window resize event
 		GetTree().Root.SizeChanged += SetupViewportPositionSize;
+
+		// Start the level if the level scene instance exists
+		if (LevelScene != null) {
+			StartLevel(LevelScene);
+		}
+	}
+
+	// Starts playing a level
+	public void StartLevel(PackedScene levelScene) {
+		// Instantiate the level
+		level = Level.InstantiateLevelScene(levelScene, this, GameGUI);
+
+		gameViewport.AddChild(level);
+		SetupViewportPositionSize();
 	}
 
 	// Sets up the correct size and position for the main game viewport. There is a 32-pixel gap on the top and bottom.
