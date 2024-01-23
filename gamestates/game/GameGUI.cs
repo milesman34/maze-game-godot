@@ -4,7 +4,7 @@ using System;
 /// <summary>
 /// GUI object is responsible for maintaining the GUI.
 /// </summary>
-public partial class GUI : CanvasLayer
+public partial class GameGUI : CanvasLayer
 {
 	/// <summary>
 	/// Constant representing the height of the header in pixels (default is 32)

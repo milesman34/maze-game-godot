@@ -4,7 +4,7 @@ using System;
 /// <summary>
 /// The Main object manages the entire game.
 /// </summary>
-public partial class Game : Node2D, IGameState
+public partial class GameScene : Node2D, IGameState
 {
 	// Scene for the level, to be instantiated later
 	[Export]
@@ -17,7 +17,7 @@ public partial class Game : Node2D, IGameState
 	private Level level;
 	
 	// Reference to the GUI object
-	private GUI GUI;
+	private GameGUI GameGUI;
 
 	// Reference to the GameContainerOffset object, for offsetting the position of the GameContainer
 	private Node2D gameContainerOffset;
@@ -29,10 +29,10 @@ public partial class Game : Node2D, IGameState
 		RenderingServer.SetDefaultClearColor(new Color(0, 0, 0));
 		
 		// Get a reference to the GUI
-		GUI = GetNode<GUI>("GUI");
+		GameGUI = GetNode<GameGUI>("GUI");
 
 		// Instantiate the level
-		level = Level.InstantiateLevelScene(LevelScene, this, GUI);
+		level = Level.InstantiateLevelScene(LevelScene, this, GameGUI);
 
 		// Trying to get the viewport directly didn't work
 		// So I had to use three steps
@@ -52,10 +52,10 @@ public partial class Game : Node2D, IGameState
 	private void SetupViewportPositionSize() {
 		var mainViewportSize = GetViewportRect().Size;
 	
-		gameViewport.Size = (Vector2I) new Vector2(mainViewportSize.X, mainViewportSize.Y - GUI.HeaderHeight * 2);
+		gameViewport.Size = (Vector2I) new Vector2(mainViewportSize.X, mainViewportSize.Y - GameGUI.HeaderHeight * 2);
 
 		// Offset node is used to offset the viewport's position
-		gameContainerOffset.Position = new Vector2(0, GUI.HeaderHeight);
+		gameContainerOffset.Position = new Vector2(0, GameGUI.HeaderHeight);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -63,4 +63,7 @@ public partial class Game : Node2D, IGameState
 	{
 		
 	}
+
+	public void AttachSignals(Main main) {
+    }
 }

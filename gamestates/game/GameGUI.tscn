@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://cgqhlaubq4nci"]
 
-[ext_resource type="FontFile" uid="uid://owarplrgfadk" path="res://fonts/Montserrat-Medium.ttf" id="1_e2ctj"]
-[ext_resource type="Script" path="res://gamestates/game/GUI.cs" id="1_flolr"]
+[ext_resource type="Script" path="res://gamestates/game/GameGUI.cs" id="1_k21u2"]
+[ext_resource type="FontFile" uid="uid://owarplrgfadk" path="res://fonts/Montserrat-Medium.ttf" id="2_yiktu"]
 
-[node name="GUI" type="CanvasLayer"]
-script = ExtResource("1_flolr")
+[node name="GameGUI" type="CanvasLayer"]
+script = ExtResource("1_k21u2")
 
 [node name="Header" type="HBoxContainer" parent="."]
 anchors_preset = 10
@@ -20,7 +20,7 @@ theme_override_constants/margin_right = 30
 [node name="ScoreLabel" type="Label" parent="Header/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_e2ctj")
+theme_override_fonts/font = ExtResource("2_yiktu")
 theme_override_font_sizes/font_size = 24
 text = "Score: 0"
 horizontal_alignment = 1
@@ -32,7 +32,7 @@ theme_override_constants/margin_left = 30
 [node name="DeathsLabel" type="Label" parent="Header/MarginContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_e2ctj")
+theme_override_fonts/font = ExtResource("2_yiktu")
 theme_override_font_sizes/font_size = 24
 text = "Deaths: 0
 "

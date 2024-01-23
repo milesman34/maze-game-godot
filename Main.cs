@@ -3,7 +3,10 @@ using System;
 
 public partial class Main : Node2D
 {
-	// The active scene to load
+	// The various scenes in the game
+	[Export]
+	public PackedScene TitleScene { get; set; }
+
 	[Export]
 	public PackedScene GameScene { get; set; }
 
@@ -16,12 +19,29 @@ public partial class Main : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		currentGameState = GameScene.Instantiate<Game>();
-		AddChild((Game) currentGameState);
+		// Switch to the title screen
+		SwitchToScene<TitleScene>(TitleScene);
+	}
+
+	// Switches to a difference scene
+	private void SwitchToScene<T>(PackedScene newScene) where T : Node {
+		if (currentGameState != null) {
+			currentGameState.QueueFree();
+		}
+		
+		var scene = newScene.Instantiate<T>();
+		AddChild(scene);
+		currentGameState = (IGameState) scene;
+		currentGameState.AttachSignals(this);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+	}
+
+	// Runs when the game starts
+	public void OnGameStarted() {
+		SwitchToScene<GameScene>(GameScene);
 	}
 }

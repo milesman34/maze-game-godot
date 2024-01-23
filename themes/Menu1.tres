@@ -1,0 +1,30 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://b3ovrufpffwn3"]
+
+[ext_resource type="FontFile" uid="uid://owarplrgfadk" path="res://fonts/Montserrat-Medium.ttf" id="1_uouqe"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x88w5"]
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.55, 0.55, 0.55, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_22v4h"]
+bg_color = Color(0.439216, 0.439216, 0.439216, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.4, 0.4, 0.4, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8181g"]
+bg_color = Color(0.7, 0.7, 0.7, 1)
+
+[resource]
+default_font = ExtResource("1_uouqe")
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_focus_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
+Button/styles/hover = SubResource("StyleBoxFlat_x88w5")
+Button/styles/normal = SubResource("StyleBoxFlat_22v4h")
+Button/styles/pressed = SubResource("StyleBoxFlat_8181g")
