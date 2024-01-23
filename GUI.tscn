@@ -9,7 +9,7 @@ script = ExtResource("1_037wg")
 [node name="Header" type="HBoxContainer" parent="."]
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 21.0
+offset_bottom = 64.0
 grow_horizontal = 2
 alignment = 1
 
@@ -21,6 +21,7 @@ theme_override_constants/margin_right = 30
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_e2ctj")
+theme_override_font_sizes/font_size = 24
 text = "Score: 0"
 horizontal_alignment = 1
 
@@ -32,6 +33,7 @@ theme_override_constants/margin_left = 30
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_e2ctj")
+theme_override_font_sizes/font_size = 24
 text = "Deaths: 0
 "
 horizontal_alignment = 1

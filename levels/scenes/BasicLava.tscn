@@ -1,0 +1,81 @@
+[gd_scene load_steps=5 format=3 uid="uid://tav5vvj7qhir"]
+
+[ext_resource type="PackedScene" uid="uid://c8eot2fa78oca" path="res://levels/Level.tscn" id="1_wp8mr"]
+[ext_resource type="PackedScene" uid="uid://ptdvqs3lct66" path="res://objects/CameraZone.tscn" id="2_ca6vy"]
+[ext_resource type="PackedScene" uid="uid://bx751kwyf8ylj" path="res://objects/Firebar.tscn" id="2_fhjox"]
+[ext_resource type="PackedScene" uid="uid://drt124p0t1obp" path="res://objects/components/PositioningComponent.tscn" id="3_2odso"]
+
+[node name="Level" instance=ExtResource("1_wp8mr")]
+
+[node name="TileMap" parent="." index="1"]
+layer_0/tile_data = PackedInt32Array(0, 1, 65536, 1, 1, 65536, 2, 1, 65536, 3, 1, 65536, 4, 1, 65536, 5, 1, 65536, 6, 1, 65536, 7, 1, 65536, 8, 1, 65536, 65544, 1, 65536, 131080, 1, 65536, 196616, 1, 65536, 327688, 1, 65536, 393224, 1, 65536, 458760, 1, 65536, 524296, 1, 65536, 524295, 1, 65536, 524294, 1, 65536, 524293, 1, 65536, 524292, 1, 65536, 524291, 1, 65536, 524290, 1, 65536, 524289, 1, 65536, 524288, 1, 65536, 458752, 1, 65536, 393216, 1, 65536, 327680, 1, 65536, 262144, 1, 65536, 196608, 1, 65536, 131072, 1, 65536, 65536, 1, 65536, 9, 1, 65536, 65545, 1, 65536, 131081, 1, 65536, 196617, 1, 65536, 10, 1, 65536, 11, 1, 65536, 12, 1, 65536, 13, 1, 65536, 14, 1, 65536, 15, 1, 65536, 16, 1, 65536, 17, 1, 65536, 65553, 1, 65536, 131089, 1, 65536, 196625, 1, 65536, 262161, 1, 65536, 327697, 1, 65536, 393233, 1, 65536, 458769, 1, 65536, 524305, 1, 65536, 524304, 1, 65536, 524303, 1, 65536, 524302, 1, 65536, 524301, 1, 65536, 524300, 1, 65536, 524299, 1, 65536, 524298, 1, 65536, 524297, 1, 65536, 458761, 1, 65536, 393225, 1, 65536, 327689, 1, 65536, 65537, 1, 524288, 262148, 1, 589824, 131085, 1, 589824, 393229, 1, 589824, 262157, 1, 131072, 262146, 1, 393216, 327682, 1, 393216, 393218, 1, 393216, 393219, 1, 393216, 131078, 1, 393216, 196614, 1, 393216, 262150, 1, 393216, 131077, 1, 393216, 327691, 1, 393216, 262155, 1, 393216, 196619, 1, 393216, 196623, 1, 393216, 262159, 1, 393216, 327695, 1, 393216, 393227, 1, 393216, 393231, 1, 393216, 131087, 1, 393216, 131083, 1, 393216, 327684, 1, 262144, 262147, 1, 262144, 196612, 1, 262144, 262149, 1, 262144, 262145, 1, 196608, 327681, 1, 196608, 196609, 1, 196608, 196615, 1, 196608, 262151, 1, 196608, 327687, 1, 196608, 196618, 1, 196608, 262154, 1, 196608, 327690, 1, 196608, 196624, 1, 196608, 262160, 1, 196608, 327696, 1, 196608, 262156, 1, 196608, 262158, 1, 196608, 196621, 1, 196608, 327693, 1, 196608)
+
+[node name="Firebar" parent="Objects" index="0" instance=ExtResource("2_fhjox")]
+FireballCount = 4
+FireballSize = 16
+
+[node name="PositioningComponent" parent="Objects/Firebar" index="0" instance=ExtResource("3_2odso")]
+StartPosition = Vector2(4, 4)
+
+[node name="Firebar2" parent="Objects" index="1" instance=ExtResource("2_fhjox")]
+RotationSpeed = 75
+FireballCount = 6
+FireballSize = 16
+
+[node name="PositioningComponent" parent="Objects/Firebar2" index="0" instance=ExtResource("3_2odso")]
+StartPosition = Vector2(13, 2)
+
+[node name="Firebar3" parent="Objects" index="2" instance=ExtResource("2_fhjox")]
+RotationSpeed = -75
+FireballCount = 6
+FireballSize = 16
+
+[node name="PositioningComponent" parent="Objects/Firebar3" index="0" instance=ExtResource("3_2odso")]
+StartPosition = Vector2(13, 6)
+
+[node name="CameraZone" parent="CameraZones" index="0" instance=ExtResource("2_ca6vy")]
+Size = Vector2(9, 9)
+
+[node name="CameraZone2" parent="CameraZones" index="1" instance=ExtResource("2_ca6vy")]
+StartPosition = Vector2(9, 0)
+Size = Vector2(9, 9)
+
+[connection signal="body_entered" from="TileMap/EndPortal" to="TileMap/EndPortal" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/Lava" to="TileMap/Lava" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@49403" to="TileMap/@RigidBody2D@49403" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@49404" to="TileMap/@RigidBody2D@49404" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@49405" to="TileMap/@RigidBody2D@49405" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@49406" to="TileMap/@RigidBody2D@49406" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@49407" to="TileMap/@RigidBody2D@49407" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@49408" to="TileMap/@RigidBody2D@49408" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@49409" to="TileMap/@RigidBody2D@49409" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@49411" to="TileMap/@RigidBody2D@49411" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@49412" to="TileMap/@RigidBody2D@49412" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@49413" to="TileMap/@RigidBody2D@49413" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@49414" to="TileMap/@RigidBody2D@49414" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@49415" to="TileMap/@RigidBody2D@49415" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@49416" to="TileMap/@RigidBody2D@49416" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@49417" to="TileMap/@RigidBody2D@49417" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@49418" to="TileMap/@RigidBody2D@49418" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@49419" to="TileMap/@RigidBody2D@49419" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@49420" to="TileMap/@RigidBody2D@49420" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/Coin" to="TileMap/Coin" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@49421" to="TileMap/@Area2D@49421" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@49422" to="TileMap/@Area2D@49422" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@49423" to="TileMap/@Area2D@49423" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@49424" to="TileMap/@Area2D@49424" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@49425" to="TileMap/@Area2D@49425" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@49426" to="TileMap/@Area2D@49426" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@49427" to="TileMap/@Area2D@49427" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@49428" to="TileMap/@Area2D@49428" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@49429" to="TileMap/@Area2D@49429" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@49430" to="TileMap/@Area2D@49430" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@49431" to="TileMap/@Area2D@49431" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@49432" to="TileMap/@Area2D@49432" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@49433" to="TileMap/@Area2D@49433" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@49434" to="TileMap/@Area2D@49434" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@49435" to="TileMap/@Area2D@49435" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@49436" to="TileMap/@Area2D@49436" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@49437" to="TileMap/@Area2D@49437" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@49438" to="TileMap/@Area2D@49438" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@49439" to="TileMap/@Area2D@49439" method="OnBodyEntered"]

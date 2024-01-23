@@ -9,7 +9,7 @@ public partial class GUI : CanvasLayer
 	/// <summary>
 	/// Constant representing the height of the header in pixels (default is 32)
 	/// </summary>
-	public const int HeaderHeight = 32;
+	public const int HeaderHeight = 64;
 
 	// Reference to the score label object, set during _Ready()
 	private Label scoreLabel;

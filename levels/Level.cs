@@ -297,6 +297,7 @@ public partial class Level : Node2D
             // Update the position
             // It should be fine as long as the level creator doesn't do something stupid like putting a start position somewhere where the player immediately dies
             player.Position = startPosObject.Position;
+            UpdateCheckpoint(player.Position);
             startPosPriority = startPosObject.Priority;
         } 
     }
