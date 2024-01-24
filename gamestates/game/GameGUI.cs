@@ -39,4 +39,8 @@ public partial class GameGUI : CanvasLayer
 	public void SetDeaths(int deaths) {
 		deathsLabel.Text = string.Format("Deaths: {0}", deaths);
 	}
+
+	private void OnExitButtonPressed() {
+		Events.instance.EmitSignal(Events.SignalName.ExitToLevelSelect);
+	}
 }

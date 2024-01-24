@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cgqhlaubq4nci"]
+[gd_scene load_steps=4 format=3 uid="uid://cgqhlaubq4nci"]
 
 [ext_resource type="Script" path="res://gamestates/game/GameGUI.cs" id="1_k21u2"]
 [ext_resource type="FontFile" uid="uid://owarplrgfadk" path="res://fonts/Montserrat-Medium.ttf" id="2_yiktu"]
+[ext_resource type="Theme" uid="uid://br02cfichkqjr" path="res://themes/LevelSelectMenu.tres" id="3_t3oa4"]
 
 [node name="GameGUI" type="CanvasLayer"]
 script = ExtResource("1_k21u2")
@@ -31,6 +32,7 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 theme_override_constants/margin_left = 30
+theme_override_constants/margin_right = 60
 
 [node name="DeathsLabel" type="Label" parent="Header/MarginContainer2"]
 unique_name_in_owner = true
@@ -40,3 +42,17 @@ theme_override_font_sizes/font_size = 24
 text = "Deaths: 0
 "
 horizontal_alignment = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="Header"]
+layout_mode = 2
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ExitButton" type="Button" parent="Header/MarginContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_t3oa4")
+theme_override_font_sizes/font_size = 24
+text = "Quit Level"
+
+[connection signal="pressed" from="Header/MarginContainer3/ExitButton" to="." method="OnExitButtonPressed"]
