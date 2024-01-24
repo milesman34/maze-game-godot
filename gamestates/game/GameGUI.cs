@@ -17,12 +17,19 @@ public partial class GameGUI : CanvasLayer
 	// Reference to the deaths label object
 	private Label deathsLabel;
 
+	// Reference to the quit confirm modal
+	private Control quitConfirmModal;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		// Set some references
 		scoreLabel = GetNode<Label>("%ScoreLabel");
 		deathsLabel = GetNode<Label>("%DeathsLabel");
+		quitConfirmModal = GetNode<Control>("%QuitConfirmModal");
+
+		// Hide the quit confirm modal
+		quitConfirmModal.Hide();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -41,6 +48,14 @@ public partial class GameGUI : CanvasLayer
 	}
 
 	private void OnExitButtonPressed() {
+		quitConfirmModal.Show();
+	}
+
+	private void OnNoQuitButtonPressed() {
+		quitConfirmModal.Hide();
+	}
+
+	private void OnYesQuitButtonPressed() {
 		Events.instance.EmitSignal(Events.SignalName.ExitToLevelSelect);
 	}
 }
