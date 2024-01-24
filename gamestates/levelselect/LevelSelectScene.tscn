@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://palqcupc6jic"]
+[gd_scene load_steps=5 format=3 uid="uid://palqcupc6jic"]
 
 [ext_resource type="Script" path="res://gamestates/levelselect/LevelSelectScene.cs" id="1_h0bk6"]
 [ext_resource type="FontFile" uid="uid://owarplrgfadk" path="res://fonts/Montserrat-Medium.ttf" id="2_0ejoa"]
 [ext_resource type="PackedScene" uid="uid://tul2bdd55tcv" path="res://gamestates/levelselect/LevelButtonsContainer.tscn" id="3_geofn"]
+[ext_resource type="Theme" uid="uid://br02cfichkqjr" path="res://themes/LevelSelectMenu.tres" id="3_sxc11"]
 
 [node name="LevelSelectScene" type="Node2D"]
 script = ExtResource("1_h0bk6")
@@ -25,6 +26,16 @@ text = "Select Level"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="BackButton" type="Button" parent="Control/LevelSelectHeader"]
+layout_mode = 1
+offset_left = 18.0
+offset_top = 18.0
+offset_right = 168.0
+offset_bottom = 66.0
+theme = ExtResource("3_sxc11")
+theme_override_font_sizes/font_size = 28
+text = "Back"
+
 [node name="Container" type="Control" parent="Control"]
 layout_mode = 1
 anchors_preset = 15
@@ -40,4 +51,5 @@ unique_name_in_owner = true
 layout_mode = 1
 offset_bottom = 0.0
 
+[connection signal="pressed" from="Control/LevelSelectHeader/BackButton" to="." method="OnBackButtonPressed"]
 [connection signal="LevelButtonPressed" from="Control/Container/LevelButtonsContainer" to="." method="OnLevelButtonPressed"]

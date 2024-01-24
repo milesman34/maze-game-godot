@@ -79,4 +79,9 @@ public partial class Main : Node2D
 		var gameScene = (GameScene) currentGameState;
 		gameScene.StartLevel(resource);
 	}
+
+	// Runs when the player goes back to the title screen
+	public void OnGoToTitleScreen() {
+		SwitchToScene<TitleScene>(TitleScene);
+	}
 }
