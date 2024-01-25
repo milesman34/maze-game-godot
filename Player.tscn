@@ -6,9 +6,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_25e08"]
 size = Vector2(32, 32)
 
-[node name="Player" type="RigidBody2D"]
+[node name="Player" type="CharacterBody2D"]
 collision_mask = 6
-gravity_scale = 0.0
 script = ExtResource("1_wrixp")
 Speed = 160
 

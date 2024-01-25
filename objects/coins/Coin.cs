@@ -32,7 +32,7 @@ public partial class Coin : Area2D, IGameObject
 	}
 
 	// Runs when another body enters the coin
-	private void OnBodyEntered(RigidBody2D body) {
+	private void OnBodyEntered(PhysicsBody2D body) {
 		if (body is Player) {
 			// Get rid of this coin object
 			Hide();

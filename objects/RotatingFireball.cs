@@ -1,6 +1,5 @@
 using Godot;
 using System;
-using System.Reflection.Metadata;
 
 public partial class RotatingFireball : Fireball
 {

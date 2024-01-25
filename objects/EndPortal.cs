@@ -21,7 +21,7 @@ public partial class EndPortal : Area2D, IGameObject
 	}
 
 	// Runs when another body enters the portal
-	private void OnBodyEntered(RigidBody2D body)
+	private void OnBodyEntered(PhysicsBody2D body)
 	{
 		// Check if the body is the player
 		if (body is Player) {

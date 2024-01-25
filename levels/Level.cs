@@ -63,10 +63,6 @@ public partial class Level : Node2D
     [Signal]
     public delegate void CollectKeyEventHandler(Color color);
 
-    // Signal that is emitted when the player is hit
-    [Signal]
-    public delegate void PlayerHitEventHandler();
-
     // Signal that is emitted when the player reaches a checkpoint
     [Signal]
     public delegate void CheckpointHitEventHandler();
@@ -109,13 +105,20 @@ public partial class Level : Node2D
 
 		player.Position = GetStartingPosition();
 
-        player.PlayerHit += OnPlayerHit;
+        Events.instance.PlayerHit += OnPlayerHit;
 
         // Set the starting checkpoint
         checkpoint = player.Position;
 
         // Set other references
         background = GetNode<ColorRect>("Background");
+    }
+
+    public override void _ExitTree()
+    {
+        base._ExitTree();
+
+        Events.instance.PlayerHit -= OnPlayerHit;
     }
 
     // Returns the starting position in pixels. The original position was based on units.
@@ -264,20 +267,17 @@ public partial class Level : Node2D
         // Hmm, how do I deal with this? Maybe I can add a timer after each death
         if (!recentDeath) {
             deaths++;
-
             recentDeath = true;
-
-            var timer = GetTree().CreateTimer(0.05);
-            timer.Timeout += () => {
-                recentDeath = false;
-            };
 
             player.EnableInvincibilityFrames();
 
             player.Position = checkpoint;
 
             EmitSignal(SignalName.SetDeaths, deaths);
-            EmitSignal(SignalName.PlayerHit);
+
+            GetTree().CreateTimer(0.05).Timeout += () => {
+                recentDeath = false;
+            };
         }
     }
 

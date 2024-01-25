@@ -4,7 +4,7 @@ using System;
 /// <summary>
 /// The Player class represents the player, which can be moved around based on the user's inputs.
 /// </summary>
-public partial class Player : RigidBody2D
+public partial class Player : CharacterBody2D
 {
 	// Current speed of the player in pixels per second
 	[Export]
@@ -20,9 +20,8 @@ public partial class Player : RigidBody2D
 	// Reference to the collision shape
 	public CollisionShape2D collisionShape;
 
-	// Signal emitted when the player is hit
-	[Signal]
-	public delegate void PlayerHitEventHandler();
+	// Did the player just die?
+	public bool justDied = false;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -63,14 +62,14 @@ public partial class Player : RigidBody2D
 				var collisionTarget = collision.GetCollider();
 
 				if (collisionTarget is Lava && !invincibilityFramesActive) {
-					EmitSignal(SignalName.PlayerHit);
+					Events.instance.EmitSignal(Events.SignalName.PlayerHit);
 				}
 			}
 		}
 	}
 
-	// Disables the player's invincibility frames
-	public void DisableInvincibilityFrames() {
+    // Disables the player's invincibility frames
+    public void DisableInvincibilityFrames() {
 		if (!invincibilityTimer.IsStopped()) {
 			invincibilityTimer.Stop();
 		}
@@ -86,6 +85,7 @@ public partial class Player : RigidBody2D
 		}
 
 		invincibilityFramesActive = true;
+
 		invincibilityTimer.Start(milliseconds / 1000);
 	}
 

@@ -34,7 +34,7 @@ public partial class Main : Node2D
 	// Switches to a difference scene
 	private void SwitchToScene<T>(PackedScene newScene) where T : Node {
 		if (currentGameState != null) {
-			currentGameState.QueueFree();
+			((Node) currentGameState).QueueFree();
 		}
 		
 		var scene = newScene.Instantiate<T>();

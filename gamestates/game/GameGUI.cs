@@ -20,6 +20,9 @@ public partial class GameGUI : CanvasLayer
 	// Reference to the quit confirm modal
 	private Control quitConfirmModal;
 
+	// Is the level finished?
+	private bool levelFinished = false;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -27,9 +30,14 @@ public partial class GameGUI : CanvasLayer
 		scoreLabel = GetNode<Label>("%ScoreLabel");
 		deathsLabel = GetNode<Label>("%DeathsLabel");
 		quitConfirmModal = GetNode<Control>("%QuitConfirmModal");
+		quitConfirmModal.ProcessMode = ProcessModeEnum.Always;
 
 		// Hide the quit confirm modal
 		quitConfirmModal.Hide();
+
+		Events.instance.LevelEnd += (string levelName, int score, int deaths) => {
+			levelFinished = true;
+		};
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -48,14 +56,19 @@ public partial class GameGUI : CanvasLayer
 	}
 
 	private void OnExitButtonPressed() {
-		quitConfirmModal.Show();
+		if (!levelFinished) {
+			quitConfirmModal.Show();
+			GetTree().Paused = true;
+		}
 	}
 
 	private void OnNoQuitButtonPressed() {
 		quitConfirmModal.Hide();
+		GetTree().Paused = false;
 	}
 
 	private void OnYesQuitButtonPressed() {
+		GetTree().Paused = false;
 		Events.instance.EmitSignal(Events.SignalName.ExitToLevelSelect);
 	}
 }

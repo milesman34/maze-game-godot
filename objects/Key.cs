@@ -21,6 +21,7 @@ public partial class Key : Area2D, IGameObject
 	public override void _Ready()
 	{
 		GetNode<Sprite2D>("Sprite").Modulate = Color;
+		Events.instance.PlayerHit += OnPlayerHit;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -29,7 +30,7 @@ public partial class Key : Area2D, IGameObject
 	}
 
 	// Runs when another body enters the key
-	private void OnBodyEntered(RigidBody2D body) {
+	private void OnBodyEntered(PhysicsBody2D body) {
 		if (body is Player) {
 			// Get rid of this key object
 			currentCollected = true;
@@ -60,7 +61,6 @@ public partial class Key : Area2D, IGameObject
 
 	public void AttachSignals(Level level) {
         CollectKey += level.OnKeyCollected;
-        level.PlayerHit += OnPlayerHit;
         level.CheckpointHit += OnCheckpointHit;
 	}
 }

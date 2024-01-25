@@ -32,10 +32,6 @@ public partial class Firebar : Node2D, IGameObject
 	// Keep track of all the fireballs
 	private List<RotatingFireball> fireballs;
 
-	// Signal emitted when the player is hit by one of the fireballs
-	[Signal]
-	public delegate void PlayerHitEventHandler();
-
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -55,17 +51,6 @@ public partial class Firebar : Node2D, IGameObject
 
     public void AttachSignals(Level level)
     {
-        foreach (var node in GetChildren()) {
-			if (node is RotatingFireball) {
-				(node as RotatingFireball).PlayerHit += () => {
-					EmitSignal(SignalName.PlayerHit);
-				};
-			}
-		}
-
-		PlayerHit += () => {
-			level.OnPlayerHit();
-		};
     }
 
 }

@@ -38,6 +38,8 @@ public partial class Lock : RigidBody2D, IGameObject
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		Events.instance.PlayerHit += OnPlayerHit;
+
 		// Set up references
 		amountLabel = GetNode<Label>("AmountLabel");
 
@@ -64,8 +66,15 @@ public partial class Lock : RigidBody2D, IGameObject
 	{
 	}
 
-	// Runs whenever a key is collected. It makes sure the key collected was the correct color before doing anything.
-	public void OnKeyCollected(Color color) {
+    public override void _ExitTree()
+    {
+        base._ExitTree();
+
+		Events.instance.PlayerHit -= OnPlayerHit;
+    }
+
+    // Runs whenever a key is collected. It makes sure the key collected was the correct color before doing anything.
+    public void OnKeyCollected(Color color) {
 		if (Color == color) {
 			// Resolve the effects of the lock
 			SetNumKeysRemaining(numKeysRemaining - 1);
@@ -106,7 +115,6 @@ public partial class Lock : RigidBody2D, IGameObject
 
 	public void AttachSignals(Level level) {
         level.CollectKey += OnKeyCollected;
-        level.PlayerHit += OnPlayerHit;
         level.CheckpointHit += OnCheckpointHit;
 	}
 }

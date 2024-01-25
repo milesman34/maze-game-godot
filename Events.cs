@@ -17,6 +17,10 @@ public partial class Events : Node {
     // Runs to quit out back to the level select scene
     [Signal]
     public delegate void ExitToLevelSelectEventHandler();
+
+    // Signal that runs when the player is hit
+    [Signal]
+    public delegate void PlayerHitEventHandler();
     
     // Constructor
     public Events() {}
