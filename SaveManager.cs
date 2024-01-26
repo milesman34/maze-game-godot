@@ -11,6 +11,10 @@ public partial class SaveManager : Node
 	// Reference to the saves folder
 	private DirAccess savesDir;
 
+	// Did the player attain a new personal best in the latest run for this stat?
+	public bool newBestScore = false;
+	public bool newBestDeaths = false;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -51,15 +55,23 @@ public partial class SaveManager : Node
 	public void OnLevelEnd(string levelName, int score, int deaths) {
 		if (!levelStats.ContainsKey(levelName)) {
 			levelStats[levelName] = new LevelStats(score, deaths);
+
+			newBestScore = true;
+			newBestDeaths = true;
 		} else {
 			var stats = levelStats[levelName];
 			var newScore = Math.Max(score, stats.BestScore);
 			var newDeaths = Math.Min(deaths, stats.BestDeaths);
 
+			// Did the player attain a personal best for these on this run?
+			newBestScore = score > stats.BestScore;
+			newBestDeaths = deaths < stats.BestDeaths;
+
 			levelStats[levelName] = new LevelStats(newScore, newDeaths);
 		}
 
 		SaveToSaveFile(levelName, levelStats[levelName].BestScore, levelStats[levelName].BestDeaths);
+		GD.Print("saved file");
 	}
 
 	// Loads any of the save files into storage

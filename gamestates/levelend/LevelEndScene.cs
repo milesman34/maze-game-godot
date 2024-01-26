@@ -3,29 +3,11 @@ using System;
 
 public partial class LevelEndScene : Node2D, IGameState
 {
-	// Score
-	private int _score = 0;
+	[Export]
+	public int Score { get; set; } = 0;
 
 	[Export]
-	public int Score { get => _score; set {
-		_score = value;
-
-		if (scoreLabel != null) {
-			scoreLabel.Text = string.Format("Score: {0}", _score);
-		}
-	}}
-
-	// Number of deaths
-	private int _deaths = 0;
-
-	[Export]
-	public int Deaths { get => _deaths; set {
-		_deaths = value;
-
-		if (deathsLabel != null) {
-			deathsLabel.Text = string.Format("Deaths: {0}", _deaths);
-		}
-	}}
+	public int Deaths { get; set; } = 0;
 
 	// Name of the current level
 	[Export]
@@ -51,6 +33,28 @@ public partial class LevelEndScene : Node2D, IGameState
 		// Set up references
 		scoreLabel = GetNode<Label>("%ScoreLabel");
 		deathsLabel = GetNode<Label>("%DeathsLabel");
+
+		// Figure out the best score
+		var saveManager = GetNode<SaveManager>("/root/SaveManager");
+
+		GD.Print("level end part?");
+		GD.Print(LevelName);
+
+		GD.Print(saveManager.levelStats[LevelName]);
+		GD.Print("lol");
+
+		// Set up the labels
+		scoreLabel.Text = GetButtonText("Score", Score, saveManager.levelStats[LevelName].BestScore, saveManager.newBestScore);
+		deathsLabel.Text = GetButtonText("Deaths", Deaths, saveManager.levelStats[LevelName].BestDeaths, saveManager.newBestDeaths);
+	}
+
+	// Returns the text to display for a button
+	private string GetButtonText(string buttonText, int current, int best, bool newBest) {
+		if (newBest) {
+			return string.Format("{0}: {1} (New Best!)", buttonText, current);
+		} else {
+			return string.Format("{0}: {1} (Best: {2})", buttonText, current, best);
+		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -31,16 +31,24 @@ public partial class Main : Node2D
 		Events.instance.ExitToLevelSelect += OnExitToLevelSelect;
 	}
 
-	// Switches to a difference scene
-	private void SwitchToScene<T>(PackedScene newScene) where T : Node {
+	// Switches to a difference scene (you can pass a function to be called before adding the scene)
+	private void SwitchToScene<T>(PackedScene newScene, Action<T> preAddFunction) where T : Node {
 		if (currentGameState != null) {
 			((Node) currentGameState).QueueFree();
 		}
 		
 		var scene = newScene.Instantiate<T>();
+		preAddFunction(scene);
 		AddChild(scene);
 		currentGameState = (IGameState) scene;
 		currentGameState.AttachSignals(this);
+	}
+
+	// Overload that doesn't require a function
+	private void SwitchToScene<T>(PackedScene newScene) where T : Node {
+		SwitchToScene<T>(newScene, (T scene) => {
+
+		});
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -62,13 +70,11 @@ public partial class Main : Node2D
 	public void OnLevelEnd(string name, int score, int deaths) {
 		// There is a 0.5 second delay
 		GetTree().CreateTimer(0.5).Timeout += () => {
-			SwitchToScene<LevelEndScene>(LevelEndScene);
-
-			// Give key information to the level end scene
-			var endScene = (LevelEndScene) currentGameState;
-			endScene.Score = score;
-			endScene.Deaths = deaths;
-			endScene.LevelName = name;
+			SwitchToScene<LevelEndScene>(LevelEndScene, (LevelEndScene scene) => {
+				scene.Score = score;
+				scene.Deaths = deaths;
+				scene.LevelName = name;
+			});
 		};
 	}
 
