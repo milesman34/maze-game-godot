@@ -1,0 +1,95 @@
+[gd_scene load_steps=8 format=3 uid="uid://bdxn4nk4kikj0"]
+
+[ext_resource type="PackedScene" uid="uid://c8eot2fa78oca" path="res://levels/Level.tscn" id="1_h40n3"]
+[ext_resource type="PackedScene" uid="uid://ptdvqs3lct66" path="res://objects/CameraZone.tscn" id="2_hwfrq"]
+[ext_resource type="PackedScene" uid="uid://bkvcmawp03uwh" path="res://objects/LinkedPortal.tscn" id="2_litk5"]
+[ext_resource type="PackedScene" uid="uid://bnil1wlmvet5n" path="res://objects/Lock.tscn" id="3_ohw2h"]
+[ext_resource type="Texture2D" uid="uid://b0a641bwbfkne" path="res://art/wall.png" id="4_m5ocp"]
+[ext_resource type="PackedScene" uid="uid://drt124p0t1obp" path="res://objects/components/PositioningComponent.tscn" id="5_8oap4"]
+[ext_resource type="PackedScene" uid="uid://dt58rkcn6n25q" path="res://objects/Key.tscn" id="6_p4h7v"]
+
+[node name="Level" instance=ExtResource("1_h40n3")]
+
+[node name="TileMap" parent="." index="1"]
+layer_0/tile_data = PackedInt32Array(0, 1, 65536, 1, 1, 65536, 2, 1, 65536, 3, 1, 65536, 4, 1, 65536, 5, 1, 65536, 6, 1, 65536, 7, 1, 65536, 8, 1, 65536, 9, 1, 65536, 10, 1, 65536, 65537, 1, 524288, 65546, 1, 65536, 131082, 1, 65536, 196618, 1, 65536, 262154, 1, 65536, 327690, 1, 65536, 393226, 1, 65536, 458762, 1, 65536, 524298, 1, 65536, 589834, 1, 65536, 655370, 1, 65536, 655369, 1, 65536, 655368, 1, 65536, 655367, 1, 65536, 655366, 1, 65536, 655364, 1, 65536, 655363, 1, 65536, 655362, 1, 65536, 655361, 1, 65536, 655360, 1, 65536, 589824, 1, 65536, 524288, 1, 65536, 458752, 1, 65536, 393216, 1, 65536, 327680, 1, 65536, 262144, 1, 65536, 196608, 1, 65536, 131072, 1, 65536, 65536, 1, 65536, 720902, 1, 65536, 720903, 1, 65536, 720904, 1, 65536, 720905, 1, 65536, 720906, 1, 65536, 786442, 1, 65536, 851978, 1, 65536, 917514, 1, 65536, 983050, 1, 65536, 1048586, 1, 65536, 1114122, 1, 65536, 1179658, 1, 65536, 1245194, 1, 65536, 1310730, 1, 65536, 1376266, 1, 65536, 1376265, 1, 65536, 1376264, 1, 65536, 1376263, 1, 65536, 1376262, 1, 65536, 1376261, 1, 65536, 1376260, 1, 65536, 1376259, 1, 65536, 1376258, 1, 65536, 1376257, 1, 65536, 1376256, 1, 65536, 1310720, 1, 65536, 1245184, 1, 65536, 1179648, 1, 65536, 1114112, 1, 65536, 1048576, 1, 65536, 983040, 1, 65536, 917504, 1, 65536, 851968, 1, 65536, 786432, 1, 65536, 720896, 1, 65536, 720897, 1, 65536, 720898, 1, 65536, 720899, 1, 65536, 720900, 1, 65536, 458754, 1, 393216, 458755, 1, 393216, 458758, 1, 393216, 458759, 1, 393216, 393223, 1, 393216, 327687, 1, 393216, 196615, 1, 393216, 983042, 1, 393216, 917511, 1, 393216, 1114120, 1, 393216, 1245189, 1, 393216, 1114115, 1, 393216)
+
+[node name="LinkedPortal" parent="Objects" index="0" instance=ExtResource("2_litk5")]
+position = Vector2(78, 210)
+Color = Color(0, 1, 1, 1)
+Position1 = Vector2(2, 6)
+Position2 = Vector2(9, 5)
+
+[node name="LinkedPortal2" parent="Objects" index="1" instance=ExtResource("2_litk5")]
+position = Vector2(143, 500)
+Color = Color(0, 0.384314, 1, 1)
+Position1 = Vector2(7, 9)
+Position2 = Vector2(4, 15)
+
+[node name="Lock" parent="Objects" index="2" instance=ExtResource("3_ohw2h")]
+position = Vector2(-15.0339, 207.174)
+WallTexture = ExtResource("4_m5ocp")
+Color = Color(0, 0, 1, 1)
+
+[node name="PositioningComponent" parent="Objects/Lock" index="4" instance=ExtResource("5_8oap4")]
+StartPosition = Vector2(2, 13)
+
+[node name="Lock2" parent="Objects" index="3" instance=ExtResource("3_ohw2h")]
+position = Vector2(-15.0339, 207.174)
+WallTexture = ExtResource("4_m5ocp")
+Color = Color(0, 0, 1, 1)
+NumKeysRequired = 2
+
+[node name="PositioningComponent" parent="Objects/Lock2" index="4" instance=ExtResource("5_8oap4")]
+StartPosition = Vector2(7, 4)
+
+[node name="Lock3" parent="Objects" index="4" instance=ExtResource("3_ohw2h")]
+position = Vector2(-15.0339, 207.174)
+WallTexture = ExtResource("4_m5ocp")
+Color = Color(0, 0, 1, 1)
+NumKeysRequired = 3
+
+[node name="PositioningComponent" parent="Objects/Lock3" index="4" instance=ExtResource("5_8oap4")]
+StartPosition = Vector2(6, 16)
+
+[node name="Key" parent="Objects" index="5" instance=ExtResource("6_p4h7v")]
+position = Vector2(-15.0339, 207.174)
+Color = Color(0, 0, 1, 1)
+
+[node name="PositioningComponent" parent="Objects/Key" index="2" instance=ExtResource("5_8oap4")]
+StartPosition = Vector2(9, 15)
+
+[node name="Key2" parent="Objects" index="6" instance=ExtResource("6_p4h7v")]
+position = Vector2(-15.0339, 207.174)
+Color = Color(0, 0, 1, 1)
+
+[node name="PositioningComponent" parent="Objects/Key2" index="2" instance=ExtResource("5_8oap4")]
+StartPosition = Vector2(4, 8)
+
+[node name="Key3" parent="Objects" index="7" instance=ExtResource("6_p4h7v")]
+position = Vector2(-15.0339, 207.174)
+Color = Color(0, 0, 1, 1)
+
+[node name="PositioningComponent" parent="Objects/Key3" index="2" instance=ExtResource("5_8oap4")]
+StartPosition = Vector2(2, 19)
+
+[node name="CameraZone" parent="CameraZones" index="0" instance=ExtResource("2_hwfrq")]
+position = Vector2(-15.0339, 207.174)
+Size = Vector2(11, 11)
+
+[node name="CameraZone2" parent="CameraZones" index="1" instance=ExtResource("2_hwfrq")]
+position = Vector2(-15.0339, 207.174)
+StartPosition = Vector2(0, 11)
+Size = Vector2(11, 11)
+
+[connection signal="body_entered" from="TileMap/Lava" to="TileMap/Lava" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@57379" to="TileMap/@RigidBody2D@57379" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@57382" to="TileMap/@RigidBody2D@57382" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@57383" to="TileMap/@RigidBody2D@57383" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@57384" to="TileMap/@RigidBody2D@57384" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@57385" to="TileMap/@RigidBody2D@57385" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@57387" to="TileMap/@RigidBody2D@57387" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@57393" to="TileMap/@RigidBody2D@57393" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@57394" to="TileMap/@RigidBody2D@57394" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@57395" to="TileMap/@RigidBody2D@57395" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@57396" to="TileMap/@RigidBody2D@57396" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@57403" to="TileMap/@RigidBody2D@57403" method="OnBodyEntered"]
