@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Shooter : RigidBody2D
+public partial class Shooter : RigidBody2D, ICameraZoneListener
 {
 	// Wall texture to render
 	[Export]
@@ -59,10 +59,9 @@ public partial class Shooter : RigidBody2D
 	}
 
 	// Handles the registration of a camera zone
-	private void OnRegisterCameraZone(CameraZone zone) {
+	public void OnRegisterCameraZone(CameraZone zone) {
 		if (zone.IsVectorInBounds(GlobalPosition)) {
 			cameraZone = zone.ID;
-			GD.Print(cameraZone);
 		}
 	}
 
@@ -104,4 +103,10 @@ public partial class Shooter : RigidBody2D
 
 		AddChild((Node2D) projectile);
 	}
+
+    public void SetCameraZoneID(int ID)
+    {
+        cameraZone = ID;
+    }
+
 }

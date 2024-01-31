@@ -80,7 +80,7 @@ public partial class MetalBall : CharacterBody2D, IShooterProjectile, ICameraZon
 	}
 
 	// Handles the registration of a camera zone
-	private void OnRegisterCameraZone(CameraZone zone) {
+	public void OnRegisterCameraZone(CameraZone zone) {
 		if (zone.IsVectorInBounds(GlobalPosition)) {
 			cameraZone = zone.ID;
 		}
