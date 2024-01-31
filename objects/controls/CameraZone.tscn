@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://ptdvqs3lct66"]
 
-[ext_resource type="Script" path="res://objects/CameraZone.cs" id="1_u05lj"]
+[ext_resource type="Script" path="res://objects/controls/CameraZone.cs" id="1_oe1vf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cleng"]
 
 [node name="CameraZone" type="Area2D"]
-collision_layer = 0
-script = ExtResource("1_u05lj")
+collision_layer = 16
+script = ExtResource("1_oe1vf")
 
 [node name="BackgroundContainer" type="Node2D" parent="."]
 

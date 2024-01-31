@@ -37,12 +37,6 @@ public partial class LevelEndScene : Node2D, IGameState
 		// Figure out the best score
 		var saveManager = GetNode<SaveManager>("/root/SaveManager");
 
-		GD.Print("level end part?");
-		GD.Print(LevelName);
-
-		GD.Print(saveManager.levelStats[LevelName]);
-		GD.Print("lol");
-
 		// Set up the labels
 		scoreLabel.Text = GetButtonText("Score", Score, saveManager.levelStats[LevelName].BestScore, saveManager.newBestScore);
 		deathsLabel.Text = GetButtonText("Deaths", Deaths, saveManager.levelStats[LevelName].BestDeaths, saveManager.newBestDeaths);

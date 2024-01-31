@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://sh6xfaxjrdyi"]
 
 [ext_resource type="Texture2D" uid="uid://223gaorvwyym" path="res://art/lava.png" id="1_6yfrj"]
-[ext_resource type="Script" path="res://objects/Lava.cs" id="1_dpvot"]
+[ext_resource type="Script" path="res://objects/statics/Lava.cs" id="1_dpvot"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bv3m7"]
 size = Vector2(32, 32)

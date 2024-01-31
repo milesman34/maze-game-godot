@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://bnil1wlmvet5n"]
 
-[ext_resource type="Script" path="res://objects/Lock.cs" id="1_oyxvl"]
-[ext_resource type="Texture2D" uid="uid://dplupnd2hip0h" path="res://art/lock.png" id="2_v87r6"]
-[ext_resource type="FontFile" uid="uid://owarplrgfadk" path="res://fonts/Montserrat-Medium.ttf" id="3_bfes2"]
+[ext_resource type="Script" path="res://objects/key/Lock.cs" id="1_srnc8"]
+[ext_resource type="Texture2D" uid="uid://dplupnd2hip0h" path="res://art/lock.png" id="2_6qk5k"]
+[ext_resource type="FontFile" uid="uid://owarplrgfadk" path="res://fonts/Montserrat-Medium.ttf" id="3_pswa0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c20xt"]
 size = Vector2(32, 32)
@@ -11,7 +11,7 @@ size = Vector2(32, 32)
 collision_layer = 2
 collision_mask = 0
 gravity_scale = 0.0
-script = ExtResource("1_oyxvl")
+script = ExtResource("1_srnc8")
 Color = Color(0, 0, 0, 1)
 
 [node name="WallSprite" type="Sprite2D" parent="."]
@@ -22,13 +22,13 @@ shape = SubResource("RectangleShape2D_c20xt")
 
 [node name="LockSprite" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("2_v87r6")
+texture = ExtResource("2_6qk5k")
 
 [node name="AmountLabel" type="Label" parent="."]
 offset_left = -10.0
 offset_top = -10.0
 offset_right = 10.0
 offset_bottom = 10.0
-theme_override_fonts/font = ExtResource("3_bfes2")
+theme_override_fonts/font = ExtResource("3_pswa0")
 theme_override_font_sizes/font_size = 48
 text = "1"

@@ -71,7 +71,6 @@ public partial class SaveManager : Node
 		}
 
 		SaveToSaveFile(levelName, levelStats[levelName].BestScore, levelStats[levelName].BestDeaths);
-		GD.Print("saved file");
 	}
 
 	// Loads any of the save files into storage

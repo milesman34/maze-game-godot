@@ -32,7 +32,7 @@ public partial class LevelButton : Button
 			var stats = saveManager.levelStats[LevelResource.LevelName];
 
 			bestScoreLabel.Text = string.Format("Best Score: {0}", stats.BestScore);
-			bestDeathsLabel.Text = string.Format("Best Deaths: {0}", stats.BestDeaths);
+			bestDeathsLabel.Text = string.Format("Fewest Deaths: {0}", stats.BestDeaths);
 		}
 	}
 

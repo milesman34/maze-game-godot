@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dyxhx20s6vnqy"]
 
-[ext_resource type="Script" path="res://objects/Marker.cs" id="1_x3e71"]
+[ext_resource type="Script" path="res://objects/decorative/Marker.cs" id="1_x3e71"]
 
 [sub_resource type="Animation" id="Animation_guto7"]
 resource_name = "Marker"

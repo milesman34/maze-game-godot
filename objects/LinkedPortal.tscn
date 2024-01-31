@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://bkvcmawp03uwh"]
-
-[ext_resource type="Script" path="res://objects/LinkedPortal.cs" id="1_e84nk"]
-[ext_resource type="PackedScene" uid="uid://d0rp644vaf88a" path="res://objects/Portal.tscn" id="2_4pf78"]
-
-[node name="LinkedPortal" type="Node2D"]
-script = ExtResource("1_e84nk")
-Color = Color(1, 1, 1, 1)
-PortalScene = ExtResource("2_4pf78")

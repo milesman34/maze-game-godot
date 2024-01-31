@@ -46,9 +46,7 @@ public partial class Main : Node2D
 
 	// Overload that doesn't require a function
 	private void SwitchToScene<T>(PackedScene newScene) where T : Node {
-		SwitchToScene<T>(newScene, (T scene) => {
-
-		});
+		SwitchToScene<T>(newScene, (T scene) => {});
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

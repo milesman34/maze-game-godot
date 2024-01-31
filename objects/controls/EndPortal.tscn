@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://celw7o6luelqx"]
 
-[ext_resource type="Script" path="res://objects/EndPortal.cs" id="1_d800m"]
+[ext_resource type="Script" path="res://objects/controls/EndPortal.cs" id="1_d800m"]
 [ext_resource type="Texture2D" uid="uid://r73r4q00r4q1" path="res://art/End.png" id="1_lupno"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6lwkp"]

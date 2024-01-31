@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://tav5vvj7qhir"]
 
 [ext_resource type="PackedScene" uid="uid://c8eot2fa78oca" path="res://levels/Level.tscn" id="1_wp8mr"]
-[ext_resource type="PackedScene" uid="uid://ptdvqs3lct66" path="res://objects/CameraZone.tscn" id="2_ca6vy"]
-[ext_resource type="PackedScene" uid="uid://bx751kwyf8ylj" path="res://objects/Firebar.tscn" id="2_fhjox"]
+[ext_resource type="PackedScene" uid="uid://ptdvqs3lct66" path="res://objects/controls/CameraZone.tscn" id="2_ca6vy"]
+[ext_resource type="PackedScene" uid="uid://bx751kwyf8ylj" path="res://objects/fireball/firebar/Firebar.tscn" id="2_fhjox"]
 [ext_resource type="PackedScene" uid="uid://drt124p0t1obp" path="res://objects/components/PositioningComponent.tscn" id="3_2odso"]
 
 [node name="Level" instance=ExtResource("1_wp8mr")]

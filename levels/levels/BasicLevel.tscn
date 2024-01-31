@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://psqfjbdh7rdy"]
 
 [ext_resource type="PackedScene" uid="uid://c8eot2fa78oca" path="res://levels/Level.tscn" id="1_pa5py"]
-[ext_resource type="PackedScene" uid="uid://ptdvqs3lct66" path="res://objects/CameraZone.tscn" id="2_n01du"]
+[ext_resource type="PackedScene" uid="uid://ptdvqs3lct66" path="res://objects/controls/CameraZone.tscn" id="2_n01du"]
 
 [node name="Level" instance=ExtResource("1_pa5py")]
 StartPosition = Vector2(1, 1)

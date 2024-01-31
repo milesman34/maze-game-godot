@@ -1,12 +1,12 @@
 [gd_scene load_steps=8 format=3 uid="uid://bdxn4nk4kikj0"]
 
 [ext_resource type="PackedScene" uid="uid://c8eot2fa78oca" path="res://levels/Level.tscn" id="1_h40n3"]
-[ext_resource type="PackedScene" uid="uid://ptdvqs3lct66" path="res://objects/CameraZone.tscn" id="2_hwfrq"]
-[ext_resource type="PackedScene" uid="uid://bkvcmawp03uwh" path="res://objects/LinkedPortal.tscn" id="2_litk5"]
-[ext_resource type="PackedScene" uid="uid://bnil1wlmvet5n" path="res://objects/Lock.tscn" id="3_ohw2h"]
+[ext_resource type="PackedScene" uid="uid://ptdvqs3lct66" path="res://objects/controls/CameraZone.tscn" id="2_hwfrq"]
+[ext_resource type="PackedScene" uid="uid://bkvcmawp03uwh" path="res://objects/portal/LinkedPortal.tscn" id="2_litk5"]
+[ext_resource type="PackedScene" uid="uid://bnil1wlmvet5n" path="res://objects/key/Lock.tscn" id="3_ohw2h"]
 [ext_resource type="Texture2D" uid="uid://b0a641bwbfkne" path="res://art/wall.png" id="4_m5ocp"]
 [ext_resource type="PackedScene" uid="uid://drt124p0t1obp" path="res://objects/components/PositioningComponent.tscn" id="5_8oap4"]
-[ext_resource type="PackedScene" uid="uid://dt58rkcn6n25q" path="res://objects/Key.tscn" id="6_p4h7v"]
+[ext_resource type="PackedScene" uid="uid://dt58rkcn6n25q" path="res://objects/key/Key.tscn" id="6_p4h7v"]
 
 [node name="Level" instance=ExtResource("1_h40n3")]
 

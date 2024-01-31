@@ -13,12 +13,6 @@ public partial class Fireball : Area2D, IGameObject
 	{
 	}
 
-	private void OnBodyEntered(PhysicsBody2D body) {
-		if (body is Player) {
-			Events.instance.EmitSignal(Events.SignalName.PlayerHit);
-		}
-	}
-
 	public void AttachSignals(Level level) {
 	}
 }
