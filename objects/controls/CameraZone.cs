@@ -29,7 +29,7 @@ public partial class CameraZone : Area2D, IGameObject
 
 	private ColorRect backgroundLeft, backgroundRight, backgroundTop, backgroundBottom;
 
-	// Calculated absolute positions of the top left and bottom right of the camera zone
+	// Position of the top left and bottom right coordinates
 	private Vector2 topLeft, bottomRight;
 
 	// Called when the node enters the scene tree for the first time.
@@ -60,17 +60,31 @@ public partial class CameraZone : Area2D, IGameObject
         };
 
         GetNode<CollisionShape2D>("CollisionShape").Shape = rectSize;
+
+		// Get the corner positions
+		topLeft = Position - Size * Constants.TileSize / 2;
+		bottomRight = Position + Size * Constants.TileSize / 2;
+
+		// Set up the code for helping objects determine which camera zone they are in if registered later
+		Events.instance.RegisterCameraZoneListener += OnRegisterCameraZoneListener;
+
+		// Emit the camera zone registration signal for helping objects know which camera zone they belong to
+		Events.instance.EmitSignal(Events.SignalName.RegisterCameraZone, this);
 		
 		// Set background position/scale
 		CallDeferred(MethodName.UpdateBackgroundSizeAndPosition);
-
-		topLeft = Position - Size * Constants.TileSize / 2;
-		bottomRight = Position + Size * Constants.TileSize / 2;
 	}
 
-	// Returns if a point is inside the camera zone
-	public bool IsPointInZone(Vector2 vector) {
-		return topLeft.X <= vector.X && bottomRight.X >= vector.X && topLeft.Y <= vector.Y && bottomRight.Y >= vector.Y;
+    public override void _ExitTree()
+    {
+        base._ExitTree();
+
+		Events.instance.RegisterCameraZoneListener -= OnRegisterCameraZoneListener;
+    }
+
+    // Returns if a point is in the camera zone
+    public bool IsVectorInBounds(Vector2 vector) {
+		return vector.X >= topLeft.X && vector.X <= bottomRight.X && vector.Y >= topLeft.Y && vector.Y <= bottomRight.Y;
 	}
 
 	// Returns the size of the camera zone in pixels
@@ -154,6 +168,10 @@ public partial class CameraZone : Area2D, IGameObject
 	// Runs whenever another body enters the camera zone
 	private void OnBodyEntered(Node2D body) {
 		if (body is Player) {
+			foreach (var body2 in GetOverlappingAreas()) {
+				GD.Print(body2);
+			}
+
 			SetSurroundingVisibility(true);
 
 			Events.instance.EmitSignal(Events.SignalName.CameraZoneEntered, ID);
@@ -180,6 +198,16 @@ public partial class CameraZone : Area2D, IGameObject
 			backgroundContainer.Show();
 		} else {
 			backgroundContainer.Hide();
+		}
+	}
+
+	private void OnRegisterCameraZoneListener(Node2D node) {
+		if (node is ICameraZoneListener) {
+			var listener = node as ICameraZoneListener;
+
+			if (IsVectorInBounds(node.GlobalPosition)) {
+				listener.SetCameraZoneID(ID);
+			}
 		}
 	}
 

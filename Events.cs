@@ -29,6 +29,16 @@ public partial class Events : Node {
     // Signal that runs when a camera zone is exited
     [Signal]
     public delegate void CameraZoneExitedEventHandler(int ID);
+
+    // To handle instantiating the camera zone ID, it will require 2 events, one for when the camera zone is registered, and one for when the object is registered.
+    // For the camera zone registration event, objects can add a listener to do the needed things
+    // For the object registration event, camera zones can add a listener to do the needed things
+    // The listener must be of the type ICameraZoneListener
+    [Signal]
+    public delegate void RegisterCameraZoneEventHandler(CameraZone zone);
+
+    [Signal]
+    public delegate void RegisterCameraZoneListenerEventHandler(Node2D node);
     
     // Constructor
     public Events() {}

@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class MetalBall : CharacterBody2D, IShooterProjectile
+public partial class MetalBall : CharacterBody2D, IShooterProjectile, ICameraZoneListener
 {
 	// Speed of the metal ball
 	private float speed;
@@ -15,11 +15,8 @@ public partial class MetalBall : CharacterBody2D, IShooterProjectile
 	// Reference to the main collision shape
 	private CollisionShape2D mainCollisionShape;
 
-	// What camera zone this object belongs to
+	// Track the current camera zone this object is in
 	private int cameraZone = -1;
-
-	// Did the object try to determine its camera zone?
-	private bool triedCameraZone = false;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -30,21 +27,16 @@ public partial class MetalBall : CharacterBody2D, IShooterProjectile
 
 		// Set up something to remove the projectile when another camera zone is entered
 		Events.instance.CameraZoneEntered += OnCameraZoneEntered;
+
+		Events.instance.RegisterCameraZone += OnRegisterCameraZone;	
+
+		// Emit the camera zone listener registration signal to make sure camera zones can check if this object is in the camera zone
+		Events.instance.EmitSignal(Events.SignalName.RegisterCameraZoneListener, this);	
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		// It doesn't seem to be able to figure this out during _Ready, even with CallDeferred, so determining it once during _Process is the best bet
-		if (!triedCameraZone) {
-			foreach (var body in GetNode<Area2D>("BallArea").GetOverlappingAreas()) {
-				if (body is CameraZone) {
-					cameraZone = (body as CameraZone).ID;
-					triedCameraZone = true;
-				}
-			}
-		}
-		
 		var collision = MoveAndCollide(unitVector * (float) delta * speed);
 
 		if (collision != null) {
@@ -57,6 +49,7 @@ public partial class MetalBall : CharacterBody2D, IShooterProjectile
         base._ExitTree();
 
 		Events.instance.CameraZoneEntered -= OnCameraZoneEntered;
+		Events.instance.RegisterCameraZone -= OnRegisterCameraZone;
     }
 
 	private void OnAreaBodyEntered(PhysicsBody2D body) {
@@ -86,6 +79,13 @@ public partial class MetalBall : CharacterBody2D, IShooterProjectile
 		}
 	}
 
+	// Handles the registration of a camera zone
+	private void OnRegisterCameraZone(CameraZone zone) {
+		if (zone.IsVectorInBounds(GlobalPosition)) {
+			cameraZone = zone.ID;
+		}
+	}
+
     public void SetSpeedAndAngle(float speed, float angle)
     {
         this.speed = speed;
@@ -94,4 +94,8 @@ public partial class MetalBall : CharacterBody2D, IShooterProjectile
 		unitVector = new Vector2((float) Math.Cos(angle * Math.PI / 180), (float) Math.Sin(angle * Math.PI / 180)).Normalized();
     }
 
+    public void SetCameraZoneID(int ID)
+    {
+        cameraZone = ID;
+    }
 }

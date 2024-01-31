@@ -6,3 +6,5 @@ Ice that makes the player keep moving in a direction after moving (idk)
 
 To implement projectiles properly, I need to make the shooters stop shooting whenever they are off screen, plus I need the projectiles to disappear when off screen, but how would I do this?
 Maybe I could have a test for some objects based on the positioning of the camera zone?
+
+I could add a shooter variant that tracks the player and aims at them.
