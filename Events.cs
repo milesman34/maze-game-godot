@@ -21,6 +21,14 @@ public partial class Events : Node {
     // Signal that runs when the player is hit
     [Signal]
     public delegate void PlayerHitEventHandler();
+
+    // Signal that runs when a camera zone is entered
+    [Signal]
+    public delegate void CameraZoneEnteredEventHandler(int ID);
+
+    // Signal that runs when a camera zone is exited
+    [Signal]
+    public delegate void CameraZoneExitedEventHandler(int ID);
     
     // Constructor
     public Events() {}

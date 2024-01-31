@@ -20,6 +20,16 @@ ProjectileScene = ExtResource("3_1m3k7")
 [node name="PositioningComponent" parent="Objects/Shooter" index="2" instance=ExtResource("3_uy0ue")]
 StartPosition = Vector2(3, 5)
 
+[node name="Shooter2" parent="Objects" index="1" instance=ExtResource("2_5mnqc")]
+position = Vector2(583, 144)
+ShooterAngle = 180.0
+FiringRate = 3.5
+ProjectileSpeed = 96.0
+ProjectileScene = ExtResource("3_1m3k7")
+
+[node name="PositioningComponent" parent="Objects/Shooter2" index="2" instance=ExtResource("3_uy0ue")]
+StartPosition = Vector2(18, 4)
+
 [node name="CameraZone" parent="CameraZones" index="0" instance=ExtResource("2_mx3ot")]
 Size = Vector2(11, 11)
 

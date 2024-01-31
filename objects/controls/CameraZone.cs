@@ -20,14 +20,6 @@ public partial class CameraZone : Area2D, IGameObject
 	[Export]
 	public Vector2 Size { get; set; }
 
-	// Signal for when the player enters a camera zone
-	[Signal]
-	public delegate void CameraZoneEnteredEventHandler(int ID);
-
-	// Signal for when the player exits a camera zone
-	[Signal]
-	public delegate void CameraZoneExitedEventHandler(int ID);
-
 	// Signal for when the viewport size is updated
 	[Signal]
 	public delegate void CameraZoneUpdateEventHandler(int ID);
@@ -36,6 +28,9 @@ public partial class CameraZone : Area2D, IGameObject
 	public Node2D backgroundContainer;
 
 	private ColorRect backgroundLeft, backgroundRight, backgroundTop, backgroundBottom;
+
+	// Calculated absolute positions of the top left and bottom right of the camera zone
+	private Vector2 topLeft, bottomRight;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -68,6 +63,14 @@ public partial class CameraZone : Area2D, IGameObject
 		
 		// Set background position/scale
 		CallDeferred(MethodName.UpdateBackgroundSizeAndPosition);
+
+		topLeft = Position - Size * Constants.TileSize / 2;
+		bottomRight = Position + Size * Constants.TileSize / 2;
+	}
+
+	// Returns if a point is inside the camera zone
+	public bool IsPointInZone(Vector2 vector) {
+		return topLeft.X <= vector.X && bottomRight.X >= vector.X && topLeft.Y <= vector.Y && bottomRight.Y >= vector.Y;
 	}
 
 	// Returns the size of the camera zone in pixels
@@ -153,7 +156,7 @@ public partial class CameraZone : Area2D, IGameObject
 		if (body is Player) {
 			SetSurroundingVisibility(true);
 
-			EmitSignal(SignalName.CameraZoneEntered, ID);
+			Events.instance.EmitSignal(Events.SignalName.CameraZoneEntered, ID);
 		}
 	}
 
@@ -162,7 +165,7 @@ public partial class CameraZone : Area2D, IGameObject
 		if (body is Player) {
 			SetSurroundingVisibility(false);
 			
-			EmitSignal(SignalName.CameraZoneExited, ID);
+			Events.instance.EmitSignal(Events.SignalName.CameraZoneExited, ID);
 		}
 	}
 
@@ -183,10 +186,6 @@ public partial class CameraZone : Area2D, IGameObject
 	public void AttachSignals(Level level) {
 		// Set the CameraZone in the dictionary
 		level.SetCameraZone(ID, this);
-
-        // Signals for entering/exiting the camera zone
-        CameraZoneEntered += level.OnCameraZoneEntered;
-        CameraZoneExited += level.OnCameraZoneExited;
 
         // Signals for updating the camera zone
         CameraZoneUpdate += level.OnCameraZoneUpdate;

@@ -155,6 +155,10 @@ public partial class Level : Node2D
             (node as CameraZone).AttachSignals(this);
         }
 
+        // Connect to global camera zone events
+        Events.instance.CameraZoneEntered += OnCameraZoneEntered;
+        Events.instance.CameraZoneExited += OnCameraZoneExited;
+
         // Now attach the signals from the other objects
         var objectsNode = GetNode<Node>("Objects");
 

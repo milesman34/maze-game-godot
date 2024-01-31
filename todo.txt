@@ -4,7 +4,5 @@ Conveyor belts that apply a static force to the player in a direction
 Ice that makes the player keep moving in a direction after moving (idk)
 
 
-Resources:
-Maybe Coins could use resources
-
-Add 2-way portals as a tool to make level creation easier, it basically links the two portals to each other and ensures they have the same color.
+To implement projectiles properly, I need to make the shooters stop shooting whenever they are off screen, plus I need the projectiles to disappear when off screen, but how would I do this?
+Maybe I could have a test for some objects based on the positioning of the camera zone?
