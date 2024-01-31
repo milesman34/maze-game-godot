@@ -168,10 +168,6 @@ public partial class CameraZone : Area2D, IGameObject
 	// Runs whenever another body enters the camera zone
 	private void OnBodyEntered(Node2D body) {
 		if (body is Player) {
-			foreach (var body2 in GetOverlappingAreas()) {
-				GD.Print(body2);
-			}
-
 			SetSurroundingVisibility(true);
 
 			Events.instance.EmitSignal(Events.SignalName.CameraZoneEntered, ID);

@@ -119,6 +119,8 @@ public partial class Level : Node2D
         base._ExitTree();
 
         Events.instance.PlayerHit -= OnPlayerHit;
+        Events.instance.CameraZoneEntered -= OnCameraZoneEntered;
+        Events.instance.CameraZoneExited -= OnCameraZoneExited;
     }
 
     // Returns the starting position in pixels. The original position was based on units.
