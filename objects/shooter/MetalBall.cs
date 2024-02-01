@@ -15,7 +15,7 @@ public partial class MetalBall : CharacterBody2D, IShooterProjectile, ICameraZon
 	// Reference to the main collision shape
 	private CollisionShape2D mainCollisionShape;
 
-	// Track the current camera zone this object is in
+	// Current camera zone
 	private int cameraZone = -1;
 
 	// Called when the node enters the scene tree for the first time.
@@ -24,14 +24,6 @@ public partial class MetalBall : CharacterBody2D, IShooterProjectile, ICameraZon
 		// Disable the main collision shape at first
 		mainCollisionShape = GetNode<CollisionShape2D>("MainCollisionShape");
 		mainCollisionShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
-
-		// Set up something to remove the projectile when another camera zone is entered
-		Events.instance.CameraZoneEntered += OnCameraZoneEntered;
-
-		Events.instance.RegisterCameraZone += OnRegisterCameraZone;	
-
-		// Emit the camera zone listener registration signal to make sure camera zones can check if this object is in the camera zone
-		Events.instance.EmitSignal(Events.SignalName.RegisterCameraZoneListener, this);	
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -43,14 +35,6 @@ public partial class MetalBall : CharacterBody2D, IShooterProjectile, ICameraZon
 			QueueFree();
 		}
 	}
-
-    public override void _ExitTree()
-    {
-        base._ExitTree();
-
-		Events.instance.CameraZoneEntered -= OnCameraZoneEntered;
-		Events.instance.RegisterCameraZone -= OnRegisterCameraZone;
-    }
 
 	private void OnAreaBodyEntered(PhysicsBody2D body) {
 		// The DamagePlayerComponent takes care of player damage, but we still need the metal ball to disappear when it hits the player
@@ -73,19 +57,6 @@ public partial class MetalBall : CharacterBody2D, IShooterProjectile, ICameraZon
 		}
 	}
 
-	private void OnCameraZoneEntered(int ID) {
-		if (cameraZone != ID) {
-			QueueFree();
-		}
-	}
-
-	// Handles the registration of a camera zone
-	public void OnRegisterCameraZone(CameraZone zone) {
-		if (zone.IsVectorInBounds(GlobalPosition)) {
-			cameraZone = zone.ID;
-		}
-	}
-
     public void SetSpeedAndAngle(float speed, float angle)
     {
         this.speed = speed;
@@ -98,4 +69,16 @@ public partial class MetalBall : CharacterBody2D, IShooterProjectile, ICameraZon
     {
         cameraZone = ID;
     }
+
+    public void OnCameraZoneEntered(int ID)
+    {
+		if (cameraZone != ID) {
+			QueueFree();
+		}
+    }
+
+    public void OnCameraZoneExited(int ID)
+    {
+    }
+
 }

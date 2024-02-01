@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://by8l3uaoyshmi"]
+
+[ext_resource type="Script" path="res://objects/components/CameraZoneListenerComponent.cs" id="1_qybha"]
+
+[node name="CameraZoneListenerComponent" type="Node"]
+script = ExtResource("1_qybha")

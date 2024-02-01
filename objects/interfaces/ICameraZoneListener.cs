@@ -3,6 +3,9 @@ public interface ICameraZoneListener {
     // Sets the listener's camera zone ID
     public void SetCameraZoneID(int ID);
 
-    // Runs when a camera zone is registered
-    public void OnRegisterCameraZone(CameraZone zone);
+    // Runs when a camera zone is entered
+    public void OnCameraZoneEntered(int ID);
+
+    // Runs when a camera zone is exited
+    public void OnCameraZoneExited(int ID);
 }

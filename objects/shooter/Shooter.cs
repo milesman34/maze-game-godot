@@ -47,53 +47,11 @@ public partial class Shooter : RigidBody2D, ICameraZoneListener
 		shooterTimer.WaitTime = FiringRate;
 
 		shooterTimer.Start();
-
-		// Set up something to enable/disable the shooter when you enter/exit the current room
-		Events.instance.CameraZoneEntered += OnCameraZoneEntered;
-		Events.instance.CameraZoneExited += OnCameraZoneExited;
-		
-		Events.instance.RegisterCameraZone += OnRegisterCameraZone;	
-
-		// Emit the camera zone listener registration signal to make sure camera zones can check if this object is in the camera zone
-		Events.instance.EmitSignal(Events.SignalName.RegisterCameraZoneListener, this);	
-	}
-
-	// Handles the registration of a camera zone
-	public void OnRegisterCameraZone(CameraZone zone) {
-		if (zone.IsVectorInBounds(GlobalPosition)) {
-			cameraZone = zone.ID;
-		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-	}
-
-    public override void _ExitTree()
-    {
-        base._ExitTree();
-
-		Events.instance.CameraZoneEntered -= OnCameraZoneEntered;
-		Events.instance.CameraZoneExited -= OnCameraZoneExited;
-		Events.instance.RegisterCameraZone -= OnRegisterCameraZone;
-    }
-
-	private void OnCameraZoneEntered(int ID) {
-		if (cameraZone != ID) {
-			shooterTimer.Paused = true;
-		} else {
-			isGameInCurrentCameraZone = true;
-		}
-	}
-
-	private void OnCameraZoneExited(int ID) {
-		// We unpause the timer if the exited camera zone was not the current one and we are in the current one
-		if (cameraZone != ID && isGameInCurrentCameraZone) {
-			shooterTimer.Paused = false;
-		} else if (cameraZone == ID) {
-			isGameInCurrentCameraZone = false;
-		}
 	}
 
 	private void OnShooterTimerTimeout() {
@@ -107,6 +65,24 @@ public partial class Shooter : RigidBody2D, ICameraZoneListener
     public void SetCameraZoneID(int ID)
     {
         cameraZone = ID;
+    }
+
+    public void OnCameraZoneEntered(int ID)
+    {
+        if (cameraZone != ID) { // We are entering a new room, so pause the shooter
+			shooterTimer.Paused = true;
+		} else { // Set that we are in the current room
+			isGameInCurrentCameraZone = true;
+		}
+    }
+
+    public void OnCameraZoneExited(int ID)
+    {
+        if (cameraZone != ID && isGameInCurrentCameraZone) { // We are leaving a different room to enter this room, so unpause the shooter
+			shooterTimer.Paused = false;
+		} else if (cameraZone == ID) { // We are leaving this room
+			isGameInCurrentCameraZone = false;
+		}
     }
 
 }
