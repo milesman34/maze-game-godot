@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Shooter : RigidBody2D, ICameraZoneListener
+public partial class Shooter : RigidBody2D, ICameraZoneListener, IGameObject
 {
 	// Wall texture to render
 	[Export]
@@ -91,4 +91,8 @@ public partial class Shooter : RigidBody2D, ICameraZoneListener
 		}
     }
 
+    public virtual void AttachSignals(Level level)
+    {
+        
+    }
 }

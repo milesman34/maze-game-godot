@@ -128,6 +128,11 @@ public partial class Level : Node2D
         return StartPosition * Constants.TileSize + new Vector2(Constants.TileSize, Constants.TileSize) / 2.0f; // Size of tile?
     }
 
+    // Returns the player's position, returning (0, 0) if the player doesn't exist
+    public Vector2 GetPlayerPosition() {
+        return player == null ? Vector2.Zero : player.GlobalPosition;
+    }
+
     // Attaches all the signals for the objects node recursively
     private void AttachSignalsForObjectsNode(Node parentNode) {
         foreach(var node in parentNode.GetChildren()) {
