@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Projectile" load_steps=3 format=3 uid="uid://guwmyhp2xg7k"]
+
+[ext_resource type="Texture2D" uid="uid://ks6vckaq5im1" path="res://art/metalball.png" id="1_163mr"]
+[ext_resource type="Script" path="res://objects/shooter/projectile/Projectile.cs" id="1_ledr4"]
+
+[resource]
+script = ExtResource("1_ledr4")
+ProjectileTexture = ExtResource("1_163mr")
+CollidesWithWalls = true

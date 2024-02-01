@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://i2vq5s0ji1m8"]
+[gd_scene load_steps=7 format=3 uid="uid://i2vq5s0ji1m8"]
 
 [ext_resource type="Script" path="res://objects/shooter/Shooter.cs" id="1_ee5j4"]
 [ext_resource type="Texture2D" uid="uid://b1oon40tumvbj" path="res://art/shooter.png" id="1_g3jp0"]
 [ext_resource type="Texture2D" uid="uid://b0a641bwbfkne" path="res://art/wall.png" id="2_ykijd"]
+[ext_resource type="PackedScene" uid="uid://d00x0ul6iuvgn" path="res://objects/shooter/projectile/ShooterProjectile.tscn" id="3_cjerv"]
 [ext_resource type="PackedScene" uid="uid://by8l3uaoyshmi" path="res://objects/components/CameraZoneListenerComponent.tscn" id="4_t12fx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ynm0p"]
@@ -14,6 +15,7 @@ collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_ee5j4")
 WallTexture = ExtResource("2_ykijd")
+ProjectileScene = ExtResource("3_cjerv")
 
 [node name="WallSprite" type="Sprite2D" parent="."]
 texture_filter = 1

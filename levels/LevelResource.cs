@@ -1,6 +1,6 @@
 using Godot;
 
-// LevelInfo contains information about a level and links to its scene
+// LevelResource contains information about a level and links to its scene
 [GlobalClass]
 public partial class LevelResource : Resource {
     [Export]

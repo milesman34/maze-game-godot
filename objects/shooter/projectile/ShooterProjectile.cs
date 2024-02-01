@@ -1,12 +1,12 @@
 using Godot;
 using System;
 
-public partial class MetalBall : CharacterBody2D, IShooterProjectile, ICameraZoneListener
+public partial class ShooterProjectile : CharacterBody2D, ICameraZoneListener
 {
-	// Speed of the metal ball
+	// Speed of the projectile
 	private float speed;
 
-	// Angle the ball travels in
+	// Angle the projectile travels in
 	private float angle;
 
 	// Unit direction vector
@@ -18,9 +18,15 @@ public partial class MetalBall : CharacterBody2D, IShooterProjectile, ICameraZon
 	// Current camera zone
 	private int cameraZone = -1;
 
+	// Resource used for the projectile
+	public Projectile projectileResource;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		// Set the texture
+		GetNode<Sprite2D>("Sprite").Texture = projectileResource.ProjectileTexture;
+
 		// Disable the main collision shape at first
 		mainCollisionShape = GetNode<CollisionShape2D>("MainCollisionShape");
 		mainCollisionShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
@@ -29,10 +35,16 @@ public partial class MetalBall : CharacterBody2D, IShooterProjectile, ICameraZon
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		var collision = MoveAndCollide(unitVector * (float) delta * speed);
+		if (projectileResource.CollidesWithWalls) {
+			// Use MoveAndCollide here to detect collisions
+			var collision = MoveAndCollide(unitVector * (float) delta * speed);
 
-		if (collision != null) {
-			QueueFree();
+			if (collision != null) {
+				QueueFree();
+			}
+		} else {
+			// Ignore collisions with walls
+			Position += unitVector * (float) delta * speed;
 		}
 	}
 

@@ -19,9 +19,13 @@ public partial class Shooter : RigidBody2D, ICameraZoneListener
 	[Export]
 	public float ProjectileSpeed { get; set; } = 64;
 
-	// Scene for the projectile to shoot
+	// Scene for the projectile
 	[Export]
 	public PackedScene ProjectileScene { get; set; }
+
+	// Resource for the projectile
+	[Export]
+	public Projectile Projectile { get; set; }
 
 	// Reference to the shooter timer
 	private Timer shooterTimer;
@@ -55,11 +59,13 @@ public partial class Shooter : RigidBody2D, ICameraZoneListener
 	}
 
 	private void OnShooterTimerTimeout() {
-		var projectile = ProjectileScene.Instantiate<IShooterProjectile>();
+		var projectile = ProjectileScene.Instantiate<ShooterProjectile>();
+
+		projectile.projectileResource = Projectile;
 
 		projectile.SetSpeedAndAngle(ProjectileSpeed, ShooterAngle);
 
-		AddChild((Node2D) projectile);
+		AddChild(projectile);
 	}
 
     public void SetCameraZoneID(int ID)
