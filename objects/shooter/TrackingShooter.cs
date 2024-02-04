@@ -30,7 +30,7 @@ public partial class TrackingShooter : Shooter
 
 		ShooterAngle = (float) (Math.Atan2(difference.Y, difference.X) * 180 / Math.PI);
 
-		shooterSprite.RotationDegrees = ShooterAngle - 90;
+		shooterSprite.RotationDegrees = ShooterAngle;
 	}
 
 	public override void AttachSignals(Level level) {

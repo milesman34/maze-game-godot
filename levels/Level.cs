@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 
 /// <summary>
@@ -130,7 +131,12 @@ public partial class Level : Node2D
 
     // Returns the player's position, returning (0, 0) if the player doesn't exist
     public Vector2 GetPlayerPosition() {
-        return player == null ? Vector2.Zero : player.GlobalPosition;
+        try {
+            return player.GlobalPosition;
+        } catch (ObjectDisposedException) {
+            // I couldn't figure out a good way to check if the player doesn't exist, so using try/catch seems like my best bet
+            return Vector2.Zero;
+        }
     }
 
     // Attaches all the signals for the objects node recursively

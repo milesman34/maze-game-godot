@@ -30,10 +30,18 @@ public partial class ShooterProjectile : CharacterBody2D, ICameraZoneListener
 		// Disable the main collision shape at first
 		mainCollisionShape = GetNode<CollisionShape2D>("MainCollisionShape");
 		mainCollisionShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
+
+		Events.instance.PlayerHit += OnPlayerHit;
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+    public override void _ExitTree()
+    {
+        base._ExitTree();
+		Events.instance.PlayerHit -= OnPlayerHit;
+    }
+
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta)
 	{
 		if (projectileResource.CollidesWithWalls) {
 			// Use MoveAndCollide here to detect collisions
@@ -46,6 +54,11 @@ public partial class ShooterProjectile : CharacterBody2D, ICameraZoneListener
 			// Ignore collisions with walls
 			Position += unitVector * (float) delta * speed;
 		}
+	}
+
+	// Probably best to get rid of any active projectiles when the player gets hit, so that they can't immediately get hit again
+	private void OnPlayerHit() {
+		QueueFree();
 	}
 
 	private void OnAreaBodyEntered(PhysicsBody2D body) {

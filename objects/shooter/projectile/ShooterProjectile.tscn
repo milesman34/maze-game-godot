@@ -16,6 +16,7 @@ collision_mask = 2
 script = ExtResource("1_km7ao")
 
 [node name="Sprite" type="Sprite2D" parent="."]
+z_index = 10
 texture_filter = 1
 texture = ExtResource("2_h43m7")
 

@@ -11,6 +11,10 @@ public partial class Shooter : RigidBody2D, ICameraZoneListener, IGameObject
 	[Export]
 	public float ShooterAngle { get; set; } = 0;
 
+	// Delay in seconds before the first shot is fired
+	[Export]
+	public float FiringDelay { get; set; } = 0;
+
 	// How many seconds per projectile?
 	[Export]
 	public float FiringRate { get; set; } = 5;
@@ -30,6 +34,12 @@ public partial class Shooter : RigidBody2D, ICameraZoneListener, IGameObject
 	// Reference to the shooter timer
 	private Timer shooterTimer;
 
+	// Reference to the delay timer
+	private Timer delayTimer;
+
+	// Has the delay timer been triggered yet?
+	private bool delayTimerTriggered = false;
+
 	// Track the current camera zone this object is in
 	private int cameraZone = -1;
 
@@ -42,15 +52,11 @@ public partial class Shooter : RigidBody2D, ICameraZoneListener, IGameObject
 		GetNode<Sprite2D>("WallSprite").Texture = WallTexture;
 
 		// Change only the rotation for the sprite itself, not the wall sprite
-		GetNode<Sprite2D>("ShooterSprite").RotationDegrees = ShooterAngle - 90;
+		GetNode<Sprite2D>("ShooterSprite").RotationDegrees = ShooterAngle;
 
 		// Set up references
 		shooterTimer = GetNode<Timer>("ShooterTimer");
-
-		// Set up shooter timer
-		shooterTimer.WaitTime = FiringRate;
-
-		shooterTimer.Start();
+		delayTimer = GetNode<Timer>("DelayTimer");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -58,7 +64,24 @@ public partial class Shooter : RigidBody2D, ICameraZoneListener, IGameObject
 	{
 	}
 
+	// Sets up the shooter timer
+	private void SetUpShooterTimer() {
+		shooterTimer.WaitTime = FiringRate;
+
+		shooterTimer.Start();
+	}
+
+	private void OnDelayTimerTimeout() {
+		ShootProjectile();
+		SetUpShooterTimer();
+	}
+
 	private void OnShooterTimerTimeout() {
+		ShootProjectile();
+	}
+
+	// Shoots a projectile
+	private void ShootProjectile() {
 		var projectile = ProjectileScene.Instantiate<ShooterProjectile>();
 
 		projectile.projectileResource = Projectile;
@@ -77,8 +100,22 @@ public partial class Shooter : RigidBody2D, ICameraZoneListener, IGameObject
     {
         if (cameraZone != ID) { // We are entering a new room, so pause the shooter
 			shooterTimer.Paused = true;
+			delayTimer.Paused = true;
 		} else { // Set that we are in the current room
 			isGameInCurrentCameraZone = true;
+
+			if (!delayTimerTriggered) {
+				delayTimerTriggered = true;
+
+				// We can set up the delay timer now
+				if (FiringDelay > 0) {
+					delayTimer.WaitTime = FiringDelay;
+					delayTimer.Start();
+				} else {
+					CallDeferred(MethodName.ShootProjectile);
+					SetUpShooterTimer();
+				}
+			}
 		}
     }
 
@@ -86,6 +123,7 @@ public partial class Shooter : RigidBody2D, ICameraZoneListener, IGameObject
     {
         if (cameraZone != ID && isGameInCurrentCameraZone) { // We are leaving a different room to enter this room, so unpause the shooter
 			shooterTimer.Paused = false;
+			delayTimer.Paused = false;
 		} else if (cameraZone == ID) { // We are leaving this room
 			isGameInCurrentCameraZone = false;
 		}

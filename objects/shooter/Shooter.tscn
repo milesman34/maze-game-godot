@@ -30,6 +30,9 @@ shape = SubResource("RectangleShape2D_ynm0p")
 
 [node name="ShooterTimer" type="Timer" parent="."]
 
+[node name="DelayTimer" type="Timer" parent="."]
+one_shot = true
+
 [node name="Area" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 16
@@ -40,3 +43,4 @@ shape = SubResource("RectangleShape2D_ynm0p")
 [node name="CameraZoneListenerComponent" parent="." instance=ExtResource("4_t12fx")]
 
 [connection signal="timeout" from="ShooterTimer" to="." method="OnShooterTimerTimeout"]
+[connection signal="timeout" from="DelayTimer" to="." method="OnDelayTimerTimeout"]
