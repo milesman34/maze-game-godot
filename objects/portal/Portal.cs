@@ -4,35 +4,45 @@ using System;
 /// <summary>
 /// Portals let the player teleport to a new location upon hitting them.
 /// </summary>
-public partial class Portal : Area2D, IGameObject
-{
-	// Color of the portal
+public partial class Portal : Area2D, IGameObject {
+	/// <summary>
+	/// The color of the portal.
+	/// </summary>
 	[Export]
 	public Color Color { get; set; } = new Color(255, 255, 255);
 
-	// Position in units that the player is teleported to
+	/// <summary>
+	/// The position (in units) that the player is teleported to.
+	/// </summary>
 	[Export]
 	public Vector2 Target { get; set; }
 
-	// Signal for when the player enters the portal
+	/// <summary>
+	/// Signal emitted when the player enters a portal.
+	/// </summary>
+	/// <param name="target">The target location the player is teleported to.</param>
 	[Signal]
 	public delegate void PortalEnteredEventHandler(Vector2 target);
 
-	// Signal for when the player exits the portal
+	/// <summary>
+	/// Signal emitted when the player exits a portal.
+	/// </summary>
 	[Signal]
 	public delegate void PortalExitedEventHandler();
 
 	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
+	public override void _Ready() {
 		var sprite = GetNode<Sprite2D>("Sprite");
 
 		sprite.Modulate = Color;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
+	public override void _Process(double delta) {}
+
+	public void AttachSignals(Level level) {
+        PortalEntered += level.OnPortalEntered;
+        PortalExited += level.OnPortalExited;
 	}
 
 	// Runs when another body enters the portal
@@ -47,10 +57,5 @@ public partial class Portal : Area2D, IGameObject
 		if (body is Player) {
 			EmitSignal(SignalName.PortalExited);
 		}
-	}
-
-	public void AttachSignals(Level level) {
-        PortalEntered += level.OnPortalEntered;
-        PortalExited += level.OnPortalExited;
 	}
 }

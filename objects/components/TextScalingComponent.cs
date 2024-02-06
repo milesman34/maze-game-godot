@@ -1,17 +1,19 @@
 using Godot;
 using System;
 
-// Helps scale a label properly, designed to be used with Labels only
-// This is a bit awkward to use but can help make text look better
-public partial class TextScalingComponent : Node
-{
-	// How much it should be scaled by
+/// <summary>
+/// This component can be attached to a Label object to make it hopefully scale better.
+/// It is a bit awkward to use, for best results you should make sure the label object isn't too wide compared to the text.
+/// </summary>
+public partial class TextScalingComponent : Node {
+	/// <summary>
+	/// How many times should the text be scaled?
+	/// </summary>
 	[Export]
 	public float ScaleFactor = 4;
 
 	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
+	public override void _Ready() {
 		var parent = GetParent<Label>();
 
 		parent.AddThemeFontSizeOverride("font_size", (int) (parent.GetThemeFontSize("font_size") * ScaleFactor));
@@ -20,7 +22,5 @@ public partial class TextScalingComponent : Node
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+	public override void _Process(double delta) {}
 }

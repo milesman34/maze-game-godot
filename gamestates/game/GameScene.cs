@@ -2,29 +2,38 @@ using Godot;
 using System;
 
 /// <summary>
-/// The Main object manages the entire game.
+/// GameState for managing the game itself
 /// </summary>
-public partial class GameScene : Node2D, IGameState
-{
-	// Resource for the level
+public partial class GameScene : Node2D, IGameState {
+	/// <summary>
+	/// Resource for the level.
+	/// </summary>
 	[Export]
 	public LevelResource LevelResource { get; set; }
 
 	// Reference to the game viewport
-	public SubViewport gameViewport;
+	private SubViewport gameViewport;
+
+	/// <summary>
+	/// The game viewport is in charge of displaying the game.
+	/// </summary>
+	public SubViewport GameViewport { 
+		get {
+			return gameViewport;
+		}
+	 }
 
 	// Reference to the current instantiated level
 	private Level level;
 	
 	// Reference to the GUI object
-	private GameGUI GameGUI;
+	private GameGUI gameGUI;
 
 	// Reference to the GameContainerOffset object, for offsetting the position of the GameContainer
 	private Node2D gameContainerOffset;
 
 	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
+	public override void _Ready() {
 		// Update background color
 		RenderingServer.SetDefaultClearColor(new Color(0, 0, 0));
 
@@ -32,7 +41,7 @@ public partial class GameScene : Node2D, IGameState
 		GetTree().Root.ContentScaleMode = Window.ContentScaleModeEnum.Disabled;
 		
 		// Get a reference to the GUI
-		GameGUI = GetNode<GameGUI>("GUI");
+		gameGUI = GetNode<GameGUI>("GUI");
 
 		// Trying to get the viewport directly didn't work
 		// So I had to use three steps
@@ -49,10 +58,18 @@ public partial class GameScene : Node2D, IGameState
 		}
 	}
 
-	// Starts playing a level
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta) {}
+
+	public void AttachSignals(Main main) {}
+
+	/// <summary>
+	/// Instantiates and starts a level.
+	/// </summary>
+	/// <param name="levelResource">Resource for the given level</param>
 	public void StartLevel(LevelResource levelResource) {
 		// Instantiate the level
-		level = Level.InstantiateLevel(levelResource, this, GameGUI);
+		level = Level.InstantiateLevel(levelResource, this, gameGUI);
 
 		gameViewport.AddChild(level);
 		SetupViewportPositionSize();
@@ -67,13 +84,4 @@ public partial class GameScene : Node2D, IGameState
 		// Offset node is used to offset the viewport's position
 		gameContainerOffset.Position = new Vector2(0, GameGUI.HeaderHeight);
 	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-		
-	}
-
-	public void AttachSignals(Main main) {
-    }
 }

@@ -1,20 +1,31 @@
 using Godot;
 using System;
 
-public partial class LinkedPortal : Node2D, IGameObject
-{
-	// Color of the portal
+/// <summary>
+/// LinkedPortals are a utility for creating portals, which ensure the 2 positions are linked to each other.
+/// </summary>
+public partial class LinkedPortal : Node2D, IGameObject {
+	/// <summary>
+	/// The color of the portal.
+	/// </summary>
 	[Export]
 	public Color Color { get; set; } = new Color(255, 255, 255);
 
-	// The two positions of the portals
+	/// <summary>
+	/// The first position of the linked portal.
+	/// </summary>
 	[Export]
 	public Vector2 Position1 { get; set; }
 	
+	/// <summary>
+	/// The second position of the linked portal.
+	/// </summary>
 	[Export]
 	public Vector2 Position2 { get; set; }
 
-	// Portal scene
+	/// <summary>
+	/// The portal scene used to instantiate the portals.
+	/// </summary>
 	[Export]
 	public PackedScene PortalScene { get; set; }
 
@@ -22,8 +33,7 @@ public partial class LinkedPortal : Node2D, IGameObject
 	private Portal portal1, portal2;
 
 	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
+	public override void _Ready() {
 		portal1 = PortalScene.Instantiate<Portal>();
 		portal2 = PortalScene.Instantiate<Portal>();
 
@@ -42,12 +52,9 @@ public partial class LinkedPortal : Node2D, IGameObject
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+	public override void _Process(double delta) {}
 
-    public void AttachSignals(Level level)
-    {
+    public void AttachSignals(Level level) {
         portal1.AttachSignals(level);
 		portal2.AttachSignals(level);
     }

@@ -2,34 +2,41 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class LevelButtonsContainer : ScrollContainer
-{
-	// Information about the available levels
+/// <summary>
+/// GUI element used to display all of the LevelButtons.
+/// </summary>
+public partial class LevelButtonsContainer : ScrollContainer {
+	/// <summary>
+	/// Reference to the LevelInfo resource which contains all information about levels.
+	/// </summary>
 	[Export]
 	public LevelInfo LevelInfo { get; set; }
 
-	// Level Button scene type
+	/// <summary>
+	/// PackedScene used to instantiate a LevelButton.
+	/// </summary>
 	[Export]
 	public PackedScene LevelButtonScene { get; set; }
 
-	// Signal for switching to a level
+	/// <summary>
+	/// Signal sent when a level button is pressed, sending the resource
+	/// </summary>
+	/// <param name="resource">LevelResource representing the level</param>
 	[Signal]
 	public delegate void LevelButtonPressedEventHandler(LevelResource resource);
 
 	// Keep track of all the LevelButton elements
-	public List<LevelButton> levelButtons;
+	// This isn't used yet, but maybe one day I will want to implement the ability to sort levels.
+	private List<LevelButton> levelButtons;
 
 	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
+	public override void _Ready() {
 		levelButtons = new List<LevelButton>();
 
 		var mainContainer = GetNode<VBoxContainer>("MainContainer");
 
 		foreach(var levelResource in LevelInfo.Levels) {
-			var button = LevelButtonScene.Instantiate<LevelButton>();
-			button.LevelResource = levelResource;
-			button.LevelButtonPressed += level => EmitSignal(SignalName.LevelButtonPressed, level);
+			var button = LevelButton.InstantiateLevelButton(LevelButtonScene, levelResource, this);
 			
 			levelButtons.Add(button);
 			mainContainer.AddChild(button);
@@ -37,7 +44,5 @@ public partial class LevelButtonsContainer : ScrollContainer
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+	public override void _Process(double delta) {}
 }

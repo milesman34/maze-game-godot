@@ -1,8 +1,11 @@
 using Godot;
 using System;
 
-public partial class Lock : RigidBody2D, IGameObject
-{
+/// <summary>
+/// Locks block the player until enough keys of the given color are collected.
+/// </summary>
+public partial class Lock : RigidBody2D, IGameObject {
+	// LockState keeps track of the current state of the lock
 	private class LockState {
 		public int keysRemaining;
 		public bool enabled;
@@ -13,15 +16,21 @@ public partial class Lock : RigidBody2D, IGameObject
 		}
 	}
 
-	// Texture to display for the wall
+	/// <summary>
+	/// Texture to display for the wall.
+	/// </summary>
 	[Export]
 	public Texture2D WallTexture { get; set; }
 
-	// Color of the lock
+	/// <summary>
+	/// Color of the lock.
+	/// </summary>
 	[Export]
 	public Color Color { get; set; }
 
-	// Number of keys required to open the lock
+	/// <summary>
+	/// The number of keys required to open the lock.
+	/// </summary>
 	[Export(PropertyHint.Range, "1, 99, 1, or_greater")]
 	public int NumKeysRequired { get; set; } = 1;
 
@@ -36,9 +45,8 @@ public partial class Lock : RigidBody2D, IGameObject
 	private LockState savedState;
 
 	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		Events.instance.PlayerHit += OnPlayerHit;
+	public override void _Ready() {
+		Events.Instance.PlayerHit += OnPlayerHit;
 
 		// Set up references
 		amountLabel = GetNode<Label>("AmountLabel");
@@ -62,19 +70,28 @@ public partial class Lock : RigidBody2D, IGameObject
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+	public override void _Process(double delta) {}
 
-    public override void _ExitTree()
-    {
+    public override void _ExitTree() {
         base._ExitTree();
 
-		Events.instance.PlayerHit -= OnPlayerHit;
+		Events.Instance.PlayerHit -= OnPlayerHit;
     }
 
+	public void AttachSignals(Level level) {
+        level.CollectKey += OnKeyCollected;
+        level.CheckpointHit += OnCheckpointHit;
+	}
+
+	// Sets the number of remaining keys, updating the label
+	private void SetNumKeysRemaining(int keys) {
+		numKeysRemaining = keys;
+		amountLabel.Text = keys.ToString();
+		currentState.keysRemaining = keys;
+	}
+
     // Runs whenever a key is collected. It makes sure the key collected was the correct color before doing anything.
-    public void OnKeyCollected(Color color) {
+    private void OnKeyCollected(Color color) {
 		if (Color == color) {
 			// Resolve the effects of the lock
 			SetNumKeysRemaining(numKeysRemaining - 1);
@@ -88,15 +105,8 @@ public partial class Lock : RigidBody2D, IGameObject
 		}
 	}
 
-	// Sets the number of remaining keys, updating the label
-	private void SetNumKeysRemaining(int keys) {
-		numKeysRemaining = keys;
-		amountLabel.Text = keys.ToString();
-		currentState.keysRemaining = keys;
-	}
-
 	// Runs when the player is hit
-	public void OnPlayerHit() {
+	private void OnPlayerHit() {
 		SetNumKeysRemaining(savedState.keysRemaining);
 
 		// If the lock was disabled but not in the saved state, we need to re-enable it
@@ -109,12 +119,7 @@ public partial class Lock : RigidBody2D, IGameObject
 	}
 
 	// Runs when a checkpoint is hit
-	public void OnCheckpointHit() {
+	private void OnCheckpointHit() {
 		savedState = new LockState(currentState.keysRemaining, currentState.enabled);
-	}
-
-	public void AttachSignals(Level level) {
-        level.CollectKey += OnKeyCollected;
-        level.CheckpointHit += OnCheckpointHit;
 	}
 }

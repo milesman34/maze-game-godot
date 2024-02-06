@@ -1,5 +1,10 @@
-// IGameObject represents any game object that can be placed in a level
+/// <summary>
+/// IGameObject represents any game object which can be placed in a level and requires handling its signals.
+/// </summary>
 public interface IGameObject {
-    // Attaches the signals to the level itself, as well as any other things it needs to do
+    /// <summary>
+    /// Attaches any important signals to the level itself, and performs any other necessary actions.
+    /// </summary>
+    /// <param name="level">Reference to the current Level</param>
     public void AttachSignals(Level level);
 }

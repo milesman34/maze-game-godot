@@ -4,8 +4,10 @@ using System;
 /// <summary>
 /// Markers are decorative objects which can be used to display a color somewhere.
 /// </summary>
-public partial class Marker : Node2D
-{
+public partial class Marker : Node2D {
+	/// <summary>
+	/// The color of the marker.
+	/// </summary>
 	[Export]
 	public Color Color { get; set; } = new Color(255, 255, 255);
 
@@ -13,8 +15,7 @@ public partial class Marker : Node2D
 	private ColorRect colorRect;
  
 	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
+	public override void _Ready() {
 		colorRect = GetNode<ColorRect>("ColorRect");
 		colorRect.Color = Color;
 
@@ -40,7 +41,5 @@ public partial class Marker : Node2D
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+	public override void _Process(double delta) {}
 }

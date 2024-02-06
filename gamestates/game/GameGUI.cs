@@ -2,12 +2,11 @@ using Godot;
 using System;
 
 /// <summary>
-/// GUI object is responsible for maintaining the GUI.
+/// GameGUI object is responsible for maintaining the ingame GUI.
 /// </summary>
-public partial class GameGUI : CanvasLayer
-{
+public partial class GameGUI : CanvasLayer {
 	/// <summary>
-	/// Constant representing the height of the header in pixels (default is 32)
+	/// Constant representing the height of the header in pixels (default is 64)
 	/// </summary>
 	public const int HeaderHeight = 64;
 
@@ -24,8 +23,7 @@ public partial class GameGUI : CanvasLayer
 	private bool levelFinished = false;
 
 	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
+	public override void _Ready() {
 		// Set some references
 		scoreLabel = GetNode<Label>("%ScoreLabel");
 		deathsLabel = GetNode<Label>("%DeathsLabel");
@@ -35,22 +33,26 @@ public partial class GameGUI : CanvasLayer
 		// Hide the quit confirm modal
 		quitConfirmModal.Hide();
 
-		Events.instance.LevelEnd += (string levelName, int score, int deaths) => {
+		Events.Instance.LevelEnd += (string levelName, int score, int deaths) => {
 			levelFinished = true;
 		};
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+	public override void _Process(double delta) {}
 
-	// Sets the contents of the score display in the GUI.
+	/// <summary>
+	/// Sets the contents of the score display in the GUI
+	/// </summary>
+	/// <param name="score"></param>
 	public void SetScore(int score) {
 		scoreLabel.Text = string.Format("Score: {0}", score);
 	}
 
-	// Sets the contents of the deaths display in the GUI.
+	/// <summary>
+	/// Sets the contents of the deaths display in the GUI
+	/// </summary>
+	/// <param name="deaths"></param>
 	public void SetDeaths(int deaths) {
 		deathsLabel.Text = string.Format("Deaths: {0}", deaths);
 	}
@@ -69,6 +71,6 @@ public partial class GameGUI : CanvasLayer
 
 	private void OnYesQuitButtonPressed() {
 		GetTree().Paused = false;
-		Events.instance.EmitSignal(Events.SignalName.ExitToLevelSelect);
+		Events.Instance.EmitSignal(Events.SignalName.ExitToLevelSelect);
 	}
 }

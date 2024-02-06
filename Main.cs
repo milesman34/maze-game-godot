@@ -1,35 +1,50 @@
- using Godot;
+using Godot;
 using System;
 
-public partial class Main : Node2D
-{
-	// The various scenes in the game
+/// <summary>
+/// The main object that controls the game.
+/// </summary>
+public partial class Main : Node2D {
+	/// <summary>
+	/// Scene for the title screen.
+	/// </summary>
 	[Export]
 	public PackedScene TitleScene { get; set; }
 	
+	/// <summary>
+	/// Scene for the level select screen.
+	/// </summary>
 	[Export]
 	public PackedScene LevelSelectScene { get; set; }
 
+	/// <summary>
+	/// Scene for the game scene.
+	/// </summary>
 	[Export]
 	public PackedScene GameScene { get; set; }
 
+	/// <summary>
+	/// Scene for the level end screen.
+	/// </summary>
 	[Export]
 	public PackedScene LevelEndScene { get; set; }
 
 	// Reference to the current scene
-	public IGameState currentGameState;
+	private IGameState currentGameState;
 
 	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
+	public override void _Ready() {
 		// Switch to the title screen
 		SwitchToScene<TitleScene>(TitleScene);
 
 		// Connect to the LevelEnd global signal
-		Events.instance.LevelEnd += OnLevelEnd;
-		Events.instance.SwitchToLevel += SwitchToLevel;
-		Events.instance.ExitToLevelSelect += OnExitToLevelSelect;
+		Events.Instance.LevelEnd += OnLevelEnd;
+		Events.Instance.SwitchToLevel += SwitchToLevel;
+		Events.Instance.ExitToLevelSelect += OnSwitchToLevelSelect;
 	}
+
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta) {}
 
 	// Switches to a difference scene (you can pass a function to be called before adding the scene)
 	private void SwitchToScene<T>(PackedScene newScene, Action<T> preAddFunction) where T : Node {
@@ -46,46 +61,40 @@ public partial class Main : Node2D
 
 	// Overload that doesn't require a function
 	private void SwitchToScene<T>(PackedScene newScene) where T : Node {
-		SwitchToScene<T>(newScene, (T scene) => {});
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
-
-	// Runs when the game starts
-	public void OnGameStarted() {
-		SwitchToScene<LevelSelectScene>(LevelSelectScene);
-	}
-
-	// Runs when the player exits out to level select
-	public void OnExitToLevelSelect() {
-		SwitchToScene<LevelSelectScene>(LevelSelectScene);
-	}
-
-	// Runs when the game ends
-	public void OnLevelEnd(string name, int score, int deaths) {
-		// There is a 0.5 second delay
-		GetTree().CreateTimer(0.5).Timeout += () => {
-			SwitchToScene<LevelEndScene>(LevelEndScene, (LevelEndScene scene) => {
-				scene.Score = score;
-				scene.Deaths = deaths;
-				scene.LevelName = name;
-			});
-		};
+		SwitchToScene(newScene, (T scene) => {});
 	}
 
 	// Switches to a level
-	public void SwitchToLevel(LevelResource resource) {
+	private void SwitchToLevel(LevelResource resource) {
 		SwitchToScene<GameScene>(GameScene);
 		
 		var gameScene = (GameScene) currentGameState;
 		gameScene.StartLevel(resource);
 	}
 
-	// Runs when the player goes back to the title screen
+	/// <summary>
+	/// Function called when the player goes back to the title screen.
+	/// </summary>
 	public void OnGoToTitleScreen() {
 		SwitchToScene<TitleScene>(TitleScene);
+	}
+
+	/// <summary>
+	/// Function called when the player switches to the level select screen.
+	/// </summary>
+	public void OnSwitchToLevelSelect() {
+		SwitchToScene<LevelSelectScene>(LevelSelectScene);
+	}
+
+	// Runs when the game ends
+	private void OnLevelEnd(string name, int score, int deaths) {
+		// There is a 0.5 second delay
+		GetTree().CreateTimer(0.5).Timeout += () => {
+			SwitchToScene(LevelEndScene, (LevelEndScene scene) => {
+				scene.Score = score;
+				scene.Deaths = deaths;
+				scene.LevelName = name;
+			});
+		};
 	}
 }

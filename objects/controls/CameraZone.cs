@@ -6,26 +6,42 @@ using System;
 /// </summary>
 public partial class CameraZone : Area2D, IGameObject
 {
+	/// <summary>
+	/// Position of the camera zone (in units).
+	/// </summary>
+	[Export]
+	public Vector2 StartPosition {get; set; }
+
+	/// <summary>
+	/// Size of the camera zone (in units).
+	/// </summary>
+	[Export]
+	public Vector2 Size { get; set; }
+
+	/// <summary>
+	/// Signal sent out when the camera zone is updated (when the window is resized usually).
+	/// </summary>
+	/// <param name="ID">ID of this camera zone</param>
+	[Signal]
+	public delegate void CameraZoneUpdateEventHandler(int ID);
+
 	// Current unique ID to be given to a camera zone
 	private static int currentID;
 
 	// ID of this camera zone
-	public int ID;
+	private int id;
 
-	// Position of the camera zone in units
-	[Export]
-	public Vector2 StartPosition {get; set; }
-
-	// Size of the camera zone in units
-	[Export]
-	public Vector2 Size { get; set; }
-
-	// Signal for when the viewport size is updated
-	[Signal]
-	public delegate void CameraZoneUpdateEventHandler(int ID);
+	/// <summary>
+	/// This camera zone's ID
+	/// </summary>
+	public int ID { 
+		get {
+			return id;
+		}
+	}
 
 	// Reference to the various background objects
-	public Node2D backgroundContainer;
+	private Node2D backgroundContainer;
 
 	private ColorRect backgroundLeft, backgroundRight, backgroundTop, backgroundBottom;
 
@@ -33,8 +49,7 @@ public partial class CameraZone : Area2D, IGameObject
 	private Vector2 topLeft, bottomRight;
 
 	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
+	public override void _Ready() {
 		// Get references to certain objects
 		backgroundContainer = GetNode<Node2D>("BackgroundContainer");
 
@@ -47,15 +62,14 @@ public partial class CameraZone : Area2D, IGameObject
 		backgroundContainer.Hide();
 
 		// Set ID of this CameraZone
-		ID = currentID;
+		id = currentID;
 		currentID++;
 
 		// Set the current position
 		Position = StartPosition * Constants.TileSize + Size * Constants.TileSize / 2.0f;
 
         // Set the size of the collision shape
-        var rectSize = new RectangleShape2D
-        {
+        var rectSize = new RectangleShape2D {
             Size = Size * Constants.TileSize
         };
 
@@ -66,33 +80,56 @@ public partial class CameraZone : Area2D, IGameObject
 		bottomRight = Position + Size * Constants.TileSize / 2;
 
 		// Set up the code for helping objects determine which camera zone they are in if registered later
-		Events.instance.RegisterCameraZoneListener += OnRegisterCameraZoneListener;
+		Events.Instance.RegisterCameraZoneListener += OnRegisterCameraZoneListener;
 
 		// Emit the camera zone registration signal for helping objects know which camera zone they belong to
-		Events.instance.EmitSignal(Events.SignalName.RegisterCameraZone, this);
+		Events.Instance.EmitSignal(Events.SignalName.RegisterCameraZone, this);
 		
 		// Set background position/scale
 		CallDeferred(MethodName.UpdateBackgroundSizeAndPosition);
 	}
 
-    public override void _ExitTree()
-    {
+    public override void _ExitTree() {
         base._ExitTree();
 
-		Events.instance.RegisterCameraZoneListener -= OnRegisterCameraZoneListener;
+		Events.Instance.RegisterCameraZoneListener -= OnRegisterCameraZoneListener;
     }
 
-    // Returns if a point is in the camera zone
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta) {}
+
+	public void AttachSignals(Level level) {
+		// Set the CameraZone in the dictionary
+		level.AddCameraZone(this);
+
+        // Signals for updating the camera zone
+        CameraZoneUpdate += level.OnCameraZoneUpdate;
+
+        // Also attach the signal for the game viewport changing size
+        level.Game.GameViewport.SizeChanged += OnWindowResize;
+	}
+
+    /// <summary>
+	/// Returns if a position vector is contained within the bounds of the camera zone.
+	/// </summary>
+	/// <param name="vector">The point in question</param>
+	/// <returns></returns>
     public bool IsVectorInBounds(Vector2 vector) {
 		return vector.X >= topLeft.X && vector.X <= bottomRight.X && vector.Y >= topLeft.Y && vector.Y <= bottomRight.Y;
 	}
 
-	// Returns the size of the camera zone in pixels
+	/// <summary>
+	/// Returns the size of the camera zone in pixels.
+	/// </summary>
+	/// <returns></returns>
 	public Vector2 GetCameraZoneSize() {
 		return Size * Constants.TileSize;
 	}
 
-	// Returns the position of the camera zone in pixels (based on where it is to have it in the center of the screen)
+	/// <summary>
+	/// Returns the position of the camera zone in pixels (based on the position of its center).
+	/// </summary>
+	/// <returns></returns>
 	public Vector2 GetCameraZonePosition() {
 		return -GetCameraZoneSize() / 2.0f;
 	}
@@ -114,16 +151,6 @@ public partial class CameraZone : Area2D, IGameObject
 		backgroundTop.Position = new Vector2(-zoneSize.X / 2.0f, -zoneSize.Y * ExtendFactor - zoneSize.Y / 2.0f);
 		backgroundBottom.Size = new Vector2(zoneSize.X, zoneSize.Y * ExtendFactor);
 		backgroundBottom.Position = new Vector2(-zoneSize.X / 2.0f, zoneSize.Y / 2.0f);
-
-		// backgroundLeft.Color = new Color(255, 0, 0);
-		// backgroundRight.Color = new Color(0, 255, 0);
-		// backgroundTop.Color = new Color(0, 0, 255);
-		// backgroundBottom.Color = new Color(255, 0, 255);
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
 	}
 
 	// Calculates the effective zoom level, based on the viewport size. The zoom level is the same for both axes.
@@ -159,8 +186,20 @@ public partial class CameraZone : Area2D, IGameObject
         return new Vector2(zoom, zoom);
 	}
 
+	/// <summary>
+	/// Sets if the surrounding background is visible. If it is visible, then it blocks the visibility of other parts of the level.
+	/// </summary>
+	/// <param name="visible">Should the surrounding background be visible, blocking the visibility of other parts of the level?</param>
+	public void SetSurroundingVisibility(bool visible) {
+		if (visible) {
+			backgroundContainer.Show();
+		} else {
+			backgroundContainer.Hide();
+		}
+	}
+
 	// Runs whenever the window resizes
-    public void OnWindowResize() {
+    private void OnWindowResize() {
         EmitSignal(SignalName.CameraZoneUpdate, ID);
 		UpdateBackgroundSizeAndPosition();
     }
@@ -170,7 +209,7 @@ public partial class CameraZone : Area2D, IGameObject
 		if (body is Player) {
 			SetSurroundingVisibility(true);
 
-			Events.instance.EmitSignal(Events.SignalName.CameraZoneEntered, ID);
+			Events.Instance.EmitSignal(Events.SignalName.CameraZoneEntered, ID);
 		}
 	}
 
@@ -179,24 +218,11 @@ public partial class CameraZone : Area2D, IGameObject
 		if (body is Player) {
 			SetSurroundingVisibility(false);
 			
-			Events.instance.EmitSignal(Events.SignalName.CameraZoneExited, ID);
+			Events.Instance.EmitSignal(Events.SignalName.CameraZoneExited, ID);
 		}
 	}
 
-	// Sets the background color
-	public void SetBackgroundColor(Color color) {
-		// background.Color = color;
-	}
-
-	// Sets if the surrounding background is visible
-	public void SetSurroundingVisibility(bool visible) {
-		if (visible) {
-			backgroundContainer.Show();
-		} else {
-			backgroundContainer.Hide();
-		}
-	}
-
+	// Runs when a camera zone listener is registered
 	private void OnRegisterCameraZoneListener(Node2D node) {
 		if (node is ICameraZoneListener) {
 			var listener = node as ICameraZoneListener;
@@ -205,16 +231,5 @@ public partial class CameraZone : Area2D, IGameObject
 				listener.SetCameraZoneID(ID);
 			}
 		}
-	}
-
-	public void AttachSignals(Level level) {
-		// Set the CameraZone in the dictionary
-		level.SetCameraZone(ID, this);
-
-        // Signals for updating the camera zone
-        CameraZoneUpdate += level.OnCameraZoneUpdate;
-
-        // Also attach the signal for the game viewport changing size
-        level.mainGame.gameViewport.SizeChanged += OnWindowResize;
 	}
 }

@@ -4,12 +4,17 @@ using System;
 /// <summary>
 /// Keys help you unlock various Locks in the level.
 /// </summary>
-public partial class Key : Area2D, IGameObject
-{
+public partial class Key : Area2D, IGameObject {
+	/// <summary>
+	/// The color of the key.
+	/// </summary>
 	[Export]
 	public Color Color { get; set; }
 
-	// Signal to emit when the key is collected
+	/// <summary>
+	/// Signal emitted when the key is collected.
+	/// </summary>
+	/// <param name="color">Color of the key</param>
 	[Signal]
 	public delegate void CollectKeyEventHandler(Color color);
 
@@ -18,15 +23,17 @@ public partial class Key : Area2D, IGameObject
 	private bool currentCollected = false;
 
 	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
+	public override void _Ready() {
 		GetNode<Sprite2D>("Sprite").Modulate = Color;
-		Events.instance.PlayerHit += OnPlayerHit;
+		Events.Instance.PlayerHit += OnPlayerHit;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
+	public override void _Process(double delta) {}
+
+	public void AttachSignals(Level level) {
+        CollectKey += level.OnKeyCollected;
+        level.CheckpointHit += OnCheckpointHit;
 	}
 
 	// Runs when another body enters the key
@@ -44,7 +51,7 @@ public partial class Key : Area2D, IGameObject
 	}
 
 	// Runs when the player is hit
-	public void OnPlayerHit() {
+	private void OnPlayerHit() {
 		// If the key was collected but was not saved, then it needs to be reset
 		if (currentCollected && !savedCollected) {
 			currentCollected = false;
@@ -55,12 +62,7 @@ public partial class Key : Area2D, IGameObject
 	}
 
 	// Runs when a checkpoint is hit
-	public void OnCheckpointHit() {
+	private void OnCheckpointHit() {
 		savedCollected = currentCollected;
-	}
-
-	public void AttachSignals(Level level) {
-        CollectKey += level.OnKeyCollected;
-        level.CheckpointHit += OnCheckpointHit;
 	}
 }

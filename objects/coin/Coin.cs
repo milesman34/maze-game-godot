@@ -1,34 +1,43 @@
 using Godot;
 using System;
 
+[Tool]
 /// <summary>
 /// Coins are collectible objects which increase the player's score. They can be customized with a color and a value.
 /// </summary>
-public partial class Coin : Area2D, IGameObject
-{
-	// Color to paint the coin with
+public partial class Coin : Area2D, IGameObject {
+	/// <summary>
+	/// Color to paint the coin with
+	/// </summary>
 	[Export]
 	public Color CoinColor { get; set; }
 
-	// Value of the coin, meaning how many points you get for collecting it
+	/// <summary>
+	/// Value of the coin (how many points are scored for collecting it).
+	/// </summary>
 	[Export]
 	public int Value { get; set; } = 1;
 
-	// Coin collection signal
+	/// <summary>
+	/// Signal emitted when a coin is collected.
+	/// </summary>
+	/// <param name="value">How many points the player earned for collecting the coin</param>
 	[Signal]
 	public delegate void CollectCoinEventHandler(int value);
 
 	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
+	public override void _Ready() {
 		var sprite = GetNode<Sprite2D>("Sprite");
 
 		sprite.Modulate = new Color(CoinColor);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
+	public override void _Process(double delta) {
+	}
+
+	public void AttachSignals(Level level) {
+		CollectCoin += level.OnAddScore;
 	}
 
 	// Runs when another body enters the coin
@@ -42,9 +51,5 @@ public partial class Coin : Area2D, IGameObject
 			// Emit the signal
 			EmitSignal(SignalName.CollectCoin, Value);
 		}
-	}
-
-	public void AttachSignals(Level level) {
-		CollectCoin += level.OnAddScore;
 	}
 }

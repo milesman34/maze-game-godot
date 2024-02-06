@@ -1,32 +1,54 @@
 using System;
 using Godot;
 
-// This autoloaded node handles some global events
+/// <summary>
+/// The Events autoloaded node handles global events.
+/// </summary>
 public partial class Events : Node {
-    // Static reference to the Events singleton
-    public static Events instance = new Events();
+    /// <summary>
+    /// Static reference to the Events instance.
+    /// </summary>
+    public static Events Instance = new Events();
 
-    // Runs when the level ends
+    /// <summary>
+    /// Signal emitted when the level ends.
+    /// </summary>
+    /// <param name="levelName">Name of the completed level</param>
+    /// <param name="score">The player's score in the level</param>
+    /// <param name="deaths">How many times the player died</param>
     [Signal]
     public delegate void LevelEndEventHandler(string levelName, int score, int deaths);
 
-    // Runs to switch to a level
+    /// <summary>
+    /// Signal emitted to switch to a level.
+    /// </summary>
+    /// <param name="level">Resource for the level to switch to</param>
     [Signal]
     public delegate void SwitchToLevelEventHandler(LevelResource level);
 
-    // Runs to quit out back to the level select scene
+    /// <summary>
+    /// Signal emitted to exit to the level select menu.
+    /// </summary>
     [Signal]
     public delegate void ExitToLevelSelectEventHandler();
 
-    // Signal that runs when the player is hit
+    /// <summary>
+    /// Signal emitted when the player is hit.
+    /// </summary>
     [Signal]
     public delegate void PlayerHitEventHandler();
 
-    // Signal that runs when a camera zone is entered
+    /// <summary>
+    /// Signal emitted when a camera zone is entered.
+    /// </summary>
+    /// <param name="ID">ID of the camera zone</param>
     [Signal]
     public delegate void CameraZoneEnteredEventHandler(int ID);
 
-    // Signal that runs when a camera zone is exited
+    /// <summary>
+    /// Signal emitted when a camera zone is exited.
+    /// </summary>
+    /// <param name="ID">ID of the camera zone</param>
     [Signal]
     public delegate void CameraZoneExitedEventHandler(int ID);
 
@@ -34,12 +56,39 @@ public partial class Events : Node {
     // For the camera zone registration event, objects can add a listener to do the needed things
     // For the object registration event, camera zones can add a listener to do the needed things
     // The listener must be of the type ICameraZoneListener
+
+    /// <summary>
+    /// Signal emitted when a camera zone is registered.
+    /// </summary>
+    /// <param name="zone">The CameraZone to register</param>
     [Signal]
     public delegate void RegisterCameraZoneEventHandler(CameraZone zone);
 
+    /// <summary>
+    /// Signal emitted when a camera zone listener is registered.
+    /// </summary>
+    /// <param name="node">The CameraZoneListener to register</param>
     [Signal]
     public delegate void RegisterCameraZoneListenerEventHandler(Node2D node);
+
+    /// <summary>
+    /// Signal emitted when a conveyor belt is entered.
+    /// </summary>
+    /// <param name="unitVector">Unit vector representing the conveyor's angle</param>
+    /// <param name="velocity">The conveyor's velocity</param>
+    [Signal]
+    public delegate void ConveyorBeltEnteredEventHandler(Vector2 unitVector, int velocity);
+
+    /// <summary>
+    /// Signal emitted when a conveyor belt is exited.
+    /// </summary>
+    /// <param name="unitVector">Unit vector representing the conveyor's angle</param>
+    /// <param name="velocity">The conveyor's velocity</param>
+    [Signal]
+    public delegate void ConveyorBeltExitedEventHandler(Vector2 unitVector, int velocity);
     
-    // Constructor
+    /// <summary>
+    /// Constructs the Events object.
+    /// </summary>
     public Events() {}
 }

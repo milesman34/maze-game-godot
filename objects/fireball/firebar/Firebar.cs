@@ -2,55 +2,56 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-// Firebars are a type of spinning obstacle which can have various rotating fireball obstacles around them.
-public partial class Firebar : Node2D, IGameObject
-{
-	// Fireball scene to use
+/// <summary>
+/// Firebars are an obstacle which contain several fireballs spinning around itself.
+/// </summary>
+public partial class Firebar : Node2D, IGameObject {
+	/// <summary>
+	/// Fireball scene to create.
+	/// </summary>
 	[Export]
 	public PackedScene FireballScene { get; set; }
 
-	// Angular speed of the firebar's rotation (degrees per second) (positive is clockwise, negative is counterclockwise)
+	/// <summary>
+	/// Angular speed of the firebar's rotation in degrees per second.
+	/// </summary>
 	[Export]
 	public int RotationSpeed { get; set; } = 45;
 
-	// Rotational offset of the firebar in degrees
+	/// <summary>
+	/// Rotational offset of the firebar in degrees.
+	/// </summary>
 	[Export]
 	public int RotationOffset { get; set; } = 0;
 
-	// Number of fireballs in the firebar
+	/// <summary>
+	/// The number of fireballs in the firebar.
+	/// </summary>
 	[Export]
 	public int FireballCount { get; set; } = 1;
 
-	// Positional offset of the fireballs from the center (by default the first fireball is one unit from the center)
+	/// <summary>
+	/// How much should the first fireball be offset from the center? (1 makes it adjacent to the center)
+	/// </summary>
 	[Export]
 	public int FireballOffset { get; set; } = 1;
 
-	// How much space each fireball should have (in pixels)
+	/// <summary>
+	/// How large should each fireball be (in pixels)?
+	/// </summary>
 	[Export]
 	public int FireballSize { get; set; } = 32;
 
-	// Keep track of all the fireballs
-	private List<RotatingFireball> fireballs;
-
 	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		fireballs = new List<RotatingFireball>();
-
+	public override void _Ready() {
 		for (int offset = FireballOffset; offset < FireballOffset + FireballCount; offset++) {
-			var fireball = RotatingFireball.CreateFireball(FireballScene, RotationSpeed, RotationOffset, Position, offset, FireballSize);
+			var fireball = RotatingFireball.InstantiateFireball(FireballScene, RotationSpeed, RotationOffset, Position, offset, FireballSize);
 			AddChild(fireball);
-			fireballs.Add(fireball);
 		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+	public override void _Process(double delta) {}
 
-    public void AttachSignals(Level level)
-    {
-    }
-
+    public void AttachSignals(Level level) {}
 }

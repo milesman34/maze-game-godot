@@ -4,15 +4,15 @@ using System;
 /// <summary>
 /// PositioningComponent lets you snap an element to the correct part of the grid
 /// </summary>
-public partial class PositioningComponent : Node
-{
-	// Position to put the parent component
+public partial class PositioningComponent : Node {
+	/// <summary>
+	/// Position (in units) to put the parent component.
+	/// </summary>
 	[Export]
 	public Vector2 StartPosition {get; set;}
 
 	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
+	public override void _Ready() {
 		var parent = GetParent();
 
 		if (parent is Node2D) {
@@ -21,9 +21,7 @@ public partial class PositioningComponent : Node
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+	public override void _Process(double delta) {}
 
     // Returns the starting position in pixels. The original position was based on units.
     private Vector2 GetStartingPosition() {

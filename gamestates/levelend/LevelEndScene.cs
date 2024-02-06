@@ -1,19 +1,31 @@
 using Godot;
 using System;
 
-public partial class LevelEndScene : Node2D, IGameState
-{
+/// <summary>
+/// GameState for the level end screen
+/// </summary>
+public partial class LevelEndScene : Node2D, IGameState {
+	/// <summary>
+	/// The score the player attained in the level.
+	/// </summary>
 	[Export]
 	public int Score { get; set; } = 0;
 
+	/// <summary>
+	/// The number of times the player died in the level.
+	/// </summary>
 	[Export]
 	public int Deaths { get; set; } = 0;
 
-	// Name of the current level
+	/// <summary>
+	/// The name of the current level.
+	/// </summary>
 	[Export]
 	public string LevelName { get; set; }
 
-	// Reference to the level info
+	/// <summary>
+	/// Reference to the LevelInfo object, containing a list of all of the LevelResources
+	/// </summary>
 	[Export]
 	public LevelInfo LevelInfo { get; set; }
 
@@ -22,8 +34,7 @@ public partial class LevelEndScene : Node2D, IGameState
 	private Label deathsLabel;
 
 	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
+	public override void _Ready() {
 		// Update background color
 		RenderingServer.SetDefaultClearColor(new Color(0, 0, 0));
 
@@ -38,9 +49,14 @@ public partial class LevelEndScene : Node2D, IGameState
 		var saveManager = GetNode<SaveManager>("/root/SaveManager");
 
 		// Set up the labels
-		scoreLabel.Text = GetButtonText("Score", Score, saveManager.levelStats[LevelName].BestScore, saveManager.newBestScore);
-		deathsLabel.Text = GetButtonText("Deaths", Deaths, saveManager.levelStats[LevelName].BestDeaths, saveManager.newBestDeaths);
+		scoreLabel.Text = GetButtonText("Score", Score, saveManager.GetBestScore(LevelName), saveManager.NewBestScore);
+		deathsLabel.Text = GetButtonText("Deaths", Deaths, saveManager.GetFewestDeaths(LevelName), saveManager.NewBestDeaths);
 	}
+
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta) {}
+
+    public void AttachSignals(Main main) {}
 
 	// Returns the text to display for a button
 	private string GetButtonText(string buttonText, int current, int best, bool newBest) {
@@ -51,19 +67,11 @@ public partial class LevelEndScene : Node2D, IGameState
 		}
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
-
-    public void AttachSignals(Main main) {
-    }
-
 	private void OnReplayButtonPressed() {
 		// Find the corresponding level if it exists
 		foreach (var levelResource in LevelInfo.Levels) {
 			if (levelResource.LevelName == LevelName) {
-				Events.instance.EmitSignal(Events.SignalName.SwitchToLevel, levelResource);
+				Events.Instance.EmitSignal(Events.SignalName.SwitchToLevel, levelResource);
 				break;
 			}
 		}
@@ -71,6 +79,6 @@ public partial class LevelEndScene : Node2D, IGameState
 
 	private void OnExitButtonPressed() {
 		// Switch back to the level select scene
-		Events.instance.EmitSignal(Events.SignalName.ExitToLevelSelect);
+		Events.Instance.EmitSignal(Events.SignalName.ExitToLevelSelect);
 	}
 }

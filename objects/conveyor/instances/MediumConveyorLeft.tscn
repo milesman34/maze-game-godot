@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0acw83rm3t7v"]
+
+[ext_resource type="PackedScene" uid="uid://bxi7lah1bwkse" path="res://objects/conveyor/MediumConveyor.tscn" id="1_gti1m"]
+
+[node name="Conveyor" instance=ExtResource("1_gti1m")]
+ConveyorRotation = 180

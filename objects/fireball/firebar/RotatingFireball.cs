@@ -1,6 +1,9 @@
 using Godot;
 using System;
 
+/// <summary>
+/// This is a special type of fireball which rotates around a central pivot
+/// </summary>
 public partial class RotatingFireball : Fireball
 {
 	// Pivot position for rotation
@@ -21,26 +24,8 @@ public partial class RotatingFireball : Fireball
 	// Track the total elapsed time in seconds
 	private double elapsedTime;
 
-	// Creates a fireball object with the given parameters
-	public static RotatingFireball CreateFireball(PackedScene fireballScene, int rotationSpeed, int rotationOffset, Vector2 firebarPoint, int centerOffset, int size) {
-		var fireball = fireballScene.Instantiate<RotatingFireball>();
-		fireball.pivot = firebarPoint;
-		fireball.centerOffset = centerOffset;
-		fireball.startingAngle = rotationOffset;
-		fireball.rotationSpeed = rotationSpeed;
-		fireball.size = size;
-
-		return fireball;
-	}
-
-	// Returns the current rotation
-	private float GetRotation() {
-		return (float) (startingAngle + rotationSpeed * elapsedTime);
-	}
-
 	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
+	public override void _Ready() {
 		Position = new Vector2(size * centerOffset, 0);
 
 		// Set up the size of the fireball
@@ -49,8 +34,7 @@ public partial class RotatingFireball : Fireball
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
+	public override void _Process(double delta) {
 		elapsedTime += delta;
 
 		// First set the sprite rotation
@@ -65,5 +49,31 @@ public partial class RotatingFireball : Fireball
             (float) (offset * Math.Cos(rotation * Math.PI / 180)),
             (float) (offset * Math.Sin(rotation * Math.PI / 180))
         );
+	}
+
+	/// <summary>
+	/// Creates a fireball object using the given parameters.
+	/// </summary>
+	/// <param name="fireballScene">Scene used to instantiate the fireball</param>
+	/// <param name="rotationSpeed">Rotational speed of the fireball in degrees per second</param>
+	/// <param name="rotationOffset">How much should the rotation be offset?</param>
+	/// <param name="pivot">What point is the fireball rotating around?</param>
+	/// <param name="centerOffset">How much should this fireball be offset from the central pivot?</param>
+	/// <param name="size">Size of the fireball</param>
+	/// <returns></returns>
+	public static RotatingFireball InstantiateFireball(PackedScene fireballScene, int rotationSpeed, int rotationOffset, Vector2 pivot, int centerOffset, int size) {
+		var fireball = fireballScene.Instantiate<RotatingFireball>();
+		fireball.pivot = pivot;
+		fireball.centerOffset = centerOffset;
+		fireball.startingAngle = rotationOffset;
+		fireball.rotationSpeed = rotationSpeed;
+		fireball.size = size;
+
+		return fireball;
+	}
+
+	// Returns the current rotation
+	private float GetRotation() {
+		return (float) (startingAngle + rotationSpeed * elapsedTime);
 	}
 }

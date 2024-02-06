@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://r5o61tbv07mw"]
+
+[ext_resource type="PackedScene" uid="uid://b7t2e1pdxlj4b" path="res://objects/conveyor/FastConveyor.tscn" id="1_nw0y5"]
+
+[node name="Conveyor" instance=ExtResource("1_nw0y5")]
+ConveyorRotation = 90

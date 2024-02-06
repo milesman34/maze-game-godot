@@ -1,9 +1,10 @@
 using Godot;
 using System;
 
-// Variant of the shooter that tracks the player and shoots in their direction
-public partial class TrackingShooter : Shooter
-{
+/// <summary>
+/// Variant of the shooter that tracks the player and fires in their direction.
+/// </summary>
+public partial class TrackingShooter : Shooter {
 	// Reference to the parent level
 	private Level level;
 
@@ -11,8 +12,7 @@ public partial class TrackingShooter : Shooter
 	private Sprite2D shooterSprite;
 
 	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
+	public override void _Ready() {
 		base._Ready();
 
 		// Set up references
@@ -20,8 +20,7 @@ public partial class TrackingShooter : Shooter
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
+	public override void _Process(double delta) {
 		base._Process(delta);
 
 		var position = level.GetPlayerPosition();
