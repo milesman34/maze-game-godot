@@ -68,35 +68,40 @@ public partial class Player : CharacterBody2D {
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta) {
 		// Starting velocity
-		var velocity = Vector2.Zero;
+		var playerVelocity = Vector2.Zero;
 
 		if (Input.IsActionPressed("move_left"))
-			velocity.X--;
+			playerVelocity.X--;
 
 		if (Input.IsActionPressed("move_right"))
-			velocity.X++;
+			playerVelocity.X++;
 
 		if (Input.IsActionPressed("move_up"))
-			velocity.Y--;
+			playerVelocity.Y--;
 
 		if (Input.IsActionPressed("move_down"))
-			velocity.Y++;
+			playerVelocity.Y++;
 
 		// Is the player moving?
-		bool isMoving = velocity.Length() > 0;
+		bool isMoving = playerVelocity.Length() > 0;
 
 		if (isMoving) {
-			velocity = velocity.Normalized();
+			playerVelocity = playerVelocity.Normalized();
 		}
 
 		// Other modifiers to player velocity
-		var finalVelocity = (velocity * Speed + conveyorVelocity) * (float) delta;
+		var finalVelocity = (playerVelocity * Speed + conveyorVelocity) * (float) delta;
 
 		if (finalVelocity.Length() > 0) {
-			var collision = MoveAndCollide(finalVelocity);
+			// To get the right velocity, it seems I need to multiply the final velocity by a constant
+			// 48 seems to get the right result but idk why
+			Velocity = finalVelocity * 48;
+			MoveAndSlide();
 
-			if (collision != null) {
-				var collisionTarget = collision.GetCollider();
+			var numCollisions = GetSlideCollisionCount();
+
+			for (int i = 0; i < numCollisions; i++) {
+				var collisionTarget = GetSlideCollision(i).GetCollider();
 
 				if (collisionTarget is Lava && !invincibilityFramesActive) {
 					Events.Instance.EmitSignal(Events.SignalName.PlayerHit);

@@ -10,7 +10,7 @@ size = Vector2(32, 32)
 [node name="Conveyor" type="Area2D"]
 collision_layer = 0
 script = ExtResource("1_72yl1")
-Speed = 32
+Speed = 40
 
 [node name="BaseSprite" type="Sprite2D" parent="."]
 z_index = -1

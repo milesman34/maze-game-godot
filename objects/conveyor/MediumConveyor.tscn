@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://daw5ynnrdjrj3" path="res://art/mediumconveyor.png" id="2_op4jp"]
 
 [node name="Conveyor" instance=ExtResource("1_hyev4")]
-Speed = 64
+Speed = 80
 
 [node name="OverlaySprite" parent="." index="1"]
 texture = ExtResource("2_op4jp")
