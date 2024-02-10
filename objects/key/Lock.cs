@@ -4,6 +4,7 @@ using System;
 /// <summary>
 /// Locks block the player until enough keys of the given color are collected.
 /// </summary>
+[Tool]
 public partial class Lock : RigidBody2D, IGameObject {
 	// LockState keeps track of the current state of the lock
 	private class LockState {

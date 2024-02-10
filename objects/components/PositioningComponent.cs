@@ -4,6 +4,7 @@ using System;
 /// <summary>
 /// PositioningComponent lets you snap an element to the correct part of the grid
 /// </summary>
+[Tool]
 public partial class PositioningComponent : Node {
 	/// <summary>
 	/// Position (in units) to put the parent component.

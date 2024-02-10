@@ -41,6 +41,9 @@ public partial class Player : CharacterBody2D {
 
 	// Cache the current velocity to add from conveyors
 	private Vector2 conveyorVelocity = Vector2.Zero;
+	
+	// Constant representing the factor for making MoveAndSlide have the correct speed
+	private const int MOVE_AND_SLIDE_SPEED_FACTOR = 60; // 48 also worked
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
@@ -95,7 +98,7 @@ public partial class Player : CharacterBody2D {
 		if (finalVelocity.Length() > 0) {
 			// To get the right velocity, it seems I need to multiply the final velocity by a constant
 			// 48 seems to get the right result but idk why
-			Velocity = finalVelocity * 48;
+			Velocity = finalVelocity * MOVE_AND_SLIDE_SPEED_FACTOR;
 			MoveAndSlide();
 
 			var numCollisions = GetSlideCollisionCount();

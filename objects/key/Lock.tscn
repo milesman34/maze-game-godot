@@ -16,11 +16,11 @@ script = ExtResource("1_srnc8")
 WallTexture = ExtResource("2_ijyki")
 Color = Color(0, 0, 0, 1)
 
-[node name="WallSprite" type="Sprite2D" parent="."]
-texture_filter = 1
-
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_c20xt")
+
+[node name="WallSprite" type="Sprite2D" parent="."]
+texture_filter = 1
 
 [node name="LockSprite" type="Sprite2D" parent="."]
 texture_filter = 1

@@ -4,6 +4,7 @@ using System;
 /// <summary>
 /// LinkedPortals are a utility for creating portals, which ensure the 2 positions are linked to each other.
 /// </summary>
+[Tool]
 public partial class LinkedPortal : Node2D, IGameObject {
 	/// <summary>
 	/// The color of the portal.

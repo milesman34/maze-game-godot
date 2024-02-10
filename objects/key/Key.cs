@@ -4,6 +4,7 @@ using System;
 /// <summary>
 /// Keys help you unlock various Locks in the level.
 /// </summary>
+[Tool]
 public partial class Key : Area2D, IGameObject {
 	/// <summary>
 	/// The color of the key.

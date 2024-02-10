@@ -4,6 +4,7 @@ using System;
 /// <summary>
 /// Markers are decorative objects which can be used to display a color somewhere.
 /// </summary>
+[Tool]
 public partial class Marker : Node2D {
 	/// <summary>
 	/// The color of the marker.

@@ -4,6 +4,7 @@ using System;
 /// <summary>
 /// This is a special type of fireball which rotates around a central pivot
 /// </summary>
+[Tool]
 public partial class RotatingFireball : Fireball
 {
 	// Pivot position for rotation

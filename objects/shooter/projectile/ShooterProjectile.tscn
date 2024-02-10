@@ -15,11 +15,6 @@ collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_km7ao")
 
-[node name="Sprite" type="Sprite2D" parent="."]
-z_index = 10
-texture_filter = 1
-texture = ExtResource("2_h43m7")
-
 [node name="MainCollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_mxllr")
 
@@ -31,6 +26,11 @@ collision_mask = 19
 shape = SubResource("CircleShape2D_mxllr")
 
 [node name="DamagePlayerComponent" parent="BallArea" instance=ExtResource("3_1wai2")]
+
+[node name="Sprite" type="Sprite2D" parent="."]
+z_index = 10
+texture_filter = 1
+texture = ExtResource("2_h43m7")
 
 [node name="CameraZoneListenerComponent" parent="." instance=ExtResource("4_f6ksu")]
 

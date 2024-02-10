@@ -17,6 +17,16 @@ script = ExtResource("1_ee5j4")
 WallTexture = ExtResource("2_ykijd")
 ProjectileScene = ExtResource("3_cjerv")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ynm0p")
+
+[node name="Area" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area"]
+shape = SubResource("RectangleShape2D_ynm0p")
+
 [node name="WallSprite" type="Sprite2D" parent="."]
 texture_filter = 1
 
@@ -25,20 +35,10 @@ texture_filter = 1
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("1_g3jp0")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_ynm0p")
-
 [node name="ShooterTimer" type="Timer" parent="."]
 
 [node name="DelayTimer" type="Timer" parent="."]
 one_shot = true
-
-[node name="Area" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 16
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area"]
-shape = SubResource("RectangleShape2D_ynm0p")
 
 [node name="CameraZoneListenerComponent" parent="." instance=ExtResource("4_t12fx")]
 

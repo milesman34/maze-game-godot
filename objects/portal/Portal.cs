@@ -4,6 +4,7 @@ using System;
 /// <summary>
 /// Portals let the player teleport to a new location upon hitting them.
 /// </summary>
+[Tool]
 public partial class Portal : Area2D, IGameObject {
 	/// <summary>
 	/// The color of the portal.

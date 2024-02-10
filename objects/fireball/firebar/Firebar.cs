@@ -5,6 +5,7 @@ using System.Collections.Generic;
 /// <summary>
 /// Firebars are an obstacle which contain several fireballs spinning around itself.
 /// </summary>
+[Tool]
 public partial class Firebar : Node2D, IGameObject {
 	/// <summary>
 	/// Fireball scene to create.

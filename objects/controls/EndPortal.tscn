@@ -10,11 +10,11 @@ size = Vector2(32, 32)
 collision_layer = 4
 script = ExtResource("1_d800m")
 
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_6lwkp")
+
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("1_lupno")
-
-[node name="CollisionShape" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_6lwkp")
 
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]

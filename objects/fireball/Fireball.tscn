@@ -12,11 +12,12 @@ scale = Vector2(0.8, 0.8)
 collision_layer = 0
 script = ExtResource("1_dtj3b")
 
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+scale = Vector2(1, 1)
+shape = SubResource("CircleShape2D_mxllr")
+
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("1_xxxxn")
-
-[node name="CollisionShape" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_mxllr")
 
 [node name="DamagePlayerComponent" parent="." instance=ExtResource("3_irx65")]

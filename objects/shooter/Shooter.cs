@@ -4,6 +4,7 @@ using System;
 /// <summary>
 /// Shooters shoot projectiles at the player.
 /// </summary>
+[Tool]
 public partial class Shooter : RigidBody2D, ICameraZoneListener, IGameObject
 {
 	/// <summary>

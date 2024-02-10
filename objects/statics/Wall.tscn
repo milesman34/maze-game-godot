@@ -10,9 +10,9 @@ collision_layer = 2
 collision_mask = 0
 gravity_scale = 0.0
 
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_3mo4h")
+
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("1_u1w2i")
-
-[node name="CollisionShape" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_3mo4h")
