@@ -84,7 +84,7 @@ public partial class Level : Node2D
     private Player player;
     
     /// Reference to the level background
-    private ColorRect background;
+    private TextureRect background;
 
     // Did the player die recently? (last 50 ms)
     private bool recentDeath = false;
@@ -113,7 +113,7 @@ public partial class Level : Node2D
         checkpoint = player.Position;
 
         // Set other references
-        background = GetNode<ColorRect>("Background");
+        background = GetNode<TextureRect>("Background");
     }
 
     public override void _ExitTree() {
@@ -215,7 +215,7 @@ public partial class Level : Node2D
         // Update the camera
         UpdateCamera(ID);
 
-        // Update background for the level itself
+        // Update background for the level itself (add some extra on the sides)
         background.Size = cameraZones[ID].GetCameraZoneSize();
 
         // Add the two positions together since the background object's position is relative to the camera zone

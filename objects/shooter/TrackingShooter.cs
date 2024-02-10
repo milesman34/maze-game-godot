@@ -4,7 +4,6 @@ using System;
 /// <summary>
 /// Variant of the shooter that tracks the player and fires in their direction.
 /// </summary>
-[Tool]
 public partial class TrackingShooter : Shooter {
 	// Reference to the parent level
 	private Level level;

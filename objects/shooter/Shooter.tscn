@@ -29,6 +29,7 @@ shape = SubResource("RectangleShape2D_ynm0p")
 
 [node name="WallSprite" type="Sprite2D" parent="."]
 texture_filter = 1
+texture = ExtResource("2_ykijd")
 
 [node name="ShooterSprite" type="Sprite2D" parent="."]
 texture_filter = 1
