@@ -9,6 +9,10 @@ public partial class CameraZoneListenerComponent : Node {
 	// Track the parent node
 	private ICameraZoneListener parent;
 
+	// References to the parent functions
+	private Events.CameraZoneEnteredEventHandler onCameraZoneEntered;
+	private Events.CameraZoneExitedEventHandler onCameraZoneExited;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
 		var tempParent = GetParent();
@@ -16,9 +20,12 @@ public partial class CameraZoneListenerComponent : Node {
 		if (tempParent is ICameraZoneListener) {
 			parent = tempParent as ICameraZoneListener;
 
+			onCameraZoneEntered = parent.OnCameraZoneEntered;
+			onCameraZoneExited = parent.OnCameraZoneExited;
+
 			// Set up the event signals for the parent object
-			Events.Instance.CameraZoneEntered += parent.OnCameraZoneEntered;
-			Events.Instance.CameraZoneExited += parent.OnCameraZoneExited;
+			Events.Instance.CameraZoneEntered += onCameraZoneEntered;
+			Events.Instance.CameraZoneExited += onCameraZoneExited;
 
 			Events.Instance.RegisterCameraZone += OnRegisterCameraZone;	
 
@@ -28,11 +35,11 @@ public partial class CameraZoneListenerComponent : Node {
 	}
 
 	public override void _ExitTree() {
-        base._ExitTree();
-
-		Events.Instance.CameraZoneEntered -= parent.OnCameraZoneEntered;
-		Events.Instance.CameraZoneExited -= parent.OnCameraZoneExited;
+		Events.Instance.CameraZoneEntered -= onCameraZoneEntered;
+		Events.Instance.CameraZoneExited -= onCameraZoneExited;
 		Events.Instance.RegisterCameraZone -= OnRegisterCameraZone;
+
+        base._ExitTree();
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
