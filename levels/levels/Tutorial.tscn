@@ -21,42 +21,49 @@ layer_0/tile_data = PackedInt32Array(0, 1, 65536, 1, 1, 65536, 2, 1, 65536, 3, 1
 [node name="KeyRoom" type="Node" parent="Objects" index="0"]
 
 [node name="Key" parent="Objects/KeyRoom" index="0" instance=ExtResource("2_5wf7p")]
+position = Vector2(432, 464)
 Color = Color(0, 0, 1, 1)
 
 [node name="PositioningComponent" parent="Objects/KeyRoom/Key" index="2" instance=ExtResource("3_tc8of")]
 StartPosition = Vector2(13, 14)
 
 [node name="Key2" parent="Objects/KeyRoom" index="1" instance=ExtResource("2_5wf7p")]
+position = Vector2(624, 464)
 Color = Color(1, 0, 0, 1)
 
 [node name="PositioningComponent" parent="Objects/KeyRoom/Key2" index="2" instance=ExtResource("3_tc8of")]
 StartPosition = Vector2(19, 14)
 
 [node name="Key3" parent="Objects/KeyRoom" index="2" instance=ExtResource("2_5wf7p")]
+position = Vector2(432, 592)
 Color = Color(0, 0, 1, 1)
 
 [node name="PositioningComponent" parent="Objects/KeyRoom/Key3" index="2" instance=ExtResource("3_tc8of")]
 StartPosition = Vector2(13, 18)
 
 [node name="Key4" parent="Objects/KeyRoom" index="3" instance=ExtResource("2_5wf7p")]
+position = Vector2(624, 592)
 Color = Color(1, 0, 0, 1)
 
 [node name="PositioningComponent" parent="Objects/KeyRoom/Key4" index="2" instance=ExtResource("3_tc8of")]
 StartPosition = Vector2(19, 18)
 
 [node name="Lock" parent="Objects/KeyRoom" index="4" instance=ExtResource("4_s3i3l")]
+position = Vector2(528, 528)
 Color = Color(0, 0, 1, 1)
 
 [node name="PositioningComponent" parent="Objects/KeyRoom/Lock" index="4" instance=ExtResource("3_tc8of")]
 StartPosition = Vector2(16, 16)
 
 [node name="Lock2" parent="Objects/KeyRoom" index="5" instance=ExtResource("4_s3i3l")]
+position = Vector2(496, 624)
 Color = Color(1, 0, 0, 1)
 
 [node name="PositioningComponent" parent="Objects/KeyRoom/Lock2" index="4" instance=ExtResource("3_tc8of")]
 StartPosition = Vector2(15, 19)
 
 [node name="Lock3" parent="Objects/KeyRoom" index="6" instance=ExtResource("4_s3i3l")]
+position = Vector2(560, 624)
 Color = Color(0, 0, 1, 1)
 NumKeysRequired = 2
 
@@ -64,6 +71,7 @@ NumKeysRequired = 2
 StartPosition = Vector2(17, 19)
 
 [node name="Lock4" parent="Objects/KeyRoom" index="7" instance=ExtResource("4_s3i3l")]
+position = Vector2(528, 688)
 Color = Color(1, 0, 0, 1)
 NumKeysRequired = 2
 
@@ -73,7 +81,7 @@ StartPosition = Vector2(16, 21)
 [node name="PortalRoom" type="Node" parent="Objects" index="1"]
 
 [node name="Portal3" parent="Objects/PortalRoom" index="0" instance=ExtResource("6_ig7cb")]
-position = Vector2(528, 943)
+position = Vector2(528, 944)
 Color = Color(0, 1, 0, 1)
 Target = Vector2(16, 31)
 
@@ -81,7 +89,7 @@ Target = Vector2(16, 31)
 StartPosition = Vector2(16, 29)
 
 [node name="Portal4" parent="Objects/PortalRoom" index="1" instance=ExtResource("6_ig7cb")]
-position = Vector2(529, 1008)
+position = Vector2(528, 1008)
 Color = Color(0, 1, 0, 1)
 Target = Vector2(16, 29)
 
@@ -89,7 +97,7 @@ Target = Vector2(16, 29)
 StartPosition = Vector2(16, 31)
 
 [node name="Portal5" parent="Objects/PortalRoom" index="2" instance=ExtResource("6_ig7cb")]
-position = Vector2(400, 1007)
+position = Vector2(400, 1008)
 Color = Color(1, 0, 0, 1)
 Target = Vector2(-11, 25)
 
@@ -105,7 +113,7 @@ Position2 = Vector2(19, 26)
 [node name="LavaRoom" type="Node" parent="Objects" index="2"]
 
 [node name="Portal" parent="Objects/LavaRoom" index="0" instance=ExtResource("6_ig7cb")]
-position = Vector2(-334, 820)
+position = Vector2(-336, 816)
 Color = Color(1, 0, 0, 1)
 Target = Vector2(12, 31)
 
@@ -113,6 +121,7 @@ Target = Vector2(12, 31)
 StartPosition = Vector2(-11, 25)
 
 [node name="Firebar" parent="Objects/LavaRoom" index="1" instance=ExtResource("7_grsvx")]
+position = Vector2(-304, 1072)
 RotationSpeed = 75
 FireballCount = 4
 FireballSize = 16
@@ -121,6 +130,7 @@ FireballSize = 16
 StartPosition = Vector2(-10, 33)
 
 [node name="Firebar2" parent="Objects/LavaRoom" index="2" instance=ExtResource("7_grsvx")]
+position = Vector2(-80, 976)
 RotationSpeed = -90
 FireballCount = 6
 FireballSize = 16
@@ -131,112 +141,112 @@ StartPosition = Vector2(-3, 30)
 [node name="Markers" type="Node" parent="Objects" index="3"]
 
 [node name="Marker13" parent="Objects/Markers" index="0" instance=ExtResource("8_iagna")]
-position = Vector2(-306.488, 1077.28)
+position = Vector2(40, 1032)
 Color = Color(0, 0, 1, 1)
 
 [node name="PositioningComponent" parent="Objects/Markers/Marker13" index="3" instance=ExtResource("3_tc8of")]
 StartPosition = Vector2(1, 32)
 
 [node name="Marker14" parent="Objects/Markers" index="1" instance=ExtResource("8_iagna")]
-position = Vector2(-306.488, 1077.28)
+position = Vector2(72, 1032)
 Color = Color(0, 0, 1, 1)
 
 [node name="PositioningComponent" parent="Objects/Markers/Marker14" index="3" instance=ExtResource("3_tc8of")]
 StartPosition = Vector2(2, 32)
 
 [node name="Marker15" parent="Objects/Markers" index="2" instance=ExtResource("8_iagna")]
-position = Vector2(-306.488, 1077.28)
+position = Vector2(40, 1096)
 Color = Color(0, 0, 1, 1)
 
 [node name="PositioningComponent" parent="Objects/Markers/Marker15" index="3" instance=ExtResource("3_tc8of")]
 StartPosition = Vector2(1, 34)
 
 [node name="Marker16" parent="Objects/Markers" index="3" instance=ExtResource("8_iagna")]
-position = Vector2(-306.488, 1077.28)
+position = Vector2(72, 1096)
 Color = Color(0, 0, 1, 1)
 
 [node name="PositioningComponent" parent="Objects/Markers/Marker16" index="3" instance=ExtResource("3_tc8of")]
 StartPosition = Vector2(2, 34)
 
 [node name="Marker8" parent="Objects/Markers" index="4" instance=ExtResource("8_iagna")]
-position = Vector2(-306.488, 1077.28)
+position = Vector2(552, 360)
 Color = Color(0, 1, 1, 1)
 
 [node name="PositioningComponent" parent="Objects/Markers/Marker8" index="3" instance=ExtResource("3_tc8of")]
 StartPosition = Vector2(17, 11)
 
 [node name="Marker9" parent="Objects/Markers" index="5" instance=ExtResource("8_iagna")]
-position = Vector2(-306.488, 1077.28)
+position = Vector2(488, 680)
 Color = Color(1, 0, 0, 1)
 
 [node name="PositioningComponent" parent="Objects/Markers/Marker9" index="3" instance=ExtResource("3_tc8of")]
 StartPosition = Vector2(15, 21)
 
 [node name="Marker10" parent="Objects/Markers" index="6" instance=ExtResource("8_iagna")]
-position = Vector2(-306.488, 1077.28)
+position = Vector2(552, 680)
 Color = Color(1, 0, 0, 1)
 
 [node name="PositioningComponent" parent="Objects/Markers/Marker10" index="3" instance=ExtResource("3_tc8of")]
 StartPosition = Vector2(17, 21)
 
 [node name="Marker11" parent="Objects/Markers" index="7" instance=ExtResource("8_iagna")]
-position = Vector2(-306.488, 1077.28)
+position = Vector2(488, 712)
 Color = Color(1, 0, 0, 1)
 
 [node name="PositioningComponent" parent="Objects/Markers/Marker11" index="3" instance=ExtResource("3_tc8of")]
 StartPosition = Vector2(15, 22)
 
 [node name="Marker12" parent="Objects/Markers" index="8" instance=ExtResource("8_iagna")]
-position = Vector2(-306.488, 1077.28)
+position = Vector2(552, 712)
 Color = Color(1, 0, 0, 1)
 
 [node name="PositioningComponent" parent="Objects/Markers/Marker12" index="3" instance=ExtResource("3_tc8of")]
 StartPosition = Vector2(17, 22)
 
 [node name="Marker" parent="Objects/Markers" index="9" instance=ExtResource("8_iagna")]
-position = Vector2(-306.488, 1077.28)
+position = Vector2(328, 136)
 Color = Color(0, 1, 0, 1)
 
 [node name="PositioningComponent" parent="Objects/Markers/Marker" index="3" instance=ExtResource("3_tc8of")]
 StartPosition = Vector2(10, 4)
 
 [node name="Marker2" parent="Objects/Markers" index="10" instance=ExtResource("8_iagna")]
-position = Vector2(-306.488, 1077.28)
+position = Vector2(328, 200)
 Color = Color(0, 1, 0, 1)
 
 [node name="PositioningComponent" parent="Objects/Markers/Marker2" index="3" instance=ExtResource("3_tc8of")]
 StartPosition = Vector2(10, 6)
 
 [node name="Marker3" parent="Objects/Markers" index="11" instance=ExtResource("8_iagna")]
-position = Vector2(-306.488, 1077.28)
+position = Vector2(360, 136)
 Color = Color(0, 1, 0, 1)
 
 [node name="PositioningComponent" parent="Objects/Markers/Marker3" index="3" instance=ExtResource("3_tc8of")]
 StartPosition = Vector2(11, 4)
 
 [node name="Marker4" parent="Objects/Markers" index="12" instance=ExtResource("8_iagna")]
-position = Vector2(-306.488, 1077.28)
+position = Vector2(360, 200)
 Color = Color(0, 1, 0, 1)
 
 [node name="PositioningComponent" parent="Objects/Markers/Marker4" index="3" instance=ExtResource("3_tc8of")]
 StartPosition = Vector2(11, 6)
 
 [node name="Marker5" parent="Objects/Markers" index="13" instance=ExtResource("8_iagna")]
-position = Vector2(-306.488, 1077.28)
+position = Vector2(488, 328)
 Color = Color(0, 1, 1, 1)
 
 [node name="PositioningComponent" parent="Objects/Markers/Marker5" index="3" instance=ExtResource("3_tc8of")]
 StartPosition = Vector2(15, 10)
 
 [node name="Marker6" parent="Objects/Markers" index="14" instance=ExtResource("8_iagna")]
-position = Vector2(-306.488, 1077.28)
+position = Vector2(552, 328)
 Color = Color(0, 1, 1, 1)
 
 [node name="PositioningComponent" parent="Objects/Markers/Marker6" index="3" instance=ExtResource("3_tc8of")]
 StartPosition = Vector2(17, 10)
 
 [node name="Marker7" parent="Objects/Markers" index="15" instance=ExtResource("8_iagna")]
-position = Vector2(-306.488, 1077.28)
+position = Vector2(488, 360)
 Color = Color(0, 1, 1, 1)
 
 [node name="PositioningComponent" parent="Objects/Markers/Marker7" index="3" instance=ExtResource("3_tc8of")]
@@ -343,92 +353,7 @@ horizontal_alignment = 1
 
 [node name="TextScalingComponent" parent="Label6" index="0" instance=ExtResource("4_g4js3")]
 
-[connection signal="body_entered" from="TileMap/Coin" to="TileMap/Coin" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52612" to="TileMap/@Area2D@52612" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52613" to="TileMap/@Area2D@52613" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52614" to="TileMap/@Area2D@52614" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52615" to="TileMap/@Area2D@52615" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52616" to="TileMap/@Area2D@52616" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52617" to="TileMap/@Area2D@52617" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52618" to="TileMap/@Area2D@52618" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52619" to="TileMap/@Area2D@52619" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52620" to="TileMap/@Area2D@52620" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52673" to="TileMap/@Area2D@52673" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52674" to="TileMap/@Area2D@52674" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52675" to="TileMap/@Area2D@52675" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52676" to="TileMap/@Area2D@52676" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52677" to="TileMap/@Area2D@52677" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52678" to="TileMap/@Area2D@52678" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52679" to="TileMap/@Area2D@52679" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52680" to="TileMap/@Area2D@52680" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52681" to="TileMap/@Area2D@52681" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52682" to="TileMap/@Area2D@52682" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52721" to="TileMap/@Area2D@52721" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52722" to="TileMap/@Area2D@52722" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52723" to="TileMap/@Area2D@52723" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52733" to="TileMap/@Area2D@52733" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52734" to="TileMap/@Area2D@52734" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52735" to="TileMap/@Area2D@52735" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52737" to="TileMap/@Area2D@52737" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52738" to="TileMap/@Area2D@52738" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/Lava" to="TileMap/Lava" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52800" to="TileMap/@RigidBody2D@52800" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52801" to="TileMap/@RigidBody2D@52801" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52802" to="TileMap/@RigidBody2D@52802" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52803" to="TileMap/@RigidBody2D@52803" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52804" to="TileMap/@RigidBody2D@52804" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52805" to="TileMap/@RigidBody2D@52805" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52806" to="TileMap/@RigidBody2D@52806" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52807" to="TileMap/@RigidBody2D@52807" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52808" to="TileMap/@Area2D@52808" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52809" to="TileMap/@Area2D@52809" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52810" to="TileMap/@Area2D@52810" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52811" to="TileMap/@Area2D@52811" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52812" to="TileMap/@Area2D@52812" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52813" to="TileMap/@Area2D@52813" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52814" to="TileMap/@Area2D@52814" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52815" to="TileMap/@RigidBody2D@52815" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52816" to="TileMap/@RigidBody2D@52816" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52817" to="TileMap/@RigidBody2D@52817" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52818" to="TileMap/@RigidBody2D@52818" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52819" to="TileMap/@RigidBody2D@52819" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52820" to="TileMap/@RigidBody2D@52820" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52821" to="TileMap/@RigidBody2D@52821" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52822" to="TileMap/@RigidBody2D@52822" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52823" to="TileMap/@RigidBody2D@52823" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52824" to="TileMap/@RigidBody2D@52824" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52825" to="TileMap/@RigidBody2D@52825" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52826" to="TileMap/@RigidBody2D@52826" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52827" to="TileMap/@RigidBody2D@52827" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52828" to="TileMap/@RigidBody2D@52828" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52829" to="TileMap/@RigidBody2D@52829" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52830" to="TileMap/@RigidBody2D@52830" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52831" to="TileMap/@RigidBody2D@52831" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52832" to="TileMap/@RigidBody2D@52832" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52833" to="TileMap/@RigidBody2D@52833" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52834" to="TileMap/@RigidBody2D@52834" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52835" to="TileMap/@RigidBody2D@52835" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52836" to="TileMap/@RigidBody2D@52836" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52837" to="TileMap/@RigidBody2D@52837" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52838" to="TileMap/@RigidBody2D@52838" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52839" to="TileMap/@RigidBody2D@52839" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52840" to="TileMap/@RigidBody2D@52840" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52841" to="TileMap/@RigidBody2D@52841" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52842" to="TileMap/@RigidBody2D@52842" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52843" to="TileMap/@RigidBody2D@52843" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52844" to="TileMap/@RigidBody2D@52844" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52845" to="TileMap/@RigidBody2D@52845" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52846" to="TileMap/@RigidBody2D@52846" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52847" to="TileMap/@RigidBody2D@52847" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52848" to="TileMap/@RigidBody2D@52848" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@RigidBody2D@52849" to="TileMap/@RigidBody2D@52849" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52858" to="TileMap/@Area2D@52858" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52859" to="TileMap/@Area2D@52859" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52860" to="TileMap/@Area2D@52860" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52861" to="TileMap/@Area2D@52861" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52862" to="TileMap/@Area2D@52862" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52863" to="TileMap/@Area2D@52863" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/EndPortal" to="TileMap/EndPortal" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52895" to="TileMap/@Area2D@52895" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52896" to="TileMap/@Area2D@52896" method="OnBodyEntered"]
-[connection signal="body_entered" from="TileMap/@Area2D@52897" to="TileMap/@Area2D@52897" method="OnBodyEntered"]
+[connection signal="body_entered" from="Objects/PortalRoom/LinkedPortal/Portal" to="Objects/PortalRoom/LinkedPortal/Portal" method="OnBodyEntered"]
+[connection signal="body_exited" from="Objects/PortalRoom/LinkedPortal/Portal" to="Objects/PortalRoom/LinkedPortal/Portal" method="OnBodyExited"]
+[connection signal="body_entered" from="Objects/PortalRoom/LinkedPortal/@Area2D@30219" to="Objects/PortalRoom/LinkedPortal/@Area2D@30219" method="OnBodyEntered"]
+[connection signal="body_exited" from="Objects/PortalRoom/LinkedPortal/@Area2D@30219" to="Objects/PortalRoom/LinkedPortal/@Area2D@30219" method="OnBodyExited"]
