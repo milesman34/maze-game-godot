@@ -285,5 +285,5 @@ Size = Vector2(7, 7)
 
 [connection signal="body_entered" from="Objects/Room3/LinkedPortal/Portal" to="Objects/Room3/LinkedPortal/Portal" method="OnBodyEntered"]
 [connection signal="body_exited" from="Objects/Room3/LinkedPortal/Portal" to="Objects/Room3/LinkedPortal/Portal" method="OnBodyExited"]
-[connection signal="body_entered" from="Objects/Room3/LinkedPortal/@Area2D@88237" to="Objects/Room3/LinkedPortal/@Area2D@88237" method="OnBodyEntered"]
-[connection signal="body_exited" from="Objects/Room3/LinkedPortal/@Area2D@88237" to="Objects/Room3/LinkedPortal/@Area2D@88237" method="OnBodyExited"]
+[connection signal="body_entered" from="Objects/Room3/LinkedPortal/@Area2D@130183" to="Objects/Room3/LinkedPortal/@Area2D@130183" method="OnBodyEntered"]
+[connection signal="body_exited" from="Objects/Room3/LinkedPortal/@Area2D@130183" to="Objects/Room3/LinkedPortal/@Area2D@130183" method="OnBodyExited"]
