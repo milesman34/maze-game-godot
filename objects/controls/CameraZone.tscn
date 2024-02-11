@@ -1,12 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://ptdvqs3lct66"]
+[gd_scene load_steps=5 format=3 uid="uid://ptdvqs3lct66"]
 
 [ext_resource type="Script" path="res://objects/controls/CameraZone.cs" id="1_oe1vf"]
+
+[sub_resource type="Gradient" id="Gradient_npvaw"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.803922, 0.803922, 0.803922, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rsrds"]
+gradient = SubResource("Gradient_npvaw")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cleng"]
 
 [node name="CameraZone" type="Area2D"]
 collision_layer = 16
 script = ExtResource("1_oe1vf")
+BackgroundTexture = SubResource("GradientTexture1D_rsrds")
 
 [node name="BackgroundContainer" type="Node2D" parent="."]
 

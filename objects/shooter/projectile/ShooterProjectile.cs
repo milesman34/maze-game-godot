@@ -23,10 +23,18 @@ public partial class ShooterProjectile : CharacterBody2D, ICameraZoneListener {
 	// Resource used for the projectile
 	private Projectile projectileResource;
 
+	// Reference to the sprite
+	private Sprite2D sprite;
+
+	// Speed that the projectile rotates at (pixels per second)
+	private const double RotationSpeed = 30;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
 		// Set the texture
-		GetNode<Sprite2D>("Sprite").Texture = projectileResource.ProjectileTexture;
+		sprite = GetNode<Sprite2D>("Sprite");
+		
+		sprite.Texture = projectileResource.ProjectileTexture;
 
 		// Disable the main collision shape at first
 		mainCollisionShape = GetNode<CollisionShape2D>("MainCollisionShape");
@@ -42,6 +50,11 @@ public partial class ShooterProjectile : CharacterBody2D, ICameraZoneListener {
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta) {
+		// Handle rotation first
+		if (projectileResource.Rotates) {
+			RotationDegrees += (float) (RotationSpeed * delta);
+		}
+
 		if (projectileResource.CollidesWithWalls) {
 			// Use MoveAndCollide here to detect collisions
 			var collision = MoveAndCollide(unitVector * (float) delta * speed);

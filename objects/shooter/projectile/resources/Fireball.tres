@@ -7,3 +7,4 @@
 script = ExtResource("1_mxmpq")
 ProjectileTexture = ExtResource("1_tqicm")
 CollidesWithWalls = false
+Rotates = true

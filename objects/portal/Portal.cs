@@ -36,6 +36,8 @@ public partial class Portal : Area2D, IGameObject {
 		var sprite = GetNode<Sprite2D>("Sprite");
 
 		sprite.Modulate = Color;
+
+		GetNode<AnimationPlayer>("AnimationPlayer").Play("Portal");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

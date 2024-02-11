@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://r73r4q00r4q1" path="res://art/End.png" id="1_lupno"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6lwkp"]
-size = Vector2(32, 32)
+size = Vector2(24, 24)
 
 [node name="EndPortal" type="Area2D"]
 collision_layer = 4

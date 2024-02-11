@@ -92,6 +92,9 @@ public partial class Level : Node2D
     // Tracks the most recent checkpoint the player has reached (checkpoints are whenever the player enters/exits a room, or can be defined manually)
     private Vector2 checkpoint;
 
+    // Track the default background texture
+    private Texture2D defaultBackgroundTexture;
+
     public override void _Ready() {
         // Instantiate the camera zones dictionary
         cameraZones = new Dictionary<int, CameraZone>();
@@ -114,6 +117,7 @@ public partial class Level : Node2D
 
         // Set other references
         background = GetNode<TextureRect>("Background");
+        defaultBackgroundTexture = background.Texture;
     }
 
     public override void _ExitTree() {
@@ -220,6 +224,11 @@ public partial class Level : Node2D
 
         // Add the two positions together since the background object's position is relative to the camera zone
         background.Position = cameraZones[ID].GetCameraZonePosition() + cameraZones[ID].Position;
+
+        // Set up the background texture
+        var texture = cameraZones[ID].BackgroundTexture;
+
+        background.Texture = texture == null ? defaultBackgroundTexture : texture;
     }
 
     // Updates the camera to have the position/zoom provided from the current CameraZone

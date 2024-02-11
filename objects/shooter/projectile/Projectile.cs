@@ -19,17 +19,24 @@ public partial class Projectile : Resource {
     public bool CollidesWithWalls { get; set; } = true;
 
     /// <summary>
+    /// Should the projectile rotate?
+    /// </summary>
+    [Export]
+    public bool Rotates { get; set; } = true;
+
+    /// <summary>
     /// Constructs a Projectile object.
     /// </summary>
     /// <param name="texture">Texture to display</param>
     /// <param name="collidesWithWalls">Should it collide with walls?</param>
-    public Projectile(Texture2D texture, bool collidesWithWalls) {
+    public Projectile(Texture2D texture, bool collidesWithWalls, bool rotates) {
         ProjectileTexture = texture;
         CollidesWithWalls = collidesWithWalls;
+        Rotates = rotates;
     }
 
     /// <summary>
     /// Constructs a Projectile object.
     /// </summary>
-    public Projectile() : this(null, false) {}
+    public Projectile() : this(null, true, true) {}
 }

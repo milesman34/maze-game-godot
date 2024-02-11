@@ -17,6 +17,12 @@ public partial class CameraZone : Area2D, IGameObject
 	/// </summary>
 	[Export]
 	public Vector2 Size { get; set; }
+	
+	/// <summary>
+	/// Texture to display for the background for this room.
+	/// </summary>
+	[Export]
+	public Texture2D BackgroundTexture { get; set; }
 
 	/// <summary>
 	/// Signal sent out when the camera zone is updated (when the window is resized usually).
