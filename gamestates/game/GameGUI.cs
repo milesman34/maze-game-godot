@@ -19,6 +19,9 @@ public partial class GameGUI : CanvasLayer {
 	// Reference to the quit confirm modal
 	private Control quitConfirmModal;
 
+	// Is the game paused?
+	private bool isPaused = false;
+
 	// Is the level finished?
 	private bool levelFinished = false;
 
@@ -41,11 +44,18 @@ public partial class GameGUI : CanvasLayer {
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta) {}
 
-	/// <summary>
-	/// Sets the contents of the score display in the GUI
-	/// </summary>
-	/// <param name="score"></param>
-	public void SetScore(int score) {
+    public override void _Input(InputEvent @event) {
+		// Exit level keybind
+        if (@event.IsActionPressed("exit") && !isPaused && !levelFinished) {
+			Pause();
+		}
+    }
+
+    /// <summary>
+    /// Sets the contents of the score display in the GUI
+    /// </summary>
+    /// <param name="score"></param>
+    public void SetScore(int score) {
 		scoreLabel.Text = string.Format("Score: {0}", score);
 	}
 
@@ -57,20 +67,28 @@ public partial class GameGUI : CanvasLayer {
 		deathsLabel.Text = string.Format("Deaths: {0}", deaths);
 	}
 
+	// Pauses the game
+	private void Pause() {
+		quitConfirmModal.Show();
+		GetTree().Paused = true;
+		isPaused = true;
+	}
+
 	private void OnExitButtonPressed() {
 		if (!levelFinished) {
-			quitConfirmModal.Show();
-			GetTree().Paused = true;
+			Pause();
 		}
 	}
 
 	private void OnNoQuitButtonPressed() {
 		quitConfirmModal.Hide();
 		GetTree().Paused = false;
+		isPaused = false;
 	}
 
 	private void OnYesQuitButtonPressed() {
 		GetTree().Paused = false;
+		isPaused = false;
 		Events.Instance.EmitSignal(Events.SignalName.ExitToLevelSelect);
 	}
 }
