@@ -39,6 +39,12 @@ public partial class Events : Node {
     public delegate void PlayerHitEventHandler();
 
     /// <summary>
+    /// Signal emitted when a checkpoint is reached.
+    /// </summary>
+    [Signal]
+    public delegate void ReachedCheckpointEventHandler();
+
+    /// <summary>
     /// Signal emitted when a camera zone is entered.
     /// </summary>
     /// <param name="ID">ID of the camera zone</param>

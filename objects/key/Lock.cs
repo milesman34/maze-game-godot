@@ -5,17 +5,67 @@ using System;
 /// Locks block the player until enough keys of the given color are collected.
 /// </summary>
 [Tool]
-public partial class Lock : RigidBody2D, IGameObject {
-	// LockState keeps track of the current state of the lock
+public partial class Lock : RigidBody2D, IGameObject, IHasSaveData {
+	/// <summary>
+	/// LockState keeps track of the current state of the lock
+	/// </summary>
 	private class LockState {
-		public int keysRemaining;
-		public bool enabled;
+		private int keysRemaining;
+		private bool enabled;
+
+		/// <summary>
+		/// How many remaining keys are required to open the lock?
+		/// </summary>
+		public int KeysRemaining { 
+			get {
+				return keysRemaining;
+			}
+			
+			set {
+				keysRemaining = value;
+			}
+		}
+		
+		/// <summary>
+		/// Is the lock enabled or not?
+		/// </summary>
+		public bool Enabled {
+			get {
+				return enabled;
+			}
+
+			set {
+				enabled = value;
+			}
+		}
 
 		public LockState(int remaining, bool enabled = true) {
 			keysRemaining = remaining;
 			this.enabled = enabled;
 		}
-	}
+
+		/// <summary>
+		/// Creates a copy of the current LockState, as a distinct object.
+		/// </summary>
+		/// <returns></returns>
+		public LockState Copy() {
+			return new LockState(keysRemaining, enabled);
+		}
+
+        public override bool Equals(object obj) {
+			if (!(obj is LockState)) {
+				return false;
+			} else {
+				var lockState = obj as LockState;
+
+				return keysRemaining == lockState.keysRemaining && enabled == lockState.enabled;
+			}
+        }
+
+        public override int GetHashCode() {
+            return HashCode.Combine(keysRemaining, enabled);
+        }
+    }
 
 	/// <summary>
 	/// Texture to display for the wall.
@@ -47,8 +97,6 @@ public partial class Lock : RigidBody2D, IGameObject {
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
-		Events.Instance.PlayerHit += OnPlayerHit;
-
 		// Set up references
 		amountLabel = GetNode<Label>("AmountLabel");
 
@@ -73,22 +121,34 @@ public partial class Lock : RigidBody2D, IGameObject {
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta) {}
 
-    public override void _ExitTree() {
-        base._ExitTree();
-
-		Events.Instance.PlayerHit -= OnPlayerHit;
-    }
-
 	public void AttachSignals(Level level) {
         level.CollectKey += OnKeyCollected;
-        level.CheckpointHit += OnCheckpointHit;
 	}
+
+    public void SaveCurrentState() {
+        savedState = currentState.Copy();
+    }
+
+    public void ReloadCurrentState() {
+		if (currentState != savedState) {
+			currentState = savedState.Copy();
+
+			SetNumKeysRemaining(currentState.KeysRemaining);
+
+			// If the lock was disabled but not in the saved state, we need to re-enable it
+			if (savedState.Enabled) {
+				Show();
+
+				GetNode<CollisionShape2D>("CollisionShape").SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
+			}
+		}
+    }
 
 	// Sets the number of remaining keys, updating the label
 	private void SetNumKeysRemaining(int keys) {
 		numKeysRemaining = keys;
 		amountLabel.Text = keys.ToString();
-		currentState.keysRemaining = keys;
+		currentState.KeysRemaining = keys;
 	}
 
     // Runs whenever a key is collected. It makes sure the key collected was the correct color before doing anything.
@@ -99,28 +159,10 @@ public partial class Lock : RigidBody2D, IGameObject {
 
 			if (numKeysRemaining == 0) {
 				Hide();
-				currentState.enabled = false;
+				currentState.Enabled = false;
 
 				GetNode<CollisionShape2D>("CollisionShape").SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 			}
 		}
-	}
-
-	// Runs when the player is hit
-	private void OnPlayerHit() {
-		SetNumKeysRemaining(savedState.keysRemaining);
-
-		// If the lock was disabled but not in the saved state, we need to re-enable it
-		if (savedState.enabled && !currentState.enabled) {
-			currentState.enabled = true;
-			Show();
-
-			GetNode<CollisionShape2D>("CollisionShape").SetDeferred(CollisionShape2D.PropertyName.Disabled, false);
-		}
-	}
-
-	// Runs when a checkpoint is hit
-	private void OnCheckpointHit() {
-		savedState = new LockState(currentState.keysRemaining, currentState.enabled);
 	}
 }

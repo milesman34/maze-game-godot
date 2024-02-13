@@ -34,12 +34,6 @@ public partial class Level : Node2D
     [Signal]
     public delegate void CollectKeyEventHandler(Color color);
 
-    /// <summary>
-    /// Signal emitted when the player reaches a checkpoint.
-    /// </summary>
-    [Signal]
-    public delegate void CheckpointHitEventHandler();
-
     // The name of the level (to be set externally)
     private string levelName;
 
@@ -111,6 +105,7 @@ public partial class Level : Node2D
 		player.Position = GetStartingPosition();
 
         Events.Instance.PlayerHit += OnPlayerHit;
+        Events.Instance.ReachedCheckpoint += OnReachedCheckpoint;
 
         // Set the starting checkpoint
         checkpoint = player.Position;
@@ -124,6 +119,7 @@ public partial class Level : Node2D
         base._ExitTree();
 
         Events.Instance.PlayerHit -= OnPlayerHit;
+        Events.Instance.ReachedCheckpoint -= OnReachedCheckpoint;
         Events.Instance.CameraZoneEntered -= OnCameraZoneEntered;
         Events.Instance.CameraZoneExited -= OnCameraZoneExited;
     }
@@ -242,7 +238,6 @@ public partial class Level : Node2D
     // Updates the checkpoint to the new position
     private void UpdateCheckpoint(Vector2 position) {
         checkpoint = position;
-        EmitSignal(SignalName.CheckpointHit);
     }
 
     /// <summary>
@@ -308,6 +303,7 @@ public partial class Level : Node2D
         }
         
         // Update player checkpoint
+        Events.Instance.EmitSignal(Events.SignalName.ReachedCheckpoint);
         UpdateCheckpoint(player.Position);
     }
 
