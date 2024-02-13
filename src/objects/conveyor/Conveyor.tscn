@@ -13,6 +13,7 @@ script = ExtResource("1_72yl1")
 Speed = 40
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("RectangleShape2D_hqnxo")
 
 [node name="BaseSprite" type="Sprite2D" parent="."]

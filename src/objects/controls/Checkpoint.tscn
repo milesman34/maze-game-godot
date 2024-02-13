@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://b61b630vkete3"]
+[gd_scene load_steps=4 format=3 uid="uid://b61b630vkete3"]
 
 [ext_resource type="Script" path="res://src/objects/controls/Checkpoint.cs" id="1_u3o83"]
+[ext_resource type="Texture2D" uid="uid://c4liv44tcxsgm" path="res://art/checkpoint.png" id="2_b1jut"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u22ut"]
 size = Vector2(16, 16)
@@ -10,5 +11,9 @@ script = ExtResource("1_u3o83")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_u22ut")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_b1jut")
 
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]

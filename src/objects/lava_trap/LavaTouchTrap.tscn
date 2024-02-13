@@ -51,6 +51,7 @@ _data = {
 [node name="LavaTouchTrap" type="Area2D"]
 collision_layer = 0
 script = ExtResource("1_p6668")
+ActivateDelay = 1.0
 
 [node name="CollisionShapeActivate" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.132282)
@@ -61,6 +62,7 @@ texture_filter = 1
 texture = ExtResource("2_77uak")
 
 [node name="ActivatedSprite" type="Sprite2D" parent="."]
+visible = false
 texture_filter = 1
 texture = ExtResource("3_p0pwu")
 
@@ -69,11 +71,13 @@ collision_layer = 0
 
 [node name="LavaSprite" type="Sprite2D" parent="HarmArea"]
 unique_name_in_owner = true
+visible = false
 texture_filter = 1
 texture = ExtResource("4_hgj6u")
 
 [node name="CollisionShapeHarm" type="CollisionShape2D" parent="HarmArea"]
 unique_name_in_owner = true
+visible = false
 shape = SubResource("RectangleShape2D_ydd0u")
 
 [node name="DamagePlayerComponent" parent="HarmArea" instance=ExtResource("2_n2wdp")]

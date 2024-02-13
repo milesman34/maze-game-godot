@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfpgi7s1kl656"]
+
+[ext_resource type="Script" path="res://src/objects/lava_trap/GlowingLavaTrapSequencer.cs" id="1_a11ja"]
+
+[node name="GlowingLavaTrapSequencer" type="Node2D"]
+script = ExtResource("1_a11ja")

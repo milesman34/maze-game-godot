@@ -83,6 +83,15 @@ public partial class Level : Node2D
     // Did the player die recently? (last 50 ms)
     private bool recentDeath = false;
 
+    /// <summary>
+    /// Did the player die recently?
+    /// </summary>
+    public bool HadRecentDeath {
+        get {
+            return recentDeath;
+        }
+    }
+
     // Tracks the most recent checkpoint the player has reached (checkpoints are whenever the player enters/exits a room, or can be defined manually)
     private Vector2 checkpoint;
 
@@ -167,7 +176,7 @@ public partial class Level : Node2D
     private void AttachSignalsForObjectsNode(Node parentNode) {
         foreach(var node in parentNode.GetChildren()) {
             // We check the class name specifically for Node, since other classes subclass Node
-            if (node.GetClass() == "Node") {
+            if (node.GetClass() == "Node" || node.GetClass() == "Node2D") {
                 AttachSignalsForObjectsNode(node);
             } else if (node is IGameObject) {
                 (node as IGameObject).AttachSignals(this);
@@ -364,7 +373,7 @@ public partial class Level : Node2D
 
             EmitSignal(SignalName.SetDeaths, deaths);
 
-            GetTree().CreateTimer(0.05).Timeout += () => {
+            GetTree().CreateTimer(0.1).Timeout += () => {
                 recentDeath = false;
             };
         }

@@ -23,6 +23,9 @@ public partial class Key : Area2D, IGameObject, IHasSaveData {
 	private bool savedState = false;
 	private bool currentState = false;
 
+	// Reference to the level
+	private Level level;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
 		GetNode<Sprite2D>("Sprite").Modulate = Color;
@@ -33,6 +36,7 @@ public partial class Key : Area2D, IGameObject, IHasSaveData {
 
 	public void AttachSignals(Level level) {
         CollectKey += level.OnKeyCollected;
+		this.level = level;
 	}
 
     public void SaveCurrentState() {
@@ -54,7 +58,7 @@ public partial class Key : Area2D, IGameObject, IHasSaveData {
 
 	// Runs when another body enters the key
 	private void OnBodyEntered(PhysicsBody2D body) {
-		if (body is Player) {
+		if (body is Player && !level.HadRecentDeath) {
 			// Get rid of this key object
 			currentState = true;
 			Hide();
