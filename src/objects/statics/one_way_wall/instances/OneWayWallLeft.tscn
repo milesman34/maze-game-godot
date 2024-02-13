@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyeogxaw64ta7"]
+
+[ext_resource type="PackedScene" uid="uid://cqebiwb5qhiwm" path="res://src/objects/statics/one_way_wall/OneWayWall.tscn" id="1_tjs67"]
+
+[node name="OneWayWall" instance=ExtResource("1_tjs67")]
+Direction = 2

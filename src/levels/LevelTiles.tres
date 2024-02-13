@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=25 format=3 uid="uid://oxfym1yol48n"]
+[gd_resource type="TileSet" load_steps=29 format=3 uid="uid://oxfym1yol48n"]
 
 [ext_resource type="PackedScene" uid="uid://gam4thun3xjv" path="res://src/objects/statics/Wall.tscn" id="1_vd2h4"]
 [ext_resource type="PackedScene" uid="uid://celw7o6luelqx" path="res://src/objects/controls/EndPortal.tscn" id="2_2cyrq"]
@@ -23,6 +23,10 @@
 [ext_resource type="PackedScene" uid="uid://c2rujhm0kccwo" path="res://src/objects/conveyor/instances/FastConveyorUp.tscn" id="14_6fang"]
 [ext_resource type="PackedScene" uid="uid://ct3olei3ipa86" path="res://src/objects/statics/Border.tscn" id="15_8n6fw"]
 [ext_resource type="PackedScene" uid="uid://c8rym6apwapnn" path="res://src/objects/lava_trap/GlowingLavaTrap.tscn" id="16_obwkf"]
+[ext_resource type="PackedScene" uid="uid://bhteq8jhld23h" path="res://src/objects/statics/one_way_wall/instances/OneWayWallRight.tscn" id="17_xdgju"]
+[ext_resource type="PackedScene" uid="uid://dyeogxaw64ta7" path="res://src/objects/statics/one_way_wall/instances/OneWayWallLeft.tscn" id="18_ci0tu"]
+[ext_resource type="PackedScene" uid="uid://bvibgacifuyeg" path="res://src/objects/statics/one_way_wall/instances/OneWayWallUp.tscn" id="19_yn3yb"]
+[ext_resource type="PackedScene" uid="uid://d77ftylmsmnu" path="res://src/objects/statics/one_way_wall/instances/OneWayWallDown.tscn" id="20_qdykp"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_h6p11"]
 scenes/1/scene = ExtResource("1_vd2h4")
@@ -48,6 +52,10 @@ scenes/20/scene = ExtResource("13_4m3ld")
 scenes/21/scene = ExtResource("14_6fang")
 scenes/22/scene = ExtResource("15_8n6fw")
 scenes/23/scene = ExtResource("16_obwkf")
+scenes/24/scene = ExtResource("17_xdgju")
+scenes/25/scene = ExtResource("18_ci0tu")
+scenes/26/scene = ExtResource("19_yn3yb")
+scenes/27/scene = ExtResource("20_qdykp")
 
 [resource]
 tile_size = Vector2i(32, 32)
