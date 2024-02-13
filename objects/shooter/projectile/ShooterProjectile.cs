@@ -124,5 +124,9 @@ public partial class ShooterProjectile : CharacterBody2D, ICameraZoneListener {
 		}
     }
 
-    public void OnCameraZoneExited(int ID) {}
+    public void OnCameraZoneExited(int ID) {
+		if (cameraZone == ID) {
+			QueueFree();
+		}
+	}
 }

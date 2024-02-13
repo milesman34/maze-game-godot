@@ -2,9 +2,7 @@ Ice that makes the player keep moving in a direction after moving (idk)
 Wind?
 
 For the lava level, for room 2 I need to figure out what obstacle to use.
-I could set up something that allows for shooting fireballs but invisible (ehhhh)
-Or I could have tiles that start safe but become dangerous for some amount of time
-Like a glowing lava thing, but how would I implement it?
-Maybe I'd have it glow 3 times, then the 4th time it becomes solid lava for a bit, then fades out
 
 Maybe one-way walls?
+
+Some sort of tile that becomes dangerous after standing on it for too long (but how to convey this to the player?)

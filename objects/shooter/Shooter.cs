@@ -98,6 +98,31 @@ public partial class Shooter : RigidBody2D, ICameraZoneListener, IGameObject
 		AddChild(projectile);
 	}
 
+	// Pauses the timers
+	private void PauseTimers() {
+		shooterTimer.Paused = true;
+		delayTimer.Paused = true;
+	}
+
+	// Unpauses the timers
+	private void UnpauseTimers() {
+		shooterTimer.Paused = false;
+		delayTimer.Paused = false;
+
+		if (!delayTimerTriggered) {
+			delayTimerTriggered = true;
+
+			// We can set up the delay timer now
+			if (FiringDelay > 0) {
+				delayTimer.WaitTime = FiringDelay;
+				delayTimer.Start();
+			} else {
+				CallDeferred(MethodName.ShootProjectile);
+				SetUpShooterTimer();
+			}
+		}
+	}
+
 	private void OnDelayTimerTimeout() {
 		ShootProjectile();
 		SetUpShooterTimer();
@@ -109,32 +134,21 @@ public partial class Shooter : RigidBody2D, ICameraZoneListener, IGameObject
 
     public void OnCameraZoneEntered(int ID) {
         if (cameraZone != ID) { // We are entering a new room, so pause the shooter
-			shooterTimer.Paused = true;
-			delayTimer.Paused = true;
+			PauseTimers();
 		} else { // Set that we are in the current room
 			isGameInCurrentCameraZone = true;
 
-			if (!delayTimerTriggered) {
-				delayTimerTriggered = true;
-
-				// We can set up the delay timer now
-				if (FiringDelay > 0) {
-					delayTimer.WaitTime = FiringDelay;
-					delayTimer.Start();
-				} else {
-					CallDeferred(MethodName.ShootProjectile);
-					SetUpShooterTimer();
-				}
-			}
+			// Unpause the timers since we are entering the current room
+			UnpauseTimers();
 		}
     }
 
     public void OnCameraZoneExited(int ID) {
         if (cameraZone != ID && isGameInCurrentCameraZone) { // We are leaving a different room to enter this room, so unpause the shooter
-			shooterTimer.Paused = false;
-			delayTimer.Paused = false;
+			UnpauseTimers();
 		} else if (cameraZone == ID) { // We are leaving this room
 			isGameInCurrentCameraZone = false;
+			PauseTimers();
 		}
     }
 }

@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=24 format=3 uid="uid://oxfym1yol48n"]
+[gd_resource type="TileSet" load_steps=25 format=3 uid="uid://oxfym1yol48n"]
 
 [ext_resource type="PackedScene" uid="uid://gam4thun3xjv" path="res://objects/statics/Wall.tscn" id="1_vd2h4"]
 [ext_resource type="PackedScene" uid="uid://celw7o6luelqx" path="res://objects/controls/EndPortal.tscn" id="2_2cyrq"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://bk81qaqumi7s7" path="res://objects/conveyor/instances/FastConveyorLeft.tscn" id="13_4m3ld"]
 [ext_resource type="PackedScene" uid="uid://c2rujhm0kccwo" path="res://objects/conveyor/instances/FastConveyorUp.tscn" id="14_6fang"]
 [ext_resource type="PackedScene" uid="uid://ct3olei3ipa86" path="res://objects/statics/Border.tscn" id="15_8n6fw"]
+[ext_resource type="PackedScene" uid="uid://c8rym6apwapnn" path="res://objects/lava_trap/GlowingLavaTrap.tscn" id="16_obwkf"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_h6p11"]
 scenes/1/scene = ExtResource("1_vd2h4")
@@ -46,6 +47,7 @@ scenes/19/scene = ExtResource("11_bh7fj")
 scenes/20/scene = ExtResource("13_4m3ld")
 scenes/21/scene = ExtResource("14_6fang")
 scenes/22/scene = ExtResource("15_8n6fw")
+scenes/23/scene = ExtResource("16_obwkf")
 
 [resource]
 tile_size = Vector2i(32, 32)

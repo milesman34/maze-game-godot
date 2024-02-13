@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://owgcxtxaa3o1"]
+[gd_scene load_steps=7 format=3 uid="uid://owgcxtxaa3o1"]
 
 [ext_resource type="PackedScene" uid="uid://c8eot2fa78oca" path="res://levels/Level.tscn" id="1_1dvja"]
 [ext_resource type="PackedScene" uid="uid://ptdvqs3lct66" path="res://objects/controls/CameraZone.tscn" id="2_4awf2"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://bx751kwyf8ylj" path="res://objects/fireball/firebar/Firebar.tscn" id="3_q6cgd"]
 [ext_resource type="PackedScene" uid="uid://ec08fdhwap3t" path="res://objects/fireball/firebar/FirebarCenterObject.tscn" id="4_bxss8"]
 [ext_resource type="Texture2D" uid="uid://2fwhn32s5ant" path="res://art/wallbackground.png" id="4_oa5a4"]
-[ext_resource type="PackedScene" uid="uid://c8rym6apwapnn" path="res://objects/lava_trap/GlowingLavaTrap.tscn" id="5_327n5"]
 
 [node name="Level" instance=ExtResource("1_1dvja")]
 StartPosition = Vector2(1, 1)
@@ -15,7 +14,7 @@ StartPosition = Vector2(1, 1)
 texture = ExtResource("3_fsx3v")
 
 [node name="TileMap" parent="." index="1"]
-layer_0/tile_data = PackedInt32Array(0, 1, 65536, 1, 1, 65536, 2, 1, 65536, 65536, 1, 65536, 131072, 1, 65536, 4, 1, 65536, 3, 1, 65536, 196608, 1, 65536, 5, 1, 65536, 6, 1, 65536, 7, 1, 65536, 8, 1, 65536, 9, 1, 65536, 10, 1, 65536, 65546, 1, 65536, 131082, 1, 65536, 196618, 1, 65536, 262154, 1, 65536, 327690, 1, 65536, 393226, 1, 65536, 458762, 1, 65536, 524298, 1, 65536, 589834, 1, 65536, 655370, 1, 65536, 655369, 1, 65536, 655368, 1, 65536, 655367, 1, 65536, 655366, 1, 65536, 655365, 1, 65536, 655364, 1, 65536, 655363, 1, 65536, 655362, 1, 65536, 655361, 1, 65536, 655360, 1, 65536, 589824, 1, 65536, 524288, 1, 65536, 458752, 1, 65536, 327680, 1, 65536, 262144, 1, 65536, 262145, 1, 393216, 262146, 1, 393216, 262147, 1, 393216, 65540, 1, 65536, 196614, 1, 393216, 262148, 1, 393216, 262149, 1, 393216, 262150, 1, 393216, 262151, 1, 393216, 262152, 1, 393216, 327688, 1, 65536, 393224, 1, 65536, 458760, 1, 65536, 524296, 1, 65536, 524294, 1, 393216, 458758, 1, 65536, 393222, 1, 65536, 393221, 1, 65536, 393220, 1, 65536, 524292, 1, 393216, 524291, 1, 393216, 524290, 1, 393216, 524289, 1, 65536, 393219, 1, 65536, 393218, 1, 393216, 131076, 1, 196608, 131078, 1, 196608, 196612, 1, 196608, 65542, 1, 196608, 393225, 1, 196608, 458761, 1, 196608, 393223, 1, 196608, 458759, 1, 196608, 458757, 1, 262144, 458756, 1, 262144, 589825, 1, 196608, 589826, 1, 196608, 327684, 1, 196608, 327685, 1, 196608, 65535, 1, 65536, 524287, 1, 65536, 589823, 1, 65536, 655359, 1, 65536, 720895, 1, 65536, 393215, 1, 65536, 327679, 1, 65536, 262143, 1, 65536, 196607, 1, 65536, 131071, 1, 65536, 131070, 1, 65536, 131069, 1, 65536, 131068, 1, 65536, 393213, 1, 65536, 458749, 1, 65536, 524285, 1, 65536, 786431, 1, 65536, 393212, 1, 393216, 393211, 1, 393216, 393210, 1, 393216, 393209, 1, 393216, 393208, 1, 393216, 458744, 1, 393216, 524280, 1, 393216, 524281, 1, 393216, 524282, 1, 393216, 524283, 1, 393216, 524284, 1, 393216, 458748, 1, 393216, 458747, 1, 393216, 458746, 1, 393216, 458745, 1, 393216, 131067, 1, 65536, 131066, 1, 65536, 131065, 1, 65536, 131064, 1, 65536, 786430, 1, 65536, 786429, 1, 65536, 786428, 1, 65536, 786427, 1, 65536, 786426, 1, 65536, 786425, 1, 65536, 786424, 1, 65536, 786423, 1, 65536, 786422, 1, 65536, 786421, 1, 65536, 524279, 1, 65536, 458743, 1, 65536, 393207, 1, 65536, 131063, 1, 65536, 131062, 1, 65536, 131061, 1, 65536, 196597, 1, 65536, 262133, 1, 65536, 327669, 1, 65536, 393205, 1, 65536, 524277, 1, 65536, 589813, 1, 65536, 655349, 1, 65536, 720885, 1, 65536, 655352, 1, 196608, 655353, 1, 196608, 655355, 1, 196608, 655356, 1, 196608, 262140, 1, 196608, 262139, 1, 196608, 262137, 1, 196608, 262136, 1, 196608, 393217, 1, 524288)
+layer_0/tile_data = PackedInt32Array(0, 1, 65536, 1, 1, 65536, 2, 1, 65536, 65536, 1, 65536, 131072, 1, 65536, 4, 1, 65536, 3, 1, 65536, 196608, 1, 65536, 5, 1, 65536, 6, 1, 65536, 7, 1, 65536, 8, 1, 65536, 9, 1, 65536, 10, 1, 65536, 65546, 1, 65536, 131082, 1, 65536, 196618, 1, 65536, 262154, 1, 65536, 327690, 1, 65536, 393226, 1, 65536, 458762, 1, 65536, 524298, 1, 65536, 589834, 1, 65536, 655370, 1, 65536, 655369, 1, 65536, 655368, 1, 65536, 655367, 1, 65536, 655366, 1, 65536, 655365, 1, 65536, 655364, 1, 65536, 655363, 1, 65536, 655362, 1, 65536, 655361, 1, 65536, 655360, 1, 65536, 589824, 1, 65536, 524288, 1, 65536, 458752, 1, 65536, 327680, 1, 65536, 262144, 1, 65536, 262145, 1, 393216, 262146, 1, 393216, 262147, 1, 393216, 65540, 1, 65536, 196614, 1, 393216, 262148, 1, 393216, 262149, 1, 393216, 262150, 1, 393216, 262151, 1, 393216, 262152, 1, 393216, 327688, 1, 65536, 393224, 1, 65536, 458760, 1, 65536, 524296, 1, 65536, 524294, 1, 393216, 458758, 1, 65536, 393222, 1, 65536, 393221, 1, 65536, 393220, 1, 65536, 524292, 1, 393216, 524291, 1, 393216, 524290, 1, 393216, 524289, 1, 65536, 393219, 1, 65536, 393218, 1, 393216, 131076, 1, 196608, 131078, 1, 196608, 196612, 1, 196608, 65542, 1, 196608, 393225, 1, 196608, 458761, 1, 196608, 393223, 1, 196608, 458759, 1, 196608, 458757, 1, 262144, 458756, 1, 262144, 589825, 1, 196608, 589826, 1, 196608, 327684, 1, 196608, 327685, 1, 196608, 65535, 1, 65536, 524287, 1, 65536, 589823, 1, 65536, 655359, 1, 65536, 720895, 1, 65536, 393215, 1, 65536, 327679, 1, 65536, 262143, 1, 65536, 196607, 1, 65536, 131071, 1, 65536, 131070, 1, 65536, 131069, 1, 65536, 131068, 1, 65536, 393213, 1, 65536, 458749, 1, 65536, 524285, 1, 65536, 786431, 1, 65536, 393212, 1, 393216, 393211, 1, 393216, 393210, 1, 393216, 393209, 1, 393216, 393208, 1, 393216, 458744, 1, 393216, 524280, 1, 393216, 524281, 1, 393216, 524282, 1, 393216, 524283, 1, 393216, 524284, 1, 393216, 458748, 1, 393216, 458747, 1, 393216, 458746, 1, 393216, 458745, 1, 393216, 131067, 1, 65536, 131066, 1, 65536, 131065, 1, 65536, 131064, 1, 65536, 786430, 1, 65536, 786429, 1, 65536, 786428, 1, 65536, 786427, 1, 65536, 786426, 1, 65536, 786425, 1, 65536, 786424, 1, 65536, 786423, 1, 65536, 786422, 1, 65536, 786421, 1, 65536, 524279, 1, 65536, 458743, 1, 65536, 393207, 1, 65536, 131063, 1, 65536, 131062, 1, 65536, 131061, 1, 65536, 196597, 1, 65536, 262133, 1, 65536, 327669, 1, 65536, 393205, 1, 65536, 524277, 1, 65536, 589813, 1, 65536, 655349, 1, 65536, 720885, 1, 65536, 655352, 1, 196608, 655353, 1, 196608, 655355, 1, 196608, 655356, 1, 196608, 262140, 1, 196608, 262139, 1, 196608, 262137, 1, 196608, 262136, 1, 196608, 589818, 1, 1507328, 655354, 1, 1507328, 720890, 1, 1507328, 196599, 1, 1507328, 262135, 1, 1507328, 327671, 1, 1507328, 196605, 1, 1507328, 262141, 1, 1507328, 327677, 1, 1507328, 589815, 1, 1507328, 655351, 1, 1507328, 720887, 1, 1507328, 589821, 1, 1507328, 655357, 1, 1507328, 720893, 1, 1507328, 327674, 1, 1507328, 262138, 1, 1507328, 196602, 1, 1507328, 65537, 1, 524288)
 
 [node name="Room1" type="Node" parent="Objects" index="0"]
 
@@ -29,15 +28,6 @@ FireballSize = 16
 
 [node name="Room2" type="Node" parent="Objects" index="1"]
 
-[node name="GlowingLavaTrap" parent="Objects/Room2" index="0" instance=ExtResource("5_327n5")]
-position = Vector2(-176, 272)
-
-[node name="GlowingLavaTrap2" parent="Objects/Room2" index="1" instance=ExtResource("5_327n5")]
-position = Vector2(-176, 304)
-
-[node name="GlowingLavaTrap3" parent="Objects/Room2" index="2" instance=ExtResource("5_327n5")]
-position = Vector2(-176, 336)
-
 [node name="CameraZone" parent="CameraZones" index="0" instance=ExtResource("2_4awf2")]
 Size = Vector2(11, 11)
 BackgroundTexture = ExtResource("4_oa5a4")
@@ -46,3 +36,55 @@ BackgroundTexture = ExtResource("4_oa5a4")
 StartPosition = Vector2(-11, 1)
 Size = Vector2(11, 11)
 BackgroundTexture = ExtResource("4_oa5a4")
+
+[connection signal="body_entered" from="TileMap/@RigidBody2D@61939" to="TileMap/@RigidBody2D@61939" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@61940" to="TileMap/@RigidBody2D@61940" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@61941" to="TileMap/@RigidBody2D@61941" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@61943" to="TileMap/@RigidBody2D@61943" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@61944" to="TileMap/@RigidBody2D@61944" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@61945" to="TileMap/@RigidBody2D@61945" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@61946" to="TileMap/@RigidBody2D@61946" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@61947" to="TileMap/@RigidBody2D@61947" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@61948" to="TileMap/@RigidBody2D@61948" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@61953" to="TileMap/@RigidBody2D@61953" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@61958" to="TileMap/@RigidBody2D@61958" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@61959" to="TileMap/@RigidBody2D@61959" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@61960" to="TileMap/@RigidBody2D@61960" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@61963" to="TileMap/@RigidBody2D@61963" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@61964" to="TileMap/@Area2D@61964" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@61965" to="TileMap/@Area2D@61965" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@61966" to="TileMap/@Area2D@61966" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@61967" to="TileMap/@Area2D@61967" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@61968" to="TileMap/@Area2D@61968" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@61969" to="TileMap/@Area2D@61969" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@61970" to="TileMap/@Area2D@61970" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@61971" to="TileMap/@Area2D@61971" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@61972" to="TileMap/@Area2D@61972" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@61973" to="TileMap/@Area2D@61973" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@61974" to="TileMap/@Area2D@61974" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@61975" to="TileMap/@Area2D@61975" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@61976" to="TileMap/@Area2D@61976" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@61977" to="TileMap/@Area2D@61977" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@61995" to="TileMap/@RigidBody2D@61995" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@61996" to="TileMap/@RigidBody2D@61996" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@61997" to="TileMap/@RigidBody2D@61997" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@61998" to="TileMap/@RigidBody2D@61998" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@61999" to="TileMap/@RigidBody2D@61999" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@62000" to="TileMap/@RigidBody2D@62000" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@62001" to="TileMap/@RigidBody2D@62001" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@62002" to="TileMap/@RigidBody2D@62002" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@62003" to="TileMap/@RigidBody2D@62003" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@62004" to="TileMap/@RigidBody2D@62004" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@62005" to="TileMap/@RigidBody2D@62005" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@62006" to="TileMap/@RigidBody2D@62006" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@62007" to="TileMap/@RigidBody2D@62007" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@62008" to="TileMap/@RigidBody2D@62008" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@RigidBody2D@62009" to="TileMap/@RigidBody2D@62009" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@62038" to="TileMap/@Area2D@62038" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@62039" to="TileMap/@Area2D@62039" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@62040" to="TileMap/@Area2D@62040" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@62041" to="TileMap/@Area2D@62041" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@62042" to="TileMap/@Area2D@62042" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@62043" to="TileMap/@Area2D@62043" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@62044" to="TileMap/@Area2D@62044" method="OnBodyEntered"]
+[connection signal="body_entered" from="TileMap/@Area2D@62045" to="TileMap/@Area2D@62045" method="OnBodyEntered"]

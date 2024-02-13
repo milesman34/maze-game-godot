@@ -75,8 +75,6 @@ _data = {
 [node name="GlowingLavaTrap" type="Area2D"]
 collision_layer = 0
 script = ExtResource("1_c1p07")
-GlowDelay = 3.0
-TimeBetweenCycles = 3.0
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_tkach")
@@ -105,13 +103,17 @@ wait_time = 3.0
 wait_time = 3.0
 one_shot = true
 
+[node name="LavaHarmTimer" type="Timer" parent="."]
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_itbm3")
 }
+speed_scale = 2.0
 
 [node name="CameraZoneListenerComponent" parent="." instance=ExtResource("4_avtx2")]
 
 [connection signal="timeout" from="ActivationDelayTimer" to="." method="OnActivationDelayTimerTimeout"]
 [connection signal="timeout" from="GlowTimer" to="." method="OnGlowTimerTimeout"]
 [connection signal="timeout" from="PostCycleTimer" to="." method="OnPostCycleTimerTimeout"]
+[connection signal="timeout" from="LavaHarmTimer" to="." method="OnLavaHarmTimerTimeout"]

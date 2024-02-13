@@ -106,6 +106,7 @@ public partial class Level : Node2D
 
         Events.Instance.PlayerHit += OnPlayerHit;
         Events.Instance.ReachedCheckpoint += OnReachedCheckpoint;
+        Events.Instance.ExitToLevelSelect += OnExitToLevelSelect;
 
         // Set the starting checkpoint
         checkpoint = player.Position;
@@ -120,6 +121,7 @@ public partial class Level : Node2D
 
         Events.Instance.PlayerHit -= OnPlayerHit;
         Events.Instance.ReachedCheckpoint -= OnReachedCheckpoint;
+        Events.Instance.ExitToLevelSelect -= OnExitToLevelSelect;
         Events.Instance.CameraZoneEntered -= OnCameraZoneEntered;
         Events.Instance.CameraZoneExited -= OnCameraZoneExited;
     }
@@ -373,5 +375,11 @@ public partial class Level : Node2D
     /// </summary>
     public void OnReachedCheckpoint() {
         UpdateCheckpoint(player.Position);
+    }
+
+    // Runs when the player exits to the level select screen
+    private void OnExitToLevelSelect() {
+        // This was mainly added so that the level doesn't attempt to switch back to a different camera zone if you quit out of a level
+        levelFinished = true;
     }
 }

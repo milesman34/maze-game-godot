@@ -31,7 +31,7 @@ public partial class GameGUI : CanvasLayer {
 		scoreLabel = GetNode<Label>("%ScoreLabel");
 		deathsLabel = GetNode<Label>("%DeathsLabel");
 		quitConfirmModal = GetNode<Control>("%QuitConfirmModal");
-		quitConfirmModal.ProcessMode = ProcessModeEnum.Always;
+		ProcessMode = ProcessModeEnum.Always;
 
 		// Hide the quit confirm modal
 		quitConfirmModal.Hide();
@@ -46,8 +46,12 @@ public partial class GameGUI : CanvasLayer {
 
     public override void _Input(InputEvent @event) {
 		// Exit level keybind
-        if (@event.IsActionPressed("exit") && !isPaused && !levelFinished) {
-			Pause();
+        if (@event.IsActionPressed("exit") && !levelFinished) {
+			if (!isPaused) {
+				Pause();
+			} else {
+				Resume();
+			}
 		}
     }
 
@@ -74,6 +78,13 @@ public partial class GameGUI : CanvasLayer {
 		isPaused = true;
 	}
 
+	// Resumes the game
+	private void Resume() {
+		quitConfirmModal.Hide();
+		GetTree().Paused = false;
+		isPaused = false;
+	}
+
 	private void OnExitButtonPressed() {
 		if (!levelFinished) {
 			Pause();
@@ -81,9 +92,7 @@ public partial class GameGUI : CanvasLayer {
 	}
 
 	private void OnNoQuitButtonPressed() {
-		quitConfirmModal.Hide();
-		GetTree().Paused = false;
-		isPaused = false;
+		Resume();
 	}
 
 	private void OnYesQuitButtonPressed() {
