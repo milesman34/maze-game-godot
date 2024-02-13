@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://c8rym6apwapnn"]
+[gd_scene load_steps=10 format=3 uid="uid://c8rym6apwapnn"]
 
 [ext_resource type="Script" path="res://objects/lava_trap/GlowingLavaTrap.cs" id="1_c1p07"]
 [ext_resource type="Texture2D" uid="uid://223gaorvwyym" path="res://art/lava.png" id="1_o0h5u"]
 [ext_resource type="PackedScene" uid="uid://dv2t4k0cpygm3" path="res://objects/components/DamagePlayerComponent.tscn" id="3_2tig0"]
+[ext_resource type="PackedScene" uid="uid://by8l3uaoyshmi" path="res://objects/components/CameraZoneListenerComponent.tscn" id="4_avtx2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tkach"]
 size = Vector2(30, 30)
@@ -108,6 +109,8 @@ one_shot = true
 libraries = {
 "": SubResource("AnimationLibrary_itbm3")
 }
+
+[node name="CameraZoneListenerComponent" parent="." instance=ExtResource("4_avtx2")]
 
 [connection signal="timeout" from="ActivationDelayTimer" to="." method="OnActivationDelayTimerTimeout"]
 [connection signal="timeout" from="GlowTimer" to="." method="OnGlowTimerTimeout"]

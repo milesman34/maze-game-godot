@@ -61,6 +61,7 @@ public partial class GlowingLavaTrap : Area2D {
 	public override void _Ready() {
 		// Make sprite invisible
 		GetNode<Sprite2D>("Sprite").SelfModulate = new Color(255, 255, 255, 0);
+		GetNode<ColorRect>("Overlay").Color = new Color(255, 255, 255, 0);
 
 		// Disable collision shape
 		collisionShape = GetNode<CollisionShape2D>("CollisionShape");
