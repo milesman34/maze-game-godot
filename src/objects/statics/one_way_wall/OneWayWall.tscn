@@ -3,19 +3,21 @@
 [ext_resource type="Script" path="res://src/objects/statics/one_way_wall/OneWayWall.cs" id="1_20bot"]
 [ext_resource type="Texture2D" uid="uid://cte80wv4seo42" path="res://art/onewaywall.png" id="2_o3mu4"]
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_dp4i7"]
-a = Vector2(16, -16)
-b = Vector2(16, 16)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2iyxt"]
+size = Vector2(32, 6)
 
 [node name="OneWayWall" type="RigidBody2D"]
 collision_layer = 2
 collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_20bot")
+Direction = 0
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("2_o3mu4")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("SegmentShape2D_dp4i7")
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -13)
+shape = SubResource("RectangleShape2D_2iyxt")
+one_way_collision = true
