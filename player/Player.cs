@@ -43,7 +43,7 @@ public partial class Player : CharacterBody2D {
 	private Vector2 conveyorVelocity = Vector2.Zero;
 	
 	// Constant representing the factor for making MoveAndSlide have the correct speed
-	private const int MOVE_AND_SLIDE_SPEED_FACTOR = 60; // 48 also worked
+	private const int MOVE_AND_SLIDE_SPEED_FACTOR = 60;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {

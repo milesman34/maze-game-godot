@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c8eot2fa78oca"]
 
 [ext_resource type="Script" path="res://levels/Level.cs" id="1_0mudr"]
-[ext_resource type="PackedScene" uid="uid://b3ukqxth50ypd" path="res://Player.tscn" id="2_wtiib"]
+[ext_resource type="PackedScene" uid="uid://b3ukqxth50ypd" path="res://player/Player.tscn" id="3_11l8b"]
 [ext_resource type="TileSet" uid="uid://oxfym1yol48n" path="res://levels/LevelTiles.tres" id="3_d5060"]
 
 [sub_resource type="Gradient" id="Gradient_4osfc"]
@@ -28,7 +28,7 @@ layer_0/name = "Objects"
 
 [node name="Objects" type="Node" parent="."]
 
-[node name="Player" parent="." instance=ExtResource("2_wtiib")]
+[node name="Player" parent="." instance=ExtResource("3_11l8b")]
 
 [node name="CameraZones" type="Node" parent="."]
 

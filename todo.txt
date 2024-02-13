@@ -1,14 +1,10 @@
-Level browser (so an actual game GUI, store best scores/deaths)
-Something that shoots projectiles that harm the player
-Conveyor belts that apply a static force to the player in a direction
 Ice that makes the player keep moving in a direction after moving (idk)
+Wind?
 
+For the lava level, for room 2 I need to figure out what obstacle to use.
+I could set up something that allows for shooting fireballs but invisible (ehhhh)
+Or I could have tiles that start safe but become dangerous for some amount of time
+Like a glowing lava thing, but how would I implement it?
+Maybe I'd have it glow 3 times, then the 4th time it becomes solid lava for a bit, then fades out
 
-To implement projectiles properly, I need to make the shooters stop shooting whenever they are off screen, plus I need the projectiles to disappear when off screen, but how would I do this?
-Maybe I could have a test for some objects based on the positioning of the camera zone?
-
-Ok I was able to implement it but it was pretty difficult.
-
-I could add a shooter variant that tracks the player and aims at them.
-
-I want the shooters to be able to shoot fireballs, which can go through regular walls, but still disappear when they exit a camera zone (for balance)
+Maybe one-way walls?

@@ -355,5 +355,5 @@ horizontal_alignment = 1
 
 [connection signal="body_entered" from="Objects/PortalRoom/LinkedPortal/Portal" to="Objects/PortalRoom/LinkedPortal/Portal" method="OnBodyEntered"]
 [connection signal="body_exited" from="Objects/PortalRoom/LinkedPortal/Portal" to="Objects/PortalRoom/LinkedPortal/Portal" method="OnBodyExited"]
-[connection signal="body_entered" from="Objects/PortalRoom/LinkedPortal/@Area2D@124031" to="Objects/PortalRoom/LinkedPortal/@Area2D@124031" method="OnBodyEntered"]
-[connection signal="body_exited" from="Objects/PortalRoom/LinkedPortal/@Area2D@124031" to="Objects/PortalRoom/LinkedPortal/@Area2D@124031" method="OnBodyExited"]
+[connection signal="body_entered" from="Objects/PortalRoom/LinkedPortal/@Area2D@17532" to="Objects/PortalRoom/LinkedPortal/@Area2D@17532" method="OnBodyEntered"]
+[connection signal="body_exited" from="Objects/PortalRoom/LinkedPortal/@Area2D@17532" to="Objects/PortalRoom/LinkedPortal/@Area2D@17532" method="OnBodyExited"]

@@ -1,0 +1,114 @@
+[gd_scene load_steps=9 format=3 uid="uid://c8rym6apwapnn"]
+
+[ext_resource type="Script" path="res://objects/lava_trap/GlowingLavaTrap.cs" id="1_c1p07"]
+[ext_resource type="Texture2D" uid="uid://223gaorvwyym" path="res://art/lava.png" id="1_o0h5u"]
+[ext_resource type="PackedScene" uid="uid://dv2t4k0cpygm3" path="res://objects/components/DamagePlayerComponent.tscn" id="3_2tig0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tkach"]
+size = Vector2(30, 30)
+
+[sub_resource type="Animation" id="Animation_c6gp3"]
+resource_name = "LavaPulse"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hl4r2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Overlay:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0, 0, 0.392157)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_pn1oa"]
+resource_name = "SmallPulse"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Overlay:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 0.392157), Color(1, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_itbm3"]
+_data = {
+"LavaPulse": SubResource("Animation_c6gp3"),
+"RESET": SubResource("Animation_hl4r2"),
+"SmallPulse": SubResource("Animation_pn1oa")
+}
+
+[node name="GlowingLavaTrap" type="Area2D"]
+collision_layer = 0
+script = ExtResource("1_c1p07")
+GlowDelay = 3.0
+TimeBetweenCycles = 3.0
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_tkach")
+disabled = true
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_o0h5u")
+
+[node name="Overlay" type="ColorRect" parent="."]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(1, 0, 0, 0.392157)
+
+[node name="DamagePlayerComponent" parent="." instance=ExtResource("3_2tig0")]
+
+[node name="ActivationDelayTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="GlowTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="PostCycleTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_itbm3")
+}
+
+[connection signal="timeout" from="ActivationDelayTimer" to="." method="OnActivationDelayTimerTimeout"]
+[connection signal="timeout" from="GlowTimer" to="." method="OnGlowTimerTimeout"]
+[connection signal="timeout" from="PostCycleTimer" to="." method="OnPostCycleTimerTimeout"]
