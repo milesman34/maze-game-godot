@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="LevelResource" load_steps=3 format=3 uid="uid://ctfk8gjn03rs8"]
-
-[ext_resource type="Script" path="res://levels/LevelResource.cs" id="1_4sfr3"]
-[ext_resource type="PackedScene" uid="uid://tav5vvj7qhir" path="res://levels/levels/BasicLava.tscn" id="1_nkk8y"]
-
-[resource]
-script = ExtResource("1_4sfr3")
-LevelScene = ExtResource("1_nkk8y")
-LevelName = "Basic Lava Level"

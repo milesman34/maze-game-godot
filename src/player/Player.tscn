@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3ukqxth50ypd"]
+
+[ext_resource type="Script" path="res://src/player/Player.cs" id="1_d6coy"]
+[ext_resource type="Texture2D" uid="uid://cs6tiyyfoehwl" path="res://art/player.png" id="2_52ybu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_25e08"]
+size = Vector2(32, 32)
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 14
+script = ExtResource("1_d6coy")
+Speed = 160
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("2_52ybu")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+scale = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_25e08")
+
+[node name="InvincibilityTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[connection signal="timeout" from="InvincibilityTimer" to="." method="OnInvincibilityTimerTimeout"]

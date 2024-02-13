@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://drt124p0t1obp"]
+
+[ext_resource type="Script" path="res://src/objects/components/PositioningComponent.cs" id="1_gkgjj"]
+
+[node name="PositioningComponent" type="Node"]
+script = ExtResource("1_gkgjj")

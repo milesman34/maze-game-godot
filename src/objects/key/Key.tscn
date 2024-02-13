@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://dt58rkcn6n25q"]
+
+[ext_resource type="Script" path="res://src/objects/key/Key.cs" id="1_q3c6c"]
+[ext_resource type="Texture2D" uid="uid://bg04a7xq1pwyl" path="res://art/key.png" id="1_rnwdv"]
+[ext_resource type="PackedScene" uid="uid://c2bbe42uf7l4h" path="res://src/objects/components/StateSaverComponent.tscn" id="3_5mljw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_babkr"]
+size = Vector2(12, 24)
+
+[node name="Key" type="Area2D"]
+script = ExtResource("1_q3c6c")
+Color = Color(0, 0, 0, 1)
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_babkr")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("1_rnwdv")
+
+[node name="StateSaverComponent" parent="." instance=ExtResource("3_5mljw")]
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]

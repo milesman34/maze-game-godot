@@ -1,0 +1,72 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbf5fela4s"]
+
+[ext_resource type="Theme" uid="uid://br02cfichkqjr" path="res://themes/LevelSelectMenu.tres" id="1_5oe0w"]
+[ext_resource type="Script" path="res://src/gamestates/levelselect/LevelButton.cs" id="1_jx37a"]
+[ext_resource type="Theme" uid="uid://b3ovrufpffwn3" path="res://themes/Menu1.tres" id="3_5b2ep"]
+
+[node name="LevelButton" type="Button"]
+custom_minimum_size = Vector2(0, 64)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 64.0
+grow_horizontal = 2
+theme = ExtResource("1_5oe0w")
+script = ExtResource("1_jx37a")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(640, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_right = 32
+
+[node name="LevelName" type="Label" parent="HBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_5b2ep")
+theme_override_font_sizes/font_size = 24
+text = "Level Name
+"
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_right = 32
+
+[node name="BestScore" type="Label" parent="HBoxContainer/MarginContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_5b2ep")
+theme_override_font_sizes/font_size = 16
+text = "Best Score: ---
+"
+horizontal_alignment = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="HBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_right = 32
+
+[node name="BestDeaths" type="Label" parent="HBoxContainer/MarginContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_5b2ep")
+theme_override_font_sizes/font_size = 16
+text = "Fewest Deaths: ---
+"
+horizontal_alignment = 2
+
+[connection signal="mouse_entered" from="." to="." method="OnMouseEntered"]
+[connection signal="mouse_exited" from="." to="." method="OnMouseExited"]
+[connection signal="pressed" from="." to="." method="OnPressed"]

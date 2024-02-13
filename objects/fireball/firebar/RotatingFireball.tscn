@@ -1,7 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://c3tmcv6spdpde"]
-
-[ext_resource type="PackedScene" uid="uid://bctx8xfxbjpfh" path="res://objects/fireball/Fireball.tscn" id="1_y2ny4"]
-[ext_resource type="Script" path="res://objects/fireball/firebar/RotatingFireball.cs" id="2_6s3nc"]
-
-[node name="RotatingFireball" instance=ExtResource("1_y2ny4")]
-script = ExtResource("2_6s3nc")

@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://53jc6f6ahpme"]
+
+[ext_resource type="Script" path="res://src/objects/conveyor/Conveyor.cs" id="1_72yl1"]
+[ext_resource type="Texture2D" uid="uid://0ru3ene8je1r" path="res://art/conveyorbase.png" id="2_6mfsl"]
+[ext_resource type="Texture2D" uid="uid://dg58qir1x831o" path="res://art/greenconveyor.png" id="3_mm0q6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hqnxo"]
+size = Vector2(32, 32)
+
+[node name="Conveyor" type="Area2D"]
+collision_layer = 0
+script = ExtResource("1_72yl1")
+Speed = 40
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hqnxo")
+
+[node name="BaseSprite" type="Sprite2D" parent="."]
+z_index = -1
+texture_filter = 1
+texture = ExtResource("2_6mfsl")
+
+[node name="OverlaySprite" type="Sprite2D" parent="."]
+z_index = -1
+texture_filter = 1
+texture = ExtResource("3_mm0q6")
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]
+[connection signal="body_exited" from="." to="." method="OnBodyExited"]

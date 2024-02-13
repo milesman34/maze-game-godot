@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjkwn405lm77i"]
+
+[ext_resource type="PackedScene" uid="uid://i2vq5s0ji1m8" path="res://src/objects/shooter/Shooter.tscn" id="1_76mx8"]
+[ext_resource type="Script" path="res://src/objects/shooter/TrackingShooter.cs" id="2_ly7o7"]
+
+[node name="TrackingShooter" instance=ExtResource("1_76mx8")]
+script = ExtResource("2_ly7o7")
+
+[node name="Timer" type="Timer" parent="." index="6"]

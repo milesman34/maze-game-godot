@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://ptdvqs3lct66"]
+
+[ext_resource type="Script" path="res://src/objects/controls/CameraZone.cs" id="1_oe1vf"]
+
+[sub_resource type="Gradient" id="Gradient_npvaw"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.803922, 0.803922, 0.803922, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rsrds"]
+gradient = SubResource("Gradient_npvaw")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cleng"]
+
+[node name="CameraZone" type="Area2D"]
+collision_layer = 16
+script = ExtResource("1_oe1vf")
+BackgroundTexture = SubResource("GradientTexture1D_rsrds")
+
+[node name="BackgroundContainer" type="Node2D" parent="."]
+
+[node name="BackgroundLeft" type="ColorRect" parent="BackgroundContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="BackgroundRight" type="ColorRect" parent="BackgroundContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="BackgroundTop" type="ColorRect" parent="BackgroundContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="BackgroundBottom" type="ColorRect" parent="BackgroundContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_cleng")
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]
+[connection signal="body_exited" from="." to="." method="OnBodyExited"]

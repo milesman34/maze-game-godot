@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2bbe42uf7l4h"]
+
+[ext_resource type="Script" path="res://src/objects/components/StateSaverComponent.cs" id="1_ry20j"]
+
+[node name="StateSaverComponent" type="Node"]
+script = ExtResource("1_ry20j")

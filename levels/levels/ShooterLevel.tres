@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="LevelResource" load_steps=3 format=3 uid="uid://bondoxpug0v5"]
-
-[ext_resource type="Script" path="res://levels/LevelResource.cs" id="1_4xk4n"]
-[ext_resource type="PackedScene" uid="uid://be6bcuwvo74l4" path="res://levels/levels/ShooterLevel.tscn" id="1_eqw43"]
-
-[resource]
-script = ExtResource("1_4xk4n")
-LevelScene = ExtResource("1_eqw43")
-LevelName = "Shooter Level"

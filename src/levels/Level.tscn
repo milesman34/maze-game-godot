@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://c8eot2fa78oca"]
+
+[ext_resource type="Script" path="res://src/levels/Level.cs" id="1_0mudr"]
+[ext_resource type="PackedScene" uid="uid://b3ukqxth50ypd" path="res://src/player/Player.tscn" id="3_11l8b"]
+[ext_resource type="TileSet" uid="uid://oxfym1yol48n" path="res://src/levels/LevelTiles.tres" id="3_d5060"]
+
+[sub_resource type="Gradient" id="Gradient_4osfc"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.803922, 0.803922, 0.803922, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_n34x6"]
+gradient = SubResource("Gradient_4osfc")
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_0mudr")
+
+[node name="Background" type="TextureRect" parent="."]
+z_index = -100
+texture_filter = 1
+texture = SubResource("GradientTexture1D_n34x6")
+stretch_mode = 1
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("3_d5060")
+format = 2
+layer_0/name = "Objects"
+
+[node name="Objects" type="Node" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("3_11l8b")]
+
+[node name="CameraZones" type="Node" parent="."]
+
+[node name="Camera" type="Camera2D" parent="."]

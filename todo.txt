@@ -6,3 +6,7 @@ For the lava level, for room 2 I need to figure out what obstacle to use.
 Maybe one-way walls?
 
 Some sort of tile that becomes dangerous after standing on it for too long (but how to convey this to the player?)
+
+Maybe I should do something to make ICameraZoneListener easier to work with but idk what would work
+
+To add one-way walls, I'll probably want to have a line as the collision, and enable/disable it based on the direction the player is moving.

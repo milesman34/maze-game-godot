@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://bjowcaaisbn82"]
 
-[ext_resource type="Script" path="res://Main.cs" id="1_xnp42"]
-[ext_resource type="PackedScene" uid="uid://di81ofo7ylv4f" path="res://gamestates/game/GameScene.tscn" id="2_imw5i"]
-[ext_resource type="PackedScene" uid="uid://bgxgpes8ae4n0" path="res://gamestates/title/TitleScene.tscn" id="2_s84b0"]
-[ext_resource type="PackedScene" uid="uid://palqcupc6jic" path="res://gamestates/levelselect/LevelSelectScene.tscn" id="3_yg0yg"]
-[ext_resource type="PackedScene" uid="uid://vwgbbbbjido8" path="res://gamestates/levelend/LevelEndScene.tscn" id="5_oy318"]
+[ext_resource type="Script" path="res://src/Main.cs" id="1_xnp42"]
+[ext_resource type="PackedScene" uid="uid://di81ofo7ylv4f" path="res://src/gamestates/game/GameScene.tscn" id="2_imw5i"]
+[ext_resource type="PackedScene" uid="uid://bgxgpes8ae4n0" path="res://src/gamestates/title/TitleScene.tscn" id="2_s84b0"]
+[ext_resource type="PackedScene" uid="uid://palqcupc6jic" path="res://src/gamestates/levelselect/LevelSelectScene.tscn" id="3_yg0yg"]
+[ext_resource type="PackedScene" uid="uid://vwgbbbbjido8" path="res://src/gamestates/levelend/LevelEndScene.tscn" id="5_oy318"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_xnp42")
