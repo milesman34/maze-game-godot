@@ -1,7 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://bybn6krps22je"]
 
-[ext_resource type="PackedScene" uid="uid://c5u6f7hwhf20w" path="res://objects/coin/PurpleCoin.tscn" id="1_5tyay"]
+[ext_resource type="PackedScene" uid="uid://c5u6f7hwhf20w" path="res://src/objects/coin/PurpleCoin.tscn" id="1_5tyay"]
 
 [node name="Coin" instance=ExtResource("1_5tyay")]
 CoinColor = Color(1, 0.85098, 0.341176, 1)
 Value = 1
+
+[node name="Sprite" parent="." index="1"]
+modulate = Color(1, 0.85098, 0.341176, 1)

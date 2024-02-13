@@ -1,10 +1,10 @@
 using Godot;
 using System;
 
-[Tool]
 /// <summary>
 /// Coins are collectible objects which increase the player's score. They can be customized with a color and a value.
 /// </summary>
+[Tool]
 public partial class Coin : Area2D, IGameObject {
 	/// <summary>
 	/// Color to paint the coin with
