@@ -35,7 +35,7 @@ public partial class CameraZone : Area2D, IGameObject
 	private static int currentID;
 
 	// ID of this camera zone
-	private int id;
+	protected int id;
 
 	/// <summary>
 	/// This camera zone's ID
@@ -47,12 +47,12 @@ public partial class CameraZone : Area2D, IGameObject
 	}
 
 	// Reference to the various background objects
-	private Node2D backgroundContainer;
+	protected Node2D backgroundContainer;
 
-	private ColorRect backgroundLeft, backgroundRight, backgroundTop, backgroundBottom;
+	protected ColorRect backgroundLeft, backgroundRight, backgroundTop, backgroundBottom;
 
 	// Position of the top left and bottom right coordinates
-	private Vector2 topLeft, bottomRight;
+	protected Vector2 topLeft, bottomRight;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
@@ -128,7 +128,7 @@ public partial class CameraZone : Area2D, IGameObject
 	/// Returns the size of the camera zone in pixels.
 	/// </summary>
 	/// <returns></returns>
-	public Vector2 GetCameraZoneSize() {
+	public virtual Vector2 GetCameraZoneSize() {
 		return Size * Constants.TileSize;
 	}
 
@@ -141,7 +141,7 @@ public partial class CameraZone : Area2D, IGameObject
 	}
 
 	// Updates the background's size and position. This is separated into a new function so that it can be deferred.
-	private void UpdateBackgroundSizeAndPosition() {
+	protected virtual void UpdateBackgroundSizeAndPosition() {
 		// Seems we just needed to have it relative, based on the background size
 		var zoneSize = GetCameraZoneSize();
 
@@ -160,7 +160,7 @@ public partial class CameraZone : Area2D, IGameObject
 	}
 
 	// Calculates the effective zoom level, based on the viewport size. The zoom level is the same for both axes.
-    private float GetEffectiveZoom() {
+    protected virtual float GetEffectiveZoom() {
 		var viewportSize = GetViewportRect().Size;
 
         // Get scale factors for both x and y
@@ -174,7 +174,7 @@ public partial class CameraZone : Area2D, IGameObject
 	/// Calculates the position for the camera to be in, which the Level needs to know.
 	/// </summary>
 	/// <returns>Camera position</returns>
-	public Vector2 GetCameraPosition() {
+	public virtual Vector2 GetCameraPosition() {
 		// To calculate the position, we want the camera to be in the center of the room
 		var myPosition = StartPosition * Constants.TileSize;
 		var offsetPosition = myPosition + Size * Constants.TileSize / 2.0f;
@@ -186,7 +186,7 @@ public partial class CameraZone : Area2D, IGameObject
 	/// Returns the zoom level of the camera as a vector.
 	/// </summary>
 	/// <returns>Camera zoom level</returns>
-	public Vector2 GetCameraZoom() {
+	public virtual Vector2 GetCameraZoom() {
         var zoom = GetEffectiveZoom();
 
         return new Vector2(zoom, zoom);

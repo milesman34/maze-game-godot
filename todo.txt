@@ -10,3 +10,5 @@ Some sort of tile that becomes dangerous after standing on it for too long (but 
 Maybe I should do something to make ICameraZoneListener easier to work with but idk what would work
 
 To add one-way walls, I'll probably want to have a line as the collision, and enable/disable it based on the direction the player is moving.
+
+For larger rooms, I could add moving camera zones that focus on a smaller section of the room.

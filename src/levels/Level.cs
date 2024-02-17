@@ -111,7 +111,7 @@ public partial class Level : Node2D
         // Update position of player
 		player = GetNode<Player>("Player");
 
-		player.Position = GetStartingPosition();
+        player.SetPosition(GetStartingPosition());
 
         Events.Instance.PlayerHit += OnPlayerHit;
         Events.Instance.ReachedCheckpoint += OnReachedCheckpoint;
@@ -226,12 +226,6 @@ public partial class Level : Node2D
         // Update the camera
         UpdateCamera(ID);
 
-        // Update background for the level itself (add some extra on the sides)
-        background.Size = cameraZones[ID].GetCameraZoneSize();
-
-        // Add the two positions together since the background object's position is relative to the camera zone
-        background.Position = cameraZones[ID].GetCameraZonePosition() + cameraZones[ID].Position;
-
         // Set up the background texture
         var texture = cameraZones[ID].BackgroundTexture;
 
@@ -244,6 +238,12 @@ public partial class Level : Node2D
 
         camera.Position = zone.GetCameraPosition();
         camera.Zoom = zone.GetCameraZoom();
+
+        // Update background for the level itself (add some extra on the sides)
+        background.Size = zone.Size * Constants.TileSize;
+
+        // Add the two positions together since the background object's position is relative to the camera zone
+        background.Position = zone.Position - background.Size / 2.0f;
     }
 
     // Updates the checkpoint to the new position
@@ -267,7 +267,7 @@ public partial class Level : Node2D
         if (startPosObject.Priority > startPosPriority) {
             // Update the position
             // It should be fine as long as the level creator doesn't do something stupid like putting a start position somewhere where the player immediately dies
-            player.Position = startPosObject.Position;
+            player.SetPosition(startPosObject.Position);
             UpdateCheckpoint(player.Position);
             startPosPriority = startPosObject.Priority;
         } 
@@ -369,7 +369,7 @@ public partial class Level : Node2D
 
             player.EnableInvincibilityFrames();
 
-            player.Position = checkpoint;
+            player.SetPosition(checkpoint);
 
             EmitSignal(SignalName.SetDeaths, deaths);
 

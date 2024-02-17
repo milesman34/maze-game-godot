@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://bdjcxlwag48kr"]
+
+[ext_resource type="PackedScene" uid="uid://ptdvqs3lct66" path="res://src/objects/controls/CameraZone.tscn" id="1_tyhlk"]
+[ext_resource type="Script" path="res://src/objects/controls/CameraZoneMoving.cs" id="2_isk1r"]
+
+[sub_resource type="Gradient" id="Gradient_npvaw"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.803922, 0.803922, 0.803922, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_571nd"]
+gradient = SubResource("Gradient_npvaw")
+
+[node name="CameraZoneMoving" instance=ExtResource("1_tyhlk")]
+script = ExtResource("2_isk1r")
+InternalSize = Vector2(0, 0)
+BackgroundTexture = SubResource("GradientTexture1D_571nd")

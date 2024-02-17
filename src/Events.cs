@@ -92,6 +92,13 @@ public partial class Events : Node {
     /// <param name="velocity">The conveyor's velocity</param>
     [Signal]
     public delegate void ConveyorBeltExitedEventHandler(Vector2 unitVector, int velocity);
+
+    /// <summary>
+    /// Signal emitted when the player's position is changed.
+    /// </summary>
+    /// <param name="vector">New player position</param>
+    [Signal]
+    public delegate void PlayerPositionChangedEventHandler(Vector2 vector);
     
     /// <summary>
     /// Constructs the Events object.

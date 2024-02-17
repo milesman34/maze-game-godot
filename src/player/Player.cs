@@ -45,6 +45,9 @@ public partial class Player : CharacterBody2D {
 	// Constant representing the factor for making MoveAndSlide have the correct speed
 	private const int MOVE_AND_SLIDE_SPEED_FACTOR = 60;
 
+	// Track the previous position to emit signals
+	private Vector2 prevPosition = Vector2.Zero;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
 		// Get reference to timer
@@ -110,6 +113,21 @@ public partial class Player : CharacterBody2D {
 				}
 			}
 		}
+
+		// Update previous position if needed
+		if (Position != prevPosition) {
+			prevPosition = Position;
+			Events.Instance.EmitSignal(Events.SignalName.PlayerPositionChanged, Position);
+		}
+	}
+
+	/// <summary>
+	/// Sets the player's position.
+	/// </summary>
+	/// <param name="newPos">New position</param>
+	public void SetPosition(Vector2 newPos) {
+		Position = newPos;
+		Events.Instance.EmitSignal(Events.SignalName.PlayerPositionChanged, Position);
 	}
 
 	// Returns the velocity gotten from conveyors
